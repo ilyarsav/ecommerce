@@ -9,11 +9,7 @@ export const useCategoryStore = defineStore("category", () => {
   const filterCategories = computed(() => {
     return categories.value.filter((category, idx) => idx < 6);
   });
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
   const fetchCategories = async () => {
     await fetch(`${baseURL}/category/`)
       .then((response) => response.json())
@@ -21,7 +17,6 @@ export const useCategoryStore = defineStore("category", () => {
       .catch((err) => console.log(err));
   };
 
-<<<<<<< HEAD
   const editCategories = async (category, id) => {
     await fetch(`${baseURL}/category/update/${id}`, {
       method: "POST",
@@ -49,7 +44,4 @@ export const useCategoryStore = defineStore("category", () => {
     addCategories,
     filterCategories,
   };
-=======
-  return { categories, fetchCategories, filterCategories};
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 });

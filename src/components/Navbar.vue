@@ -1,9 +1,5 @@
 <script setup>
-<<<<<<< HEAD
 import { ref, onMounted, onUnmounted, onUpdated } from "vue";
-=======
-import { ref, onMounted, onUnmounted } from "vue";
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 import { useRouter } from "vue-router";
 import { useCartStore } from "../stores/cart";
 
@@ -50,13 +46,11 @@ onMounted(() => {
   document.addEventListener("click", closeDropdownAccount);
 });
 
-<<<<<<< HEAD
 onUpdated(() => {
   cartStore.fetchCartData(token.value);
 });
 
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
+
 onUnmounted(() => {
   document.removeEventListener("click", closeDropdownBrowse);
   document.removeEventListener("click", closeDropdownAccount);

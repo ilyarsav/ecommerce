@@ -11,11 +11,6 @@ const route = useRoute();
 const router = useRouter();
 const isModal = ref(false);
 const modalText = ref("Successfully edited");
-<<<<<<< HEAD
-
-=======
-const emit = defineEmits(["fetchData"]);
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 
 const editProduct = async () => {
   productStore.editProducts(id.value, product.value);
@@ -94,10 +89,7 @@ onMounted(() => {
 .container h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-<<<<<<< HEAD
   margin-top: 20px;
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 }
 .input-container {
   display: flex;

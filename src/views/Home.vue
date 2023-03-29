@@ -6,10 +6,6 @@ import { useProductStore } from "../stores/product";
 
 const categoryStore = useCategoryStore();
 const productStore = useProductStore();
-<<<<<<< HEAD
-
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 </script>
 
 <template>
@@ -74,11 +70,7 @@ const productStore = useProductStore();
   padding-left: 15%;
 }
 .header a {
-<<<<<<< HEAD
-  background-color: #fff; 
-=======
   background-color: #fff;
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
   padding: 15px;
   border-radius: 10px;
   text-decoration: none;

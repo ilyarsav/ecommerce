@@ -1,15 +1,14 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-<<<<<<< HEAD
+
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
-=======
 const props = defineProps(["baseURL", "categories"]);
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
+
 
 const categoryId = ref(null);
 const name = ref(null);
@@ -18,11 +17,8 @@ const imageURl = ref(null);
 const price = ref(null);
 const router = useRouter();
 
-<<<<<<< HEAD
-const addProduct = async () => {
-=======
 const addProduct = () => {
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
+
   const newProduct = {
     categoryId: categoryId.value,
     name: name.value,
@@ -31,7 +27,7 @@ const addProduct = () => {
     price: price.value,
   };
 
-<<<<<<< HEAD
+
   productStore.addProducts(newProduct).then(() => {
     router.push({ name: "Product" });
   });
@@ -47,19 +43,6 @@ const addProduct = () => {
   //     router.push({ name: "Product" });
   //   })
   //   .catch((err) => console.log(err));
-=======
-  fetch(`${props.baseURL}/product/add`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newProduct),
-  })
-    .then(() => {
-      router.push({ name: "Product" });
-    })
-    .catch((err) => console.log(err));
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 };
 </script>
 
@@ -71,11 +54,7 @@ const addProduct = () => {
         <label for="name">Category</label>
         <select v-model="categoryId" required>
           <option
-<<<<<<< HEAD
             v-for="category in categoryStore.categories"
-=======
-            v-for="category in props.categories"
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
             :value="category.id"
             :key="category.id"
           >

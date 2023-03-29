@@ -20,10 +20,7 @@ onMounted(() => {
   token.value = localStorage.getItem("token");
   listCartItems();
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 </script>
 
 <template>

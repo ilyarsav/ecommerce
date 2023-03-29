@@ -19,11 +19,7 @@ onMounted(() => {
   } else if (category.value.products == 1) {
     msg.value = "only 1 product";
   } else {
-<<<<<<< HEAD
     msg.value = category.value.products?.length + " products found";
-=======
-    msg.value = category.product?.length + " products found";
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
   }
 });
 </script>
@@ -57,9 +53,6 @@ onMounted(() => {
 .header-text h5 {
   font-size: 18px;
   font-weight: normal;
-<<<<<<< HEAD
   margin-bottom: 20px;
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 }
 </style>

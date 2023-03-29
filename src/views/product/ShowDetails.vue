@@ -7,11 +7,8 @@ import { useCartStore } from "../../stores/cart";
 const props = defineProps(["baseURL", "categories", "products"]);
 const cartStore = useCartStore();
 const { cartItems, isAdded } = storeToRefs(cartStore);
-<<<<<<< HEAD
 const { addCartItem } = cartStore;
-=======
-const { addCartItem, fetchCartData } = cartStore;
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
+
 const route = useRoute();
 
 const product = ref({});
@@ -63,11 +60,8 @@ const addToCart = async () => {
       }
     });
   } else {
-<<<<<<< HEAD
     modalText.value = "You added this product to cart earlier";
-=======
-    modalText.value = "You added this priduct to cart earlier";
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
+
     isModal.value = true;
   }
 

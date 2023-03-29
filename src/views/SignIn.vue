@@ -14,10 +14,6 @@ const password = ref(null);
 
 const signIn = async (e) => {
   e.preventDefault();
-<<<<<<< HEAD
-
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
   const user = {
     email: email.value,
     password: password.value,
@@ -32,19 +28,11 @@ const signIn = async (e) => {
   })
     .then((response) => response.json())
     .then((res) => {
-<<<<<<< HEAD
       localStorage.setItem("token", res.token);
       // emit("fetchData");
       token.value = localStorage.getItem("token");
       cartStore.fetchCartData(token.value);
       router.push({ name: "Home" });
-=======
-      router.push({ name: "Home" });
-      localStorage.setItem("token", res.token);
-      emit("fetchData");
-      token.value = localStorage.getItem("token");
-      cartStore.fetchCartData(token.value);
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
     })
     .catch((err) => console.log(err));
 };

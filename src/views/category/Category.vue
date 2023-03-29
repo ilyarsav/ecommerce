@@ -1,13 +1,8 @@
 <script setup>
 import CategoryBox from "../../components/Category/CategoryBox.vue";
-<<<<<<< HEAD
 import { useCategoryStore } from "../../stores/category";
 
 const categoryStore = useCategoryStore();
-=======
-
-defineProps(["categories"]);
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 </script>
 
 <template>
@@ -21,11 +16,7 @@ defineProps(["categories"]);
     </div>
 
     <div class="category-wrap">
-<<<<<<< HEAD
       <div v-for="category of categoryStore.categories" :key="category.id">
-=======
-      <div v-for="category of categories" :key="category.id">
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
         <CategoryBox :category="category" />
       </div>
     </div>

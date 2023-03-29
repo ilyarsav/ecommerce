@@ -1,12 +1,9 @@
 <script setup>
 import { ref } from "vue";
-<<<<<<< HEAD
 import { useCategoryStore } from "../../stores/category";
 
 const categoryStore = useCategoryStore();
-=======
 
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 const categoryName = ref("");
 const description = ref("");
 const imageUrl = ref("");
@@ -20,19 +17,7 @@ const addCategory = () => {
     imageUrl: imageUrl.value,
   };
 
-<<<<<<< HEAD
   categoryStore.addCategories(newCategory);
-=======
-  const baseURL = "https://limitless-lake-55070.herokuapp.com";
-
-  fetch(`${baseURL}/category/create`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newCategory),
-  }).catch((err) => console.log(err));
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 
   isModal.value = true;
 };
@@ -44,10 +29,7 @@ const closeModal = () => {
   imageUrl.value = "";
 };
 </script>
-<<<<<<< HEAD
 
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 <template>
   <div class="container">
     <div class="dark-background" v-if="isModal">
@@ -75,10 +57,7 @@ const closeModal = () => {
     </form>
   </div>
 </template>
-<<<<<<< HEAD
 
-=======
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 <style scoped>
 .container {
   display: flex;

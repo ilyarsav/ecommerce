@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <script setup>
-=======
-<script setup> 
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 import { ref, onMounted } from "vue";
 import ProductBox from "../../components/Product/ProductBox.vue";
 
@@ -22,10 +18,6 @@ onMounted(() => {
   token.value = localStorage.getItem("token");
   fetchWishList();
 });
-<<<<<<< HEAD
-=======
-
->>>>>>> 389fd63cd3e89cdd4f2b6b3f11aa801a8c37e40d
 </script>
 
 <template>
