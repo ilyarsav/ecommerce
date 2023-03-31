@@ -2,8 +2,9 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import ProductBox from "../../components/Product/ProductBox.vue";
+import { useCategoryStore } from "../../stores/category";
 
-const props = defineProps(["baseURL", "categories"]);
+const categoryStore = useCategoryStore();
 const route = useRoute();
 
 const id = ref(null);
@@ -12,7 +13,9 @@ const msg = ref(null);
 
 onMounted(() => {
   id.value = route.params.id;
-  category.value = props.categories.find((category) => category.id == id.value);
+  category.value = categoryStore.categories.find(
+    (category) => category.id == id.value
+  );
 
   if (category.value.products == 0) {
     msg.value = "no products";

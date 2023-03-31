@@ -1,22 +1,14 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import ProductBox from "../../components/Product/ProductBox.vue";
+import { useWishlistStore } from "../../stores/wishlist";
 
-const props = defineProps(["baseURL"]);
-
+const wishlistStore = useWishlistStore()
 const token = ref("");
-const products = ref(null);
-
-const fetchWishList = async () => {
-  await fetch(`${props.baseURL}/wishlist/${token.value}`)
-    .then((res) => res.json())
-    .then((res) => (products.value = res))
-    .catch((err) => console.log(err));
-};
 
 onMounted(() => {
   token.value = localStorage.getItem("token");
-  fetchWishList();
+  wishlistStore.fetchWishList(token.value)
 });
 </script>
 
@@ -26,7 +18,7 @@ onMounted(() => {
       <h4>Your WishList</h4>
     </div>
     <div class="content-wrap">
-      <div v-for="product in products" :key="product.id">
+      <div v-for="product in wishlistStore.wishlist" :key="product.id">
         <ProductBox :product="product" class="box" />
       </div>
     </div>

@@ -31,9 +31,6 @@ onMounted(() => {
       <router-view
         v-if="categoryStore?.categories && productStore?.products"
         :baseURL="baseURL"
-        :categories="categoryStore?.categories"
-        :products="productStore?.products"
-        @fetchData="fetchData"
       />
     </div>
     <div class="footer">

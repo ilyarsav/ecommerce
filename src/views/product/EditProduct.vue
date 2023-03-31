@@ -1,10 +1,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();
-const props = defineProps(["baseURL", "products", "categories"]);
+const categoryStore = useCategoryStore();
+
 const product = ref(null);
 const id = ref(null);
 const route = useRoute();
@@ -19,13 +21,14 @@ const editProduct = async () => {
 
 const closeModal = () => {
   isModal.value = false;
-  // emit("fetchData");
   router.push({ name: "Product" });
 };
 
 onMounted(() => {
   id.value = route.params.id;
-  product.value = props.products.find((product) => product.id == id.value);
+  product.value = productStore.products.find(
+    (product) => product.id == id.value
+  );
 });
 </script>
 
@@ -47,7 +50,7 @@ onMounted(() => {
           <option
             :value="category.id"
             :key="category.id"
-            v-for="category in props.categories"
+            v-for="category in categoryStore.categories"
           >
             {{ category.categoryName }}
           </option>

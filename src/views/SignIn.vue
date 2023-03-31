@@ -5,7 +5,6 @@ import { useCartStore } from "../stores/cart";
 
 const cartStore = useCartStore();
 const props = defineProps(["baseURL"]);
-const emit = defineEmits(["fetchData"]);
 const router = useRouter();
 const token = ref("");
 
@@ -29,7 +28,6 @@ const signIn = async (e) => {
     .then((response) => response.json())
     .then((res) => {
       localStorage.setItem("token", res.token);
-      // emit("fetchData");
       token.value = localStorage.getItem("token");
       cartStore.fetchCartData(token.value);
       router.push({ name: "Home" });

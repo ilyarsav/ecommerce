@@ -7,8 +7,6 @@ import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
-const props = defineProps(["baseURL", "categories"]);
-
 
 const categoryId = ref(null);
 const name = ref(null);
@@ -18,7 +16,6 @@ const price = ref(null);
 const router = useRouter();
 
 const addProduct = () => {
-
   const newProduct = {
     categoryId: categoryId.value,
     name: name.value,
@@ -27,22 +24,9 @@ const addProduct = () => {
     price: price.value,
   };
 
-
   productStore.addProducts(newProduct).then(() => {
     router.push({ name: "Product" });
   });
-
-  // fetch(`${props.baseURL}/product/add`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(newProduct),
-  // })
-  //   .then(() => {
-  //     router.push({ name: "Product" });
-  //   })
-  //   .catch((err) => console.log(err));
 };
 </script>
 

@@ -3,11 +3,17 @@ import { storeToRefs } from "pinia";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useCartStore } from "../../stores/cart";
+import { useCategoryStore } from "../../stores/category";
+import { useProductStore } from "../../stores/product";
+import { useWishlistStore } from "../../stores/wishlist";
 
-const props = defineProps(["baseURL", "categories", "products"]);
 const cartStore = useCartStore();
 const { cartItems, isAdded } = storeToRefs(cartStore);
 const { addCartItem } = cartStore;
+
+const wishlistStore = useWishlistStore();
+const productStore = useProductStore();
+const categoryStore = useCategoryStore();
 
 const route = useRoute();
 
@@ -26,19 +32,11 @@ const addToWishlist = () => {
     return;
   }
 
-  fetch(`${props.baseURL}/wishlist/add?token=${token.value}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id: id.value }),
-  })
-    .then((res) => {
-      if (res.status == 201) {
-        wishlistString.value = "Added to wishlist";
-      }
-    })
-    .catch((err) => console.log(err));
+  wishlistStore.addProductToWishlist(token.value, id.value).then((res) => {
+    if (wishlistStore.isAddedToWishlist) {
+      wishlistString.value = "Added to wishlist";
+    }
+  });
 };
 
 const addToCart = async () => {
@@ -64,24 +62,6 @@ const addToCart = async () => {
 
     isModal.value = true;
   }
-
-  // fetch(`${props.baseURL}/cart/add?token=${token.value}`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     productId: id.value,
-  //     quantity: quantity.value,
-  //   }),
-  // })
-  //   .then((res) => {
-  //     if (res.status == 201) {
-  //       modalText.value = "Product added to cart";
-  //       isModal.value = true;
-  //     }
-  //   })
-  //   .catch((err) => console.log(err));
 };
 
 const closeModal = () => {
@@ -91,10 +71,15 @@ const closeModal = () => {
 onMounted(() => {
   token.value = localStorage.getItem("token");
   id.value = route.params.id;
-  product.value = props.products.find((product) => product.id == id.value);
-  category.value = props.categories.find(
+
+  product.value = productStore.products.find(
+    (product) => product.id == id.value
+  );
+
+  category.value = categoryStore.categories.find(
     (category) => category.id == product.value.categoryId
   );
+
 });
 </script>
 
