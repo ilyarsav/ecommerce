@@ -9,7 +9,6 @@ const baseURL = "https://limitless-lake-55070.herokuapp.com";
 
 const categoryStore = useCategoryStore();
 const productStore = useProductStore();
-const token = ref("");
 
 const fetchData = () => {
   categoryStore.fetchCategories();
@@ -17,7 +16,6 @@ const fetchData = () => {
 };
 
 onMounted(() => {
-  token.value = localStorage.getItem("token");
   fetchData();
 });
 </script>

@@ -46,11 +46,6 @@ onMounted(() => {
   document.addEventListener("click", closeDropdownAccount);
 });
 
-onUpdated(() => {
-  cartStore.fetchCartData(token.value);
-});
-
-
 onUnmounted(() => {
   document.removeEventListener("click", closeDropdownBrowse);
   document.removeEventListener("click", closeDropdownAccount);

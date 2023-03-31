@@ -1,9 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useCartStore } from "../stores/cart";
 
-const cartStore = useCartStore();
 const props = defineProps(["baseURL"]);
 const router = useRouter();
 const token = ref("");
@@ -29,7 +27,6 @@ const signIn = async (e) => {
     .then((res) => {
       localStorage.setItem("token", res.token);
       token.value = localStorage.getItem("token");
-      cartStore.fetchCartData(token.value);
       router.push({ name: "Home" });
     })
     .catch((err) => console.log(err));

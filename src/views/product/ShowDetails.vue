@@ -59,7 +59,6 @@ const addToCart = async () => {
     });
   } else {
     modalText.value = "You added this product to cart earlier";
-
     isModal.value = true;
   }
 };

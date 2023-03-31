@@ -7,6 +7,7 @@ export const useCartStore = defineStore("cart", () => {
   const cartItems = ref([]);
   const totalCost = ref(0);
   const isAdded = ref(false);
+  // const token = ref(""); порпобовать засунуть токен в стейт
 
   const fetchCartData = async (token) => {
     await fetch(`${baseURL}/cart/?token=${token}`)
