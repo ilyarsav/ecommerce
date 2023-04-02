@@ -1,15 +1,16 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useVerificationStore } from "../stores/verification";
 
-const props = defineProps(["baseURL"]);
+const verificationStore = useVerificationStore();
 const router = useRouter();
 
-const email = ref(null);
-const firstName = ref(null);
-const lastName = ref(null);
-const password = ref(null);
-const confirmPassword = ref(null);
+const email = ref("");
+const firstName = ref("");
+const lastName = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 
 const signUp = async (e) => {
   e.preventDefault();
@@ -21,17 +22,9 @@ const signUp = async (e) => {
       password: password.value,
     };
 
-    await fetch(`${props.baseURL}/user/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then(() => {
-        router.replace("/");
-      })
-      .catch((err) => console.log(err));
+    verificationStore.signUpFetch().then(() => {
+      router.replace("/");
+    });
   } else {
   }
 };

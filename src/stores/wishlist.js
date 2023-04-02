@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { baseURL } from "./url";
 
-const baseURL = "https://limitless-lake-55070.herokuapp.com";
 
 export const useWishlistStore = defineStore("wishlist", () => {
   const wishlist = ref([]);

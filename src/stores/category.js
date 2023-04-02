@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { baseURL } from "./url";
 
-const baseURL = "https://limitless-lake-55070.herokuapp.com";
 
 export const useCategoryStore = defineStore("category", () => {
   const categories = ref([]);
