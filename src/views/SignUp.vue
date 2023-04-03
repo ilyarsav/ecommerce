@@ -1,9 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useVerificationStore } from "../stores/verification";
 
-const verificationStore = useVerificationStore();
+const props = defineProps(["baseURL"]);
 const router = useRouter();
 
 const email = ref("");
@@ -22,9 +21,17 @@ const signUp = async (e) => {
       password: password.value,
     };
 
-    verificationStore.signUpFetch().then(() => {
-      router.replace("/");
-    });
+    await fetch(`${props.baseURL}/user/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then(() => {
+        router.replace("/");
+      })
+      .catch((err) => console.log(err));
   } else {
   }
 };

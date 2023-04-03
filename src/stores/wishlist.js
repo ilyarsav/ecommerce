@@ -1,7 +1,6 @@
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import { ref } from "vue";
 import { baseURL } from "./url";
-
 
 export const useWishlistStore = defineStore("wishlist", () => {
   const wishlist = ref([]);
