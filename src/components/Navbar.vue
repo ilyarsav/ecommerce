@@ -60,10 +60,10 @@ onUnmounted(() => {
       <router-link :to="{ name: 'Home' }" class="link">LOGO</router-link>
     </div>
 
-    <div class="search navbar-item">
+    <!-- <div class="search navbar-item">
       <input type="text" />
       <button>search</button>
-    </div>
+    </div> -->
 
     <div class="navbar navbar-item">
       <div class="dropdown-browse">
