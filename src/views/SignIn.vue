@@ -9,6 +9,9 @@ const token = ref("");
 const email = ref(null);
 const password = ref(null);
 
+const isAlert = ref(false);
+const alertText = "Неправльно указан логин и/или пароль";
+
 const signIn = async (e) => {
   e.preventDefault();
   const user = {
@@ -23,7 +26,13 @@ const signIn = async (e) => {
     },
     body: JSON.stringify(user),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status == 200) {
+        return response.json();
+      } else {
+        isAlert.value = true;
+      }
+    })
     .then((res) => {
       localStorage.setItem("token", res.token);
       token.value = localStorage.getItem("token");
@@ -46,6 +55,10 @@ const signIn = async (e) => {
         <div class="input-container">
           <label for="password">Password</label>
           <input type="password" name="password" required v-model="password" />
+        </div>
+
+        <div class="input-container">
+          <span v-if="isAlert === true" class="alert">{{ alertText }}</span>
         </div>
 
         <button class="button" type="submit">Continue</button>
@@ -84,5 +97,9 @@ const signIn = async (e) => {
   background-color: rgb(192, 4, 4);
   color: white;
   cursor: pointer;
+}
+
+.alert {
+  color: red;
 }
 </style>

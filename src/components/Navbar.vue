@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, onUpdated } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "../stores/cart";
 
@@ -38,6 +38,7 @@ const signOut = () => {
   token.value = "";
   router.push({ name: "Home" });
 };
+
 
 onMounted(() => {
   token.value = localStorage.getItem("token");
