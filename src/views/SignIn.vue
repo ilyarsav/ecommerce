@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { baseURL } from "../stores/url";
 
-const props = defineProps(["baseURL"]);
 const router = useRouter();
 const token = ref("");
 
@@ -19,7 +19,7 @@ const signIn = async (e) => {
     password: password.value,
   };
 
-  await fetch(`${props.baseURL}/user/signIn`, {
+  await fetch(`${baseURL}/user/signIn`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

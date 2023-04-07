@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { baseURL } from "../stores/url";
 
-const props = defineProps(["baseURL"]);
 const router = useRouter();
 
 const email = ref("");
@@ -21,7 +21,7 @@ const signUp = async (e) => {
       password: password.value,
     };
 
-    await fetch(`${props.baseURL}/user/signup`, {
+    await fetch(`${baseURL}/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,6 +33,7 @@ const signUp = async (e) => {
       })
       .catch((err) => console.log(err));
   } else {
+    alert('password dont match')
   }
 };
 </script>

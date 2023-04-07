@@ -5,8 +5,6 @@ import Navbar from "./components/Navbar.vue";
 import { useCategoryStore } from "./stores/category";
 import { useProductStore } from "./stores/product";
 
-const baseURL = "https://limitless-lake-55070.herokuapp.com";
-
 const categoryStore = useCategoryStore();
 const productStore = useProductStore();
 
@@ -28,7 +26,6 @@ onMounted(() => {
     <div class="content">
       <router-view
         v-if="categoryStore?.categories && productStore?.products"
-        :baseURL="baseURL"
       />
     </div>
     <div class="footer">
