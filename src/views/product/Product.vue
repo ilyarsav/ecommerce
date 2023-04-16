@@ -1,8 +1,13 @@
 <script setup>
+import { onMounted } from "vue";
 import ProductBox from "../../components/Product/ProductBox.vue";
 import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();
+
+onMounted(() => {
+  productStore.fetchProducts();
+});
 </script>
 
 <template>
@@ -16,6 +21,7 @@ const productStore = useProductStore();
     </div>
 
     <div class="product-wrap">
+      <!--если обновлять product, то данные не передаются номально -->
       <div v-for="product of productStore.products" :key="product.id">
         <ProductBox :product="product" />
       </div>

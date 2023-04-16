@@ -1,21 +1,6 @@
 <script setup>
-import { onMounted, ref } from "vue";
 import Footer from "./components/Footer.vue";
 import Navbar from "./components/Navbar.vue";
-import { useCategoryStore } from "./stores/category";
-import { useProductStore } from "./stores/product";
-
-const categoryStore = useCategoryStore();
-const productStore = useProductStore();
-
-const fetchData = () => {
-  categoryStore.fetchCategories();
-  productStore.fetchProducts();
-};
-
-onMounted(() => {
-  fetchData();
-});
 </script>
 
 <template>
@@ -24,9 +9,7 @@ onMounted(() => {
       <Navbar />
     </div>
     <div class="content">
-      <router-view
-        v-if="categoryStore?.categories && productStore?.products"
-      />
+      <router-view />
     </div>
     <div class="footer">
       <Footer></Footer>

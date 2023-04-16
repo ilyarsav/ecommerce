@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute } from "vue-router";
 
-defineProps(["product"]);
+const props = defineProps(["product"]);
 
 const route = useRoute();
 </script>
@@ -9,21 +9,21 @@ const route = useRoute();
 <template>
   <div class="card">
     <div>
-      <img class="card-image" :src="product.imageURL" alt="Card image cap" />
+      <img class="card-image" :src="props.product.imageURL" alt="Card image cap" />
     </div>
     <div class="card-body">
-      <router-link :to="{ name: 'ShowDetails', params: { id: product.id } }" class="card-title">
-        <h3 class="card-title">{{ product.name }}</h3>
+      <router-link :to="{ name: 'ShowDetails', params: { id: props.product.id } }" class="card-title">
+        <h3 class="card-title">{{ props.product.name }}</h3>
       </router-link>
 
       <p class="card-price" v-show="route.name === 'Home'">
-        ${{ product.price }}
+        ${{ props.product.price }}
       </p>
       <p class="card-text">
-        {{ product.description }}
+        {{ props.product.description }}
       </p>
       <router-link
-        :to="{ name: 'EditProduct', params: { id: product.id } }"
+        :to="{ name: 'EditProduct', params: { id: props.product.id } }"
         v-show="route.name === 'Product'"
       >
         <button class="card-button">Edit</button>

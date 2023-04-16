@@ -6,10 +6,7 @@ import { useCartStore } from "../../stores/cart";
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
 import { useWishlistStore } from "../../stores/wishlist";
-
-const cartStore = useCartStore();
-const { cartItems, isAdded } = storeToRefs(cartStore);
-const { addCartItem } = cartStore;
+import ShowDetailsCartBtn from "./components/ShowDetailsCartBtn.vue";
 
 const wishlistStore = useWishlistStore();
 const productStore = useProductStore();
@@ -22,7 +19,6 @@ const category = ref({});
 const id = ref(null);
 const token = ref("");
 const isModal = ref(false);
-const quantity = ref(1);
 const wishlistString = ref("Add to wishlist");
 const modalText = ref("please log in to add item to wishlist");
 
@@ -39,29 +35,29 @@ const addToWishlist = () => {
   });
 };
 
-const addToCart = async () => {
-  if (!token.value) {
-    isModal.value = true;
-    return;
-  }
+// const addToCart = async () => {
+//   if (!token.value) {
+//     isModal.value = true;
+//     return;
+//   }
 
-  const addObject = {
-    productId: id.value,
-    quantity: quantity.value,
-  };
+//   const addObject = {
+//     productId: id.value,
+//     quantity: quantity.value,
+//   };
 
-  if (!cartItems.value.some((elem) => elem.product.id == addObject.productId)) {
-    await addCartItem(addObject, token.value).then(() => {
-      if (isAdded.value) {
-        modalText.value = "Product added to cart";
-        isModal.value = true;
-      }
-    });
-  } else {
-    modalText.value = "You added this product to cart earlier";
-    isModal.value = true;
-  }
-};
+//   if (!cartItems.value.some((elem) => elem.product.id == addObject.productId)) {
+//     await addCartItem(addObject, token.value).then(() => {
+//       if (isAdded.value) {
+//         modalText.value = "Product added to cart";
+//         isModal.value = true;
+//       }
+//     });
+//   } else {
+//     modalText.value = "You added this product to cart earlier";
+//     isModal.value = true;
+//   }
+// };
 
 const closeModal = () => {
   isModal.value = false;
@@ -78,18 +74,17 @@ onMounted(() => {
   category.value = categoryStore.categories.find(
     (category) => category.id == product.value.categoryId
   );
-
 });
 </script>
 
 <template>
   <div class="container">
-    <div class="dark-background" v-if="isModal">
+    <!-- <div class="dark-background" v-if="isModal">
       <div class="modal">
         <p>{{ modalText }}</p>
         <button class="button" @click="closeModal">OK</button>
       </div>
-    </div>
+    </div> -->
     <div class="show-image-wrap">
       <img :src="product.imageURL" />
     </div>
@@ -99,7 +94,13 @@ onMounted(() => {
       <h5>{{ product.price }}$</h5>
       <p>{{ product.description }}</p>
 
-      <div class="add-to-cart-wrap">
+      <ShowDetailsCartBtn
+        :token="token"
+        :isModal="isModal"
+        :modalText="modalText"
+        :id="id"
+      />
+      <!-- <div class="add-to-cart-wrap">
         <div class="add-to-cart-quantity">
           <div class="quantity-wrap">
             <span>Quantity</span>
@@ -109,7 +110,7 @@ onMounted(() => {
         <button class="add-to-cart-btn" @click="addToCart()">
           Add to cart
         </button>
-      </div>
+      </div> -->
 
       <div class="features">
         <h5>Features</h5>
@@ -179,7 +180,7 @@ li {
   cursor: pointer;
   margin-top: 20px;
 }
-.dark-background {
+/* .dark-background {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.7);
   top: 0;
@@ -208,8 +209,8 @@ li {
   background-color: rgb(192, 4, 4);
   color: white;
   cursor: pointer;
-}
-.add-to-cart-wrap {
+} */
+/* .add-to-cart-wrap {
   display: flex;
   justify-content: space-between;
 }
@@ -231,7 +232,7 @@ li {
   background-color: rgb(192, 4, 4);
   color: white;
   cursor: pointer;
-}
+} */
 
 .features {
   margin-top: 20px;
