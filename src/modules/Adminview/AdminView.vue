@@ -5,6 +5,7 @@
     <router-link :to="{ name: 'Category' }">
       <button class="button">Admin category</button>
     </router-link>
+    
     <router-link :to="{ name: 'Product' }">
       <button class="button">Admin product</button>
     </router-link>

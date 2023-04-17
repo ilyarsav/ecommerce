@@ -1,14 +1,18 @@
 <script setup>
 import { ref } from "vue";
 
-const modalText = ref("");
+const props = defineProps(["isModal", "modalText"]);
+const emits = defineEmits(["switchModal"]);
 
+const closeModal = () => {
+  emits("switchModal", false);
+};
 </script>
 
 <template>
-  <div class="dark-background" v-if="isModal">
+  <div class="dark-background" v-if="props.isModal">
     <div class="modal">
-      <p>{{ modalText ? modalText : "write a text" }}</p>
+      <p>{{props.modalText ? props.modalText : "write a text" }}</p>
       <button class="button" @click="closeModal">OK</button>
     </div>
   </div>

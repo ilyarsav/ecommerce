@@ -3,20 +3,22 @@ import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import { useCartStore } from "../../../stores/cart";
 
-const cartStore = useCartStore();
-const { cartItems, isAdded } = storeToRefs(cartStore);
-const { addCartItem } = cartStore;
+const { cartItems, isAdded } = storeToRefs(useCartStore());
+const { addCartItem } = useCartStore();
+const props = defineProps(["token", "id"]);
+const emits = defineEmits(["switchModal", "changeModalText"]);
 const quantity = ref(1);
 
-const props = defineProps(["token", "isModal", "modalText", "id"]);
+const productAdded = "Product added to cart";
+const productWasAdded = "You added this product to cart earlier";
+const notifyText = "please log in to add item to cart";
 
 const addToCart = () => {
-  console.log("it works");
-
-  // if (!props.token) {
-  //   props.isModal = true;
-  //   return;
-  // }
+  if (!props.token) {
+    emits("changeModalText", notifyText);
+    emits("switchModal", true);
+    return;
+  }
 
   const addObject = {
     productId: props.id,
@@ -26,13 +28,13 @@ const addToCart = () => {
   if (!cartItems.value.some((elem) => elem.product.id == addObject.productId)) {
     addCartItem(addObject, props.token).then(() => {
       if (isAdded.value) {
-        // props.modalText = "Product added to cart";
-        // props.isModal = true;
+        emits("changeModalText", productAdded);
+        emits("switchModal", true);
       }
     });
   } else {
-    // props.modalText = "You added this product to cart earlier";
-    // props.isModal = true;
+    emits("changeModalText", productWasAdded);
+    emits("switchModal", true);
   }
 };
 </script>
