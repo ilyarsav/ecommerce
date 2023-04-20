@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { baseURL } from "../stores/url";
+import { baseURL } from "../../stores/url";
 
 const router = useRouter();
 const token = ref("");

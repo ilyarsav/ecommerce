@@ -21,7 +21,6 @@ onMounted(() => {
     </div>
 
     <div class="product-wrap">
-      <!--если обновлять product, то данные не передаются номально -->
       <div v-for="product of productStore.products" :key="product.id">
         <ProductBox :product="product" />
       </div>

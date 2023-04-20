@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from "vue";
-
 const props = defineProps(["isModal", "modalText"]);
 const emits = defineEmits(["switchModal"]);
 
@@ -12,7 +10,7 @@ const closeModal = () => {
 <template>
   <div class="dark-background" v-if="props.isModal">
     <div class="modal">
-      <p>{{props.modalText ? props.modalText : "write a text" }}</p>
+      <p>{{ props.modalText ? props.modalText : "write a text" }}</p>
       <button class="button" @click="closeModal">OK</button>
     </div>
   </div>

@@ -32,7 +32,7 @@ const addProduct = () => {
 
 <template>
   <div class="container">
-    <h1>Add category</h1>
+    <h1>Add product</h1>
     <form>
       <div class="input-container">
         <label for="name">Category</label>
@@ -72,6 +72,7 @@ const addProduct = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 80px 0 20px 0;
 }
 .container h1 {
   font-family: Arial, Helvetica, sans-serif;
