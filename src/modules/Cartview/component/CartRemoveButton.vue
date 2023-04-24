@@ -1,7 +1,7 @@
 <script setup>
 import { useCartStore } from "../../../stores/cart";
 
-const props = defineProps(["token", 'id']);
+const props = defineProps(["id", "token"]);
 const { deleteCartItem } = useCartStore();
 
 const deleteItem = (itemId) => {
@@ -10,9 +10,15 @@ const deleteItem = (itemId) => {
 </script>
 
 <template>
-  <a href="#" class="removeBtn" @click="deleteItem(cartItem.id)">
+  <a href="#" class="remove-button" @click="deleteItem(props.id)">
     Remove from cart
   </a>
 </template>
 
-<style scoped></style>
+<style scoped>
+.remove-button {
+  color: rgb(192, 4, 4);
+  text-decoration: none;
+  font-weight: 700;
+}
+</style>

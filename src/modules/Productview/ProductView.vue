@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import ProductBox from "../../components/Product/ProductBox.vue";
+import ProductBox from "../../components/ProductBox.vue";
 import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();

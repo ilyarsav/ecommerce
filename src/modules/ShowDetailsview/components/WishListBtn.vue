@@ -6,7 +6,7 @@ const props = defineProps(["token", "id"]);
 const emits = defineEmits(["switchModal", "changeModalText"]);
 const wishlistStore = useWishlistStore();
 const wishlistString = ref("Add to wishlist");
-const notifyText= "please log in to add item to wishlist";
+const notifyText = "please log in to add item to wishlist";
 
 const addToWishlist = () => {
   if (!props.token) {
@@ -24,9 +24,17 @@ const addToWishlist = () => {
 </script>
 
 <template>
-  <button class="wishlist-button" @click="addToWishlist()" >
+  <button class="wishlist-button" @click="addToWishlist()">
     {{ wishlistString }}
   </button>
 </template>
 
-<style scoped></style>
+<style scoped>
+.wishlist-button {
+padding: 12px 10px;
+border-radius: 5px;
+border: none;
+background-color: rgb(173, 173, 173);
+cursor: pointer;
+}
+</style>

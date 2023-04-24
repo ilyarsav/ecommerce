@@ -1,5 +1,5 @@
 <script setup>
-import ProductBox from '../../../components/Product/ProductBox.vue';
+import ProductBox from '../../../components/ProductBox.vue';
 
 const props = defineProps(["filterProducts"]);
 </script>

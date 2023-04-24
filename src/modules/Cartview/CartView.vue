@@ -2,11 +2,11 @@
 import { storeToRefs } from "pinia";
 import { ref, onMounted } from "vue";
 import { useCartStore } from "../../stores/cart";
-import CartCstQntty from "./component/CartCstQntty.vue";
+import CartCostQuantity from "./component/CartCostQuantity.vue";
 import CartImg from "./component/CartImg.vue";
-import CartNm from "./component/CartNm.vue";
-import CartRmvBtn from "./component/CartRmvBtn.vue";
-import CartTtl from "./component/CartTtl.vue";
+import CartName from "./component/CartName.vue";
+import CartRemoveButton from "./component/CartRemoveButton.vue";
+import CartTotal from "./component/CartTotal.vue";
 
 const token = ref("");
 const { cartItems, totalCost } = storeToRefs(useCartStore());
@@ -34,25 +34,23 @@ onMounted(() => {
           class="content-item"
         >
           <CartImg :imageURL="cartItem.product.imageURL" />
-
           <div class="information">
-            <CartNm :id="cartItem.product.id" :name="cartItem.product.name" />
-            <CartCstQntty
+            <CartName :id="cartItem.product.id" :name="cartItem.product.name" />
+            <CartCostQuantity
               :quantity="cartItem.quantity"
               :price="cartItem.product.price"
             />
-            <CartTtl
+            <CartTotal
               :quantity="cartItem.quantity"
               :price="cartItem.product.price"
             />
-            <CartRmvBtn :id="cartItem.id" :token="token" />
+            <CartRemoveButton :id="cartItem.id" :token="token" />
           </div>
         </div>
         <div class="total-cost">
           <b>Total: ${{ totalCost }}</b>
         </div>
       </div>
-
     </div>
   </div>
 </template>

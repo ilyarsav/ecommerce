@@ -1,94 +1,86 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../modules/Homeview/HomeView.vue";
-import Admin from "../modules/Adminview/AdminView.vue";
-import AddCategory from "../modules/AddCategoryview/AddCategoryView.vue";
-import EditCategory from "../modules/EditCategoryview/EditCategoryView.vue";
-import Category from "../modules/Categoryview/CategoryView.vue";
-import Product from "../modules/Productview/ProductView.vue";
-import AddProduct from "../modules/AddProductview/AddProductView.vue";
-import EditProduct from "../modules/EditProductview/EditProductView.vue";
-import ShowDetails from "../modules/ShowDetailsview/ShowDetailsView.vue";
-import ListProducts from "../modules/ListProductsview/ListProductsView.vue";
-import WishList from "../modules/WishListview/WishListView.vue";
-import SignUp from "../modules/SignUpview/SignUpView.vue";
-import SignIn from "../modules/SignInview/SignInView.vue";
-import Cart from "../modules/Cartview/CartView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: "/",
-      component: Home,
+      component: import("../modules/Homeview/HomeView.vue"),
       name: "Home",
     },
     {
       path: "/admin",
-      component: Admin,
+      component: import("../modules/Adminview/AdminView.vue"),
       name: "Admin",
+      children: [
+        {
+          path: "/admin/category",
+          component: import("../modules/Categoryview/CategoryView.vue"),
+          name: "Category",
+        },
+        {
+          path: "/admin/product",
+          component: import("../modules/Productview/ProductView.vue"),
+          name: "Product",
+        },
+      ],
     },
     {
       path: "/admin/category/add",
-      component: AddCategory,
+      component: import("../modules/AddCategoryview/AddCategoryView.vue"),
       name: "AddCategory",
-    },
-    { path: "/admin/category", component: Category, name: "Category" },
-    {
-      path: "/admin/product",
-      component: Product,
-      name: "Product",
     },
     {
       path: "/admin/product/add",
-      component: AddProduct,
+      component: import("../modules/AddProductview/AddProductView.vue"),
       name: "AddProduct",
     },
     {
       path: "/admin/category/:id",
-      component: EditCategory,
+      component: import("../modules/EditCategoryview/EditCategoryView.vue"),
       name: "EditCategory",
     },
     {
       path: "/admin/product/:id",
-      component: EditProduct,
+      component: import("../modules/EditProductview/EditProductView.vue"),
       name: "EditProduct",
     },
     {
       path: "/product/show/:id",
-      component: ShowDetails,
+      component: import("../modules/ShowDetailsview/ShowDetailsView.vue"),
       name: "ShowDetails",
     },
     {
       path: "/category/show/:id",
-      component: ListProducts,
+      component: import("../modules/ListProductsview/ListProductsView.vue"),
       name: "ListProducts",
     },
     {
       path: "/signup",
-      component: SignUp,
+      component: import("../modules/SignUpview/SignUpView.vue"),
       name: "SignUp",
     },
     {
       path: "/signin",
-      component: SignIn,
+      component: import("../modules/SignInview/SignInView.vue"),
       name: "SignIn",
     },
     {
       path: "/wishlist",
-      component: WishList,
+      component: import("../modules/WishListview/WishListView.vue"),
       name: "WishList",
     },
     {
       path: "/cart",
-      component: Cart,
+      component: import("../modules/Cartview/CartView.vue"),
       name: "Cart",
     },
   ],
-  scrollBehavior() {
-    return {
-      top: 0,
-    };
-  },
+  // scrollBehavior() {
+  //   return {
+  //     top: 0,
+  //   };
+  // },
 });
 
 export default router;

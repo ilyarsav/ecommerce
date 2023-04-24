@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import ProductBox from "../../components/Product/ProductBox.vue";
+import ProductBox from "../../components/ProductBox.vue";
 import { useWishlistStore } from "../../stores/wishlist";
 
 const wishlistStore = useWishlistStore()

@@ -1,5 +1,5 @@
 <script setup>
-import CategoryBox from '../../../components/Category/CategoryBox.vue';
+import CategoryBox from '../../../components/CategoryBox.vue';
 
 const props = defineProps(["filterCategories"]);
 </script>

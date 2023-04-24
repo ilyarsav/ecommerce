@@ -1,20 +1,18 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import ProductBox from "../../components/Product/ProductBox.vue";
+import ProductBox from "../../components/ProductBox.vue";
 import { useCategoryStore } from "../../stores/category";
 
 const categoryStore = useCategoryStore();
 const route = useRoute();
-
-const id = ref(null);
+const { id } = route.params;
 const category = ref({});
 const msg = ref(null);
 
 onMounted(() => {
-  id.value = route.params.id;
   category.value = categoryStore.categories.find(
-    (category) => category.id == id.value
+    (category) => category.id == id
   );
 
   if (category.value.products == 0) {

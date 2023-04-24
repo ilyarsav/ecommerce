@@ -14,14 +14,14 @@ const productStore = useProductStore();
 const categoryStore = useCategoryStore();
 
 const product = ref({});
-const id = ref(null);
 const route = useRoute();
-const router = useRouter()
+const router = useRouter();
+const { id } = route.params;
 const isModal = ref(false);
 const modalText = ref("Successfully edited");
 
 const editProduct = () => {
-  productStore.editProducts(id.value, product.value);
+  productStore.editProducts(id, product.value);
   switchModal(true);
 };
 
@@ -31,10 +31,7 @@ const switchModal = (bln) => {
 };
 
 onMounted(() => {
-  id.value = route.params.id;
-  product.value = productStore.products.find(
-    (product) => product.id == id.value
-  );
+  product.value = productStore.products.find((product) => product.id == id);
 });
 </script>
 

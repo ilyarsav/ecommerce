@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted, onUpdated } from "vue";
+import { storeToRefs } from "pinia";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import Modal from "../../components/Modal.vue";
 import { useCategoryStore } from "../../stores/category";
@@ -11,12 +12,15 @@ import ShowDetailsInfrm from "./components/ShowDetailsInfrm.vue";
 import WishListBtn from "./components/WishListBtn.vue";
 // при обновлении данные пропадают
 
-const productStore = useProductStore();
-const categoryStore = useCategoryStore();
+// const productStore = useProductStore();
+// const categoryStore = useCategoryStore();
+const { products } = storeToRefs(useProductStore());
+const { categories } = storeToRefs(useCategoryStore());
+j;
 const route = useRoute();
+const { id } = route.params;
 const product = ref({});
 const category = ref({});
-const id = ref(null);
 const token = ref("");
 const isModal = ref(false);
 const modalText = ref("");
@@ -31,13 +35,8 @@ const changeModalText = (text) => {
 
 onMounted(() => {
   token.value = localStorage.getItem("token");
-  id.value = route.params.id;
-
-  product.value = productStore.products.find(
-    (product) => product.id == id.value
-  );
-
-  category.value = categoryStore.categories.find(
+  product.value = products.value.find((product) => product.id == id);
+  category.value = categories.value.find(
     (category) => category.id == product.value.categoryId
   );
 });
@@ -51,7 +50,6 @@ onMounted(() => {
       :modalText="modalText"
     />
     <ShowDetailsImg :src="product.imageURL" />
-
     <div class="show-information-wrap">
       <ShowDetailsInfrm
         :name="product.name"

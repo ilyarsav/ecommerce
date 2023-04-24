@@ -9,15 +9,15 @@ import EditCategoryNm from "./components/EditCategoryNm.vue";
 
 const categoryStore = useCategoryStore();
 const category = ref({});
-const id = ref(null);
 const route = useRoute();
 const router = useRouter();
+const { id } = route.params;
 const isModal = ref(false);
 const modalText = ref("successfully added");
 
 const editCategory = async () => {
   delete category.value.products;
-  categoryStore.editCategories(category.value, id.value);
+  categoryStore.editCategories(category.value, id);
   isModal.value = true;
 };
 
@@ -27,10 +27,8 @@ const switchModal = (bln) => {
 };
 
 onMounted(() => {
-  id.value = route.params.id;
-
   category.value = categoryStore.categories.find(
-    (category) => category.id == id.value
+    (category) => category.id == id
   );
 });
 </script>
