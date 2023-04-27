@@ -8,6 +8,7 @@ const categoryStore = useCategoryStore();
 onMounted(() => {
   categoryStore.fetchCategories();
 });
+
 </script>
 
 <template>

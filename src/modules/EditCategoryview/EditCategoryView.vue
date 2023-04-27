@@ -1,28 +1,30 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import Modal from "../../components/Modal.vue";
 import { useCategoryStore } from "../../stores/category";
-import EditCategoryDscrptn from "./components/EditCategoryDscrptn.vue";
-import EditCategoryImgUrl from "./components/EditCategoryImgUrl.vue";
-import EditCategoryNm from "./components/EditCategoryNm.vue";
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
 
 const categoryStore = useCategoryStore();
 const category = ref({});
 const route = useRoute();
 const router = useRouter();
 const { id } = route.params;
-const isModal = ref(false);
-const modalText = ref("successfully added");
+const toast = useToast();
+
+// const successfullyAdded = {
+//   severity: "success",
+//   detail: "Successfully added",
+// };
+
+// const show = (data) => {
+//   toast.add(data);
+// };
 
 const editCategory = async () => {
   delete category.value.products;
-  categoryStore.editCategories(category.value, id);
-  isModal.value = true;
-};
-
-const switchModal = (bln) => {
-  isModal.value = bln;
+  await categoryStore.editCategories(category.value, id);
+  // show(successfullyAdded);
   router.push({ name: "Category" });
 };
 
@@ -35,16 +37,31 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <Modal
-      @switchModal="switchModal"
-      :isModal="isModal"
-      :modalText="modalText"
-    />
+    <!-- <Toast position="bottom-right" /> -->
     <h1>Edit category</h1>
     <form v-if="category">
-      <EditCategoryNm :categoryName="category.categoryName" />
-      <EditCategoryDscrptn :description="category.description" />
-      <EditCategoryImgUrl :imageUrl="category.imageUrl" />
+      <div class="input-container">
+        <label for="name">Category Name</label>
+        <input
+          type="text"
+          name="name"
+          v-model="category.categoryName"
+          required
+        />
+      </div>
+      <div class="input-container">
+        <label for="name">Description</label>
+        <textarea
+          type="text"
+          name="name"
+          v-model="category.description"
+          required
+        ></textarea>
+      </div>
+      <div class="input-container">
+        <label for="name">Image</label>
+        <input type="text" name="name" v-model="category.imageUrl" required />
+      </div>
       <button type="button" class="button" @click="editCategory()">
         Submit
       </button>
@@ -69,5 +86,21 @@ onMounted(() => {
   background-color: rgb(192, 4, 4);
   color: white;
   cursor: pointer;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.input-container textarea {
+  height: 40px;
+  width: 300px;
+  margin-top: 0.5rem;
+}
+.input-container input {
+  height: 30px;
+  width: 300px;
+  margin-top: 0.5rem;
 }
 </style>

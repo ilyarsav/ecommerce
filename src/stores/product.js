@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { baseURL } from "./url";
-
+import { appendToProducts, getProducts, updateProducts } from "./productServices";
 
 export const useProductStore = defineStore("product", () => {
   const products = ref([]);
@@ -11,32 +10,16 @@ export const useProductStore = defineStore("product", () => {
   });
 
   const fetchProducts = async () => {
-    await fetch(`${baseURL}/product/`)
-      .then((response) => response.json())
-      .then((res) => (products.value = res))
-      .catch((err) => console.log(err));
+    const res = await getProducts();
+    products.value = res;
   };
 
   const editProducts = async (id, product) => {
-    await fetch(`${baseURL}/product/update/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(product),
-    })
-      .then(() => fetchProducts())
-      .catch((err) => console.log(err));
+    await updateProducts((id, product));
   };
 
   const addProducts = async (newProduct) => {
-    await fetch(`${baseURL}/product/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    }).catch((err) => console.log(err));
+    await appendToProducts(newProduct);
   };
 
   return {

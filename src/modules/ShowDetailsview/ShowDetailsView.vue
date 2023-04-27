@@ -2,7 +2,6 @@
 import { storeToRefs } from "pinia";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import Modal from "../../components/Modal.vue";
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
 import ShowDetailsCartBtn from "./components/ShowDetailsCartBtn.vue";
@@ -10,27 +9,21 @@ import ShowDetailsFtrs from "./components/ShowDetailsFtrs.vue";
 import ShowDetailsImg from "./components/ShowDetailsImg.vue";
 import ShowDetailsInfrm from "./components/ShowDetailsInfrm.vue";
 import WishListBtn from "./components/WishListBtn.vue";
-// при обновлении данные пропадают
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
 
-// const productStore = useProductStore();
-// const categoryStore = useCategoryStore();
+// при обновлении данные пропадают
 const { products } = storeToRefs(useProductStore());
 const { categories } = storeToRefs(useCategoryStore());
-j;
 const route = useRoute();
 const { id } = route.params;
 const product = ref({});
 const category = ref({});
 const token = ref("");
-const isModal = ref(false);
-const modalText = ref("");
+const toast = useToast();
 
-const switchModal = (bln) => {
-  isModal.value = bln;
-};
-
-const changeModalText = (text) => {
-  modalText.value = text;
+const show = (data) => {
+  toast.add(data);
 };
 
 onMounted(() => {
@@ -44,11 +37,7 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <Modal
-      @switch-modal="switchModal()"
-      :isModal="isModal"
-      :modalText="modalText"
-    />
+    <Toast position="bottom-right" />
     <ShowDetailsImg :src="product.imageURL" />
     <div class="show-information-wrap">
       <ShowDetailsInfrm
@@ -57,19 +46,9 @@ onMounted(() => {
         :price="product.price"
         :description="product.description"
       />
-      <ShowDetailsCartBtn
-        :token="token"
-        @switch-modal="switchModal"
-        @changeModalText="changeModalText"
-        :id="id"
-      />
+      <ShowDetailsCartBtn :token="token" @show="show" :id="id" />
       <ShowDetailsFtrs />
-      <WishListBtn
-        :token="token"
-        :id="id"
-        @switch-modal="switchModal"
-        @changeModalText="changeModalText"
-      />
+      <WishListBtn :token="token" :id="id" @show="show" />
     </div>
   </div>
 </template>

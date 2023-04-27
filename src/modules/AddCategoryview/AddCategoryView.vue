@@ -1,43 +1,48 @@
 <script setup>
 import { ref } from "vue";
 import { useCategoryStore } from "../../stores/category";
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
 
 const categoryStore = useCategoryStore();
 
 const categoryName = ref("");
 const description = ref("");
 const imageUrl = ref("");
-const isModal = ref(false);
-const modalText = ref("Category added successfully");
+const toast = useToast();
 
-const addCategory = () => {
+const successfullyAdded = {
+  severity: "success",
+  detail: "Category added successfully",
+  life: 3000,
+};
+
+const show = (data) => {
+  toast.add(data);
+};
+
+const closeModal = () => {
+  categoryName.value = "";
+  description.value = "";
+  imageUrl.value = "";
+};
+
+const addCategory = async () => {
   const newCategory = {
     categoryName: categoryName.value,
     description: description.value,
     imageUrl: imageUrl.value,
   };
 
-  categoryStore.addCategories(newCategory);
-
-  isModal.value = true;
-};
-
-const closeModal = () => {
-  isModal.value = false;
-  categoryName.value = "";
-  description.value = "";
-  imageUrl.value = "";
+  await categoryStore.addCategories(newCategory);
+  show(successfullyAdded);
+  closeModal();
 };
 </script>
 
 <template>
   <div class="container">
-    <div class="dark-background" v-if="isModal">
-      <div class="modal">
-        <p>{{ modalText }}</p>
-        <button class="button" @click="closeModal">OK</button>
-      </div>
-    </div>
+    <Toast />
 
     <h1>Add category</h1>
     <form>

@@ -33,7 +33,7 @@ const signUp = async (e) => {
       })
       .catch((err) => console.log(err));
   } else {
-    alert('password dont match')
+    alert("password dont match");
   }
 };
 </script>

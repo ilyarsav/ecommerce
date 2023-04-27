@@ -2,10 +2,10 @@
 import { useCartStore } from "../../../stores/cart";
 
 const props = defineProps(["id", "token"]);
-const { deleteCartItem } = useCartStore();
+const { removeCartItem } = useCartStore();
 
 const deleteItem = (itemId) => {
-  deleteCartItem(itemId, props.token);
+  removeCartItem(itemId, props.token);
 };
 </script>
 

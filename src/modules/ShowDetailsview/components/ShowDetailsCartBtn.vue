@@ -4,19 +4,30 @@ import { ref } from "vue";
 import { useCartStore } from "../../../stores/cart";
 
 const { cartItems, isAdded } = storeToRefs(useCartStore());
-const { addCartItem } = useCartStore();
+const { appendToCart } = useCartStore();
 const props = defineProps(["token", "id"]);
-const emits = defineEmits(["switchModal", "changeModalText"]);
+const emits = defineEmits(["show"]);
 const quantity = ref(1);
 
-const productAdded = "Product added to cart";
-const productWasAdded = "You added this product to cart earlier";
-const notifyText = "please log in to add item to cart";
+const productAdded = {
+  severity: "success",
+  summary: "success",
+  detail: "Product added to cart",
+};
+const productWasAdded = {
+  severity: "info",
+  summary: "info",
+  detail: "You added this product to cart earlier",
+};
+const notifyText = {
+  severity: "info",
+  summary: "info",
+  detail: "please log in to add item to cart",
+};
 
 const addToCart = () => {
   if (!props.token) {
-    emits("changeModalText", notifyText);
-    emits("switchModal", true);
+    emits("show", notifyText);
     return;
   }
 
@@ -26,15 +37,14 @@ const addToCart = () => {
   };
 
   if (!cartItems.value.some((elem) => elem.product.id == addObject.productId)) {
-    addCartItem(addObject, props.token).then(() => {
+    appendToCart(addObject, props.token)
+    .then(() => {
       if (isAdded.value) {
-        emits("changeModalText", productAdded);
-        emits("switchModal", true);
+        emits("show", productAdded);
       }
     });
   } else {
-    emits("changeModalText", productWasAdded);
-    emits("switchModal", true);
+    emits("show", productWasAdded);
   }
 };
 </script>

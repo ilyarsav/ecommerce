@@ -39,10 +39,9 @@ const signOut = () => {
   router.push({ name: "Home" });
 };
 
-
 onMounted(() => {
   token.value = localStorage.getItem("token");
-  cartStore.fetchCartData(token.value);
+  cartStore.getCartData(token.value);
   document.addEventListener("click", closeDropdownBrowse);
   document.addEventListener("click", closeDropdownAccount);
 });

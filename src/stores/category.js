@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { baseURL } from "./url";
-
+import { appendToCategories, getCategories, updateCategories } from "./categoryServices";
 
 export const useCategoryStore = defineStore("category", () => {
   const categories = ref([]);
@@ -11,30 +10,16 @@ export const useCategoryStore = defineStore("category", () => {
   });
 
   const fetchCategories = async () => {
-    await fetch(`${baseURL}/category/`)
-      .then((response) => response.json())
-      .then((res) => (categories.value = res))
-      .catch((err) => console.log(err));
+    const responce = await getCategories();
+    categories.value = responce;
   };
 
   const editCategories = async (category, id) => {
-    await fetch(`${baseURL}/category/update/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(category),
-    }).catch((err) => console.log(err));
+    await updateCategories(category, id);
   };
 
   const addCategories = async (newCategory) => {
-    await fetch(`${baseURL}/category/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newCategory),
-    }).catch((err) => console.log(err));
+    await appendToCategories(newCategory);
   };
 
   return {

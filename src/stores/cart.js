@@ -1,55 +1,40 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { baseURL } from "./url";
+import { addCartItem, deleteCartItem, fetchCartData } from "./cartServices";
 
 
 export const useCartStore = defineStore("cart", () => {
   const cartItems = ref([]);
   const totalCost = ref(0);
   const isAdded = ref(false);
-  // const token = ref(""); порпобовать засунуть токен в стейт
 
-  const fetchCartData = async (token) => {
-    await fetch(`${baseURL}/cart/?token=${token}`)
-      .then((response) => response.json())
-      .then((res) => {
-        cartItems.value = res.cartItems;
-        totalCost.value = res.totalCost;
-      })
-      .catch((err) => console.log(err));
+  const getCartData = async (token) => {
+    const responce = await fetchCartData(token);
+    cartItems.value = responce.cartItems;
+    totalCost.value = responce.totalCost;
   };
 
-  const deleteCartItem = async (itemId, token) => {
-    await fetch(`${baseURL}/cart/delete/${itemId}?token=${token}`, {
-      method: "DELETE",
-    })
-      .then(() => fetchCartData(token))
-      .catch((err) => console.log(err));
+  const removeCartItem = async (itemId, token) => {
+    await deleteCartItem(itemId, token);
+    getCartData(token);
+    // не делать запрос, а просто обновить cartItems
   };
 
-  const addCartItem = async (addObject, token) => {
-    await fetch(`${baseURL}/cart/add?token=${token}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(addObject),
-    })
-      .then((res) => {
-        if (res.status == 201) {
-          isAdded.value = true;
-          fetchCartData(token);
-        }
-      })
-      .catch((err) => console.log(err));
+  const appendToCart = async (addObject, token) => {
+    const res = await addCartItem(addObject, token);
+    console.log(res);
+    if (res.status == 201) {
+      isAdded.value = true;
+      getCartData(token);
+    }
   };
 
   return {
     cartItems,
     totalCost,
     isAdded,
-    fetchCartData,
-    deleteCartItem,
-    addCartItem,
+    getCartData,
+    removeCartItem,
+    appendToCart,
   };
 });

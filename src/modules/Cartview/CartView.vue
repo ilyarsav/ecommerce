@@ -10,11 +10,11 @@ import CartTotal from "./component/CartTotal.vue";
 
 const token = ref("");
 const { cartItems, totalCost } = storeToRefs(useCartStore());
-const { fetchCartData } = useCartStore();
+const { getCartData } = useCartStore();
 
 onMounted(() => {
   token.value = localStorage.getItem("token");
-  fetchCartData(token.value);
+  getCartData(token.value);
 });
 </script>
 

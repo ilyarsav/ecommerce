@@ -1,6 +1,8 @@
 <script setup>
 import Footer from "./components/Footer.vue";
 import Navbar from "./components/Navbar.vue";
+import "primevue/resources/themes/lara-light-indigo/theme.css";     
+import "primevue/resources/primevue.min.css";
 </script>
 
 <template>
