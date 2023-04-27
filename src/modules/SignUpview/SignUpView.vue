@@ -1,52 +1,52 @@
 <script setup>
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { baseURL } from "../../stores/url";
+import { addUser } from "../../stores/signupService";
 
-const router = useRouter();
-
+const toast = useToast();
 const email = ref("");
 const firstName = ref("");
 const lastName = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 
+const signedUp = {
+  severity: "success",
+  detail: "You successfully signed up, please now sign in",
+  life: 3000,
+};
+const dontMatch = {
+  severity: "error",
+  detail: "Password dont match, please try again",
+  life: 3000,
+};
+
+const show = (data) => {
+  toast.add(data);
+};
+
 const signUp = async (e) => {
   e.preventDefault();
-  if (password.value === confirmPassword.value) {
-    const user = {
-      email: email.value,
-      firstName: firstName.value,
-      lastName: lastName.value,
-      password: password.value,
-    };
+  const user = {
+    email: email.value,
+    firstName: firstName.value,
+    lastName: lastName.value,
+    password: password.value,
+  };
 
-    await fetch(`${baseURL}/user/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then(() => {
-        router.replace("/");
-      })
-      .catch((err) => console.log(err));
+  if (password.value === confirmPassword.value) {
+    await addUser(user);
+    show(signedUp);
   } else {
-    alert("password dont match");
+    show(dontMatch);
   }
 };
 </script>
 
 <template>
   <div class="container">
-    <!-- <div class="dark-background" v-if="isModal">
-      <div class="modal">
-        <p>{{ modalText }}</p>
-        <button class="button" @click="closeModal">OK</button>
-      </div>
-    </div> -->
-
+    <Toast position="bottom-right" />
     <div class="logo-wrap">
       <!-- logo -->
     </div>

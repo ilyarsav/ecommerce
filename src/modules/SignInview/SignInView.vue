@@ -1,6 +1,8 @@
 <script setup>
+import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { findUser } from "../../stores/signinServices";
 import { baseURL } from "../../stores/url";
 
 const router = useRouter();
@@ -12,6 +14,11 @@ const password = ref(null);
 const isAlert = ref(false);
 const alertText = "Неправльно указан логин и/или пароль";
 
+const setGetToken = (res) => {
+  localStorage.setItem("token", res.token);
+  token.value = localStorage.getItem("token");
+};
+
 const signIn = async (e) => {
   e.preventDefault();
   const user = {
@@ -19,26 +26,49 @@ const signIn = async (e) => {
     password: password.value,
   };
 
-  await fetch(`${baseURL}/user/signIn`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  })
-    .then((response) => {
-      if (response.status == 200) {
-        return response.json();
-      } else {
-        isAlert.value = true;
-      }
-    })
-    .then((res) => {
-      localStorage.setItem("token", res.token);
-      token.value = localStorage.getItem("token");
-      router.push({ name: "Home" });
-    })
-    .catch((err) => console.log(err));
+  const res = await findUser(user);
+  if (res?.status === "success") {
+    setGetToken(res);
+    router.push({ name: "Home" });
+  } else {
+    isAlert.value = true;
+  }
+
+  //   try {
+  //   const res = await axios({
+  //     url: `${baseURL}/user/signIn`,
+  //     method: "post",
+  //     headers: { "Content-Type": "application/json" },
+  //     data: user,
+  //   });
+  //   localStorage.setItem("token", res.data.token);
+  //   token.value = localStorage.getItem("token");
+  //   router.push({ name: "Home" });
+  // } catch (error) {
+  //   console.log(`ERROR: ${error}`);
+  //   isAlert.value = true;
+  // }
+
+  // await fetch(`${baseURL}/user/signIn`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(user),
+  // })
+  //   .then((response) => {
+  //     if (response.status == 200) {
+  //       return response.json();
+  //     } else {
+  //       isAlert.value = true;
+  //     }
+  //   })
+  //   .then((res) => {
+  //     localStorage.setItem("token", res.token);
+  //     token.value = localStorage.getItem("token");
+  //     router.push({ name: "Home" });
+  //   })
+  //   .catch((err) => console.log(err));
 };
 </script>
 

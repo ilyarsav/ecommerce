@@ -5,9 +5,9 @@ import { useRoute } from "vue-router";
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
 import ShowDetailsCartBtn from "./components/ShowDetailsCartBtn.vue";
-import ShowDetailsFtrs from "./components/ShowDetailsFtrs.vue";
+import ShowDetailsFeatures from "./components/ShowDetailsFeatures.vue";
 import ShowDetailsImg from "./components/ShowDetailsImg.vue";
-import ShowDetailsInfrm from "./components/ShowDetailsInfrm.vue";
+import ShowDetailsInformation from "./components/ShowDetailsInformation.vue";
 import WishListBtn from "./components/WishListBtn.vue";
 import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
@@ -40,14 +40,14 @@ onMounted(() => {
     <Toast position="bottom-right" />
     <ShowDetailsImg :src="product.imageURL" />
     <div class="show-information-wrap">
-      <ShowDetailsInfrm
+      <ShowDetailsInformation
         :name="product.name"
         :categoryName="product.categoryName"
         :price="product.price"
         :description="product.description"
       />
       <ShowDetailsCartBtn :token="token" @show="show" :id="id" />
-      <ShowDetailsFtrs />
+      <ShowDetailsFeatures />
       <WishListBtn :token="token" :id="id" @show="show" />
     </div>
   </div>

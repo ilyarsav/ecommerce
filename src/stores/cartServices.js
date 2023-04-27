@@ -23,7 +23,12 @@ export const addCartItem = async (addObject, token) => {
   try {
     const res = await axios.post(
       `${baseURL}/cart/add?token=${token}`,
-      addObject
+      addObject,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
 
     return res;
