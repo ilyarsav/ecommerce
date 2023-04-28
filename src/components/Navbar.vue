@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "../stores/cart";
 
@@ -46,7 +46,7 @@ onMounted(() => {
   document.addEventListener("click", closeDropdownAccount);
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   document.removeEventListener("click", closeDropdownBrowse);
   document.removeEventListener("click", closeDropdownAccount);
 });

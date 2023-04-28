@@ -13,16 +13,19 @@ const productAdded = {
   severity: "success",
   summary: "success",
   detail: "Product added to cart",
+  life: 3000,
 };
 const productWasAdded = {
   severity: "info",
   summary: "info",
   detail: "You added this product to cart earlier",
+  life: 3000,
 };
 const notifyText = {
   severity: "info",
   summary: "info",
   detail: "please log in to add item to cart",
+  life: 3000,
 };
 
 const addToCart = () => {
@@ -37,8 +40,7 @@ const addToCart = () => {
   };
 
   if (!cartItems.value.some((elem) => elem.product.id == addObject.productId)) {
-    appendToCart(addObject, props.token)
-    .then(() => {
+    appendToCart(addObject, props.token).then(() => {
       if (isAdded.value) {
         emits("show", productAdded);
       }

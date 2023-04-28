@@ -14,7 +14,9 @@ import { useToast } from "primevue/usetoast";
 
 // при обновлении данные пропадают
 const { products } = storeToRefs(useProductStore());
+const { fetchProducts } = useProductStore();
 const { categories } = storeToRefs(useCategoryStore());
+const { fetchCategories } = useCategoryStore();
 const route = useRoute();
 const { id } = route.params;
 const product = ref({});
@@ -26,8 +28,10 @@ const show = (data) => {
   toast.add(data);
 };
 
-onMounted(() => {
+onMounted(async () => {
   token.value = localStorage.getItem("token");
+  await fetchProducts();
+  await fetchCategories();
   product.value = products.value.find((product) => product.id == id);
   category.value = categories.value.find(
     (category) => category.id == product.value.categoryId
@@ -42,7 +46,7 @@ onMounted(() => {
     <div class="show-information-wrap">
       <ShowDetailsInformation
         :name="product.name"
-        :categoryName="product.categoryName"
+        :categoryName="category.categoryName"
         :price="product.price"
         :description="product.description"
       />
