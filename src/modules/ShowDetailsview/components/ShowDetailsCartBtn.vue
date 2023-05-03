@@ -28,7 +28,7 @@ const notifyText = {
   life: 3000,
 };
 
-const addToCart = () => {
+const addToCart = async () => {
   if (!props.token) {
     emits("show", notifyText);
     return;
@@ -40,7 +40,7 @@ const addToCart = () => {
   };
 
   if (!cartItems.value.some((elem) => elem.product.id == addObject.productId)) {
-    appendToCart(addObject, props.token).then(() => {
+    await appendToCart(addObject, props.token).then(() => {
       if (isAdded.value) {
         emits("show", productAdded);
       }

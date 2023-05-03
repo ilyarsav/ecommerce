@@ -21,7 +21,7 @@ const route = useRoute();
 const { id } = route.params;
 const product = ref({});
 const category = ref({});
-const token = ref("");
+const token = localStorage.getItem("token");
 const toast = useToast();
 
 const show = (data) => {
@@ -29,7 +29,6 @@ const show = (data) => {
 };
 
 onMounted(async () => {
-  token.value = localStorage.getItem("token");
   await fetchProducts();
   await fetchCategories();
   product.value = products.value.find((product) => product.id == id);

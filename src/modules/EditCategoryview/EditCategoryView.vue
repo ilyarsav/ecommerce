@@ -2,29 +2,15 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useCategoryStore } from "../../stores/category";
-import Toast from "primevue/toast";
-import { useToast } from "primevue/usetoast";
-
 const categoryStore = useCategoryStore();
 const category = ref({});
 const route = useRoute();
 const router = useRouter();
 const { id } = route.params;
-const toast = useToast();
-
-// const successfullyAdded = {
-//   severity: "success",
-//   detail: "Successfully added",
-// };
-
-// const show = (data) => {
-//   toast.add(data);
-// };
 
 const editCategory = async () => {
   delete category.value.products;
   await categoryStore.editCategories(category.value, id);
-  // show(successfullyAdded);
   router.push({ name: "Category" });
 };
 

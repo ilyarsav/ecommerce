@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(["id", "name"]);
+const props = defineProps(["cartItem"]);
 </script>
 
 <template>
@@ -8,10 +8,10 @@ const props = defineProps(["id", "name"]);
       class="link"
       :to="{
         name: 'ShowDetails',
-        params: { id: props.id },
+        params: { id: props.cartItem.id },
       }"
     >
-      {{ props.name }}
+      {{ props.cartItem.name }}
     </router-link>
   </p>
 </template>

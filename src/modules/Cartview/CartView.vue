@@ -6,15 +6,13 @@ import CartCostQuantity from "./component/CartCostQuantity.vue";
 import CartImg from "./component/CartImg.vue";
 import CartName from "./component/CartName.vue";
 import CartRemoveButton from "./component/CartRemoveButton.vue";
-import CartTotal from "./component/CartTotal.vue";
 
-const token = ref("");
+const token = localStorage.getItem("token");
 const { cartItems, totalCost } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
 
 onMounted(() => {
-  token.value = localStorage.getItem("token");
-  getCartData(token.value);
+  getCartData(token);
 });
 </script>
 
@@ -35,15 +33,8 @@ onMounted(() => {
         >
           <CartImg :imageURL="cartItem.product.imageURL" />
           <div class="information">
-            <CartName :id="cartItem.product.id" :name="cartItem.product.name" />
-            <CartCostQuantity
-              :quantity="cartItem.quantity"
-              :price="cartItem.product.price"
-            />
-            <CartTotal
-              :quantity="cartItem.quantity"
-              :price="cartItem.product.price"
-            />
+            <CartName :cartItem="cartItem.product" />
+            <CartCostQuantity :cartItem="cartItem" />
             <CartRemoveButton :id="cartItem.id" :token="token" />
           </div>
         </div>

@@ -7,15 +7,15 @@ import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
+const router = useRouter();
 
 const categoryId = ref(null);
 const name = ref(null);
 const description = ref(null);
 const imageURl = ref(null);
 const price = ref(null);
-const router = useRouter();
 
-const addProduct = () => {
+const addProduct = async () => {
   const newProduct = {
     categoryId: categoryId.value,
     name: name.value,
@@ -24,9 +24,8 @@ const addProduct = () => {
     price: price.value,
   };
 
-  productStore.addProducts(newProduct).then(() => {
-    router.push({ name: "Product" });
-  });
+  await productStore.addProducts(newProduct);
+  router.push({ name: "Product" });
 };
 </script>
 

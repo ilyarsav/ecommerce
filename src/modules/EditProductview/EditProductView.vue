@@ -1,10 +1,8 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
-import Toast from "primevue/toast";
-import { useToast } from "primevue/usetoast";
 
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
@@ -13,23 +11,15 @@ const product = ref({});
 const route = useRoute();
 const router = useRouter();
 const { id } = route.params;
-// const toast = useToast();
-
-// const successfullyAdded = {
-//   severity: "success",
-//   detail: "Successfully edited",
-// };
-
-// const show = (data) => {
-//   toast.add(data);
-// };
 
 const editProduct = async () => {
   await productStore.editProducts(id, product.value);
   router.push({ name: "Product" });
 };
 
-onMounted(() => {
+onBeforeMount(async () => {
+  await productStore.fetchProducts();
+  await categoryStore.fetchCategories();
   product.value = productStore.products.find((product) => product.id == id);
 });
 </script>
@@ -38,10 +28,15 @@ onMounted(() => {
   <div class="container">
     <!-- <Toast position="bottom-right" /> -->
     <h1>Edit product</h1>
-    <form v-if="product">
+    <form>
       <div class="input-container">
         <label for="name">Category</label>
-        <select name="name" v-model="product.categoryId" required>
+        <select
+          name="name"
+          v-model="product.categoryId"
+          required
+          class="select"
+        >
           <option
             v-for="category in categoryStore.categories"
             :value="category.id"
@@ -88,6 +83,9 @@ onMounted(() => {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin-top: 20px;
+}
+.select {
+  min-width: 300px;
 }
 .button {
   border: none;

@@ -76,11 +76,11 @@ const router = createRouter({
       name: "Cart",
     },
   ],
-  // scrollBehavior() {
-  //   return {
-  //     top: 0,
-  //   };
-  // },
+  scrollBehavior() {
+    return {
+      top: 0,
+    };
+  },
 });
 
 export default router;

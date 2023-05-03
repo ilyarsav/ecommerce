@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from "vue";
+import { ref, onMounted, onBeforeUnmount, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "../stores/cart";
 
@@ -39,9 +39,9 @@ const signOut = () => {
   router.push({ name: "Home" });
 };
 
-onMounted(() => {
+onBeforeMount(async () => {
   token.value = localStorage.getItem("token");
-  cartStore.getCartData(token.value);
+  await cartStore.getCartData(token.value);
   document.addEventListener("click", closeDropdownBrowse);
   document.addEventListener("click", closeDropdownAccount);
 });
