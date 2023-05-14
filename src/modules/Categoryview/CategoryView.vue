@@ -23,7 +23,7 @@ onMounted(() => {
 
     <div class="category-wrap">
       <div v-for="category of categoryStore.categories" :key="category.id">
-        <CategoryBox :category="category" />
+        <category-box :category="category" />
       </div>
     </div>
   </div>

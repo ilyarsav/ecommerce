@@ -22,7 +22,7 @@ onMounted(() => {
 
     <div class="product-wrap">
       <div v-for="product of productStore.products" :key="product.id">
-        <ProductBox :product="product" />
+        <product-box :product="product" />
       </div>
     </div>
   </div>

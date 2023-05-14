@@ -32,7 +32,7 @@ onMounted(() => {
       <h5>{{ msg }}</h5>
     </div>
     <div class="content" v-for="product of category.products" :key="product.id">
-      <ProductBox :product="product" />
+      <product-box :product="product" />
     </div>
   </div>
 </template>

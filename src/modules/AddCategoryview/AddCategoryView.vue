@@ -1,31 +1,14 @@
 <script setup>
 import { ref } from "vue";
 import { useCategoryStore } from "../../stores/category";
-import Toast from "primevue/toast";
-import { useToast } from "primevue/usetoast";
+import { useRouter } from "vue-router";
 
 const categoryStore = useCategoryStore();
+const router = useRouter();
 
 const categoryName = ref("");
 const description = ref("");
 const imageUrl = ref("");
-const toast = useToast();
-
-const successfullyAdded = {
-  severity: "success",
-  detail: "Category added successfully",
-  life: 3000,
-};
-
-const show = (data) => {
-  toast.add(data);
-};
-
-const closeModal = () => {
-  categoryName.value = "";
-  description.value = "";
-  imageUrl.value = "";
-};
 
 const addCategory = async () => {
   const newCategory = {
@@ -35,14 +18,12 @@ const addCategory = async () => {
   };
 
   await categoryStore.addCategories(newCategory);
-  show(successfullyAdded);
-  closeModal();
+  router.push({ name: "Category" });
 };
 </script>
 
 <template>
   <div class="container">
-    <Toast />
 
     <h1>Add category</h1>
     <form>

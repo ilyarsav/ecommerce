@@ -20,10 +20,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <HomeHeader />
-  <HomeCategories :filterCategories="categoryStore.filterCategories" />
+  <home-header />
+  <home-categories :filterCategories="categoryStore.filterCategories" />
   <hr />
-  <HomeProducts :filterProducts="productStore.filterProducts" />
+  <home-products :filterProducts="productStore.filterProducts" />
 </template>
 
 <style scoped></style>

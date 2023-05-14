@@ -1,14 +1,13 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import ProductBox from "../../components/ProductBox.vue";
 import { useWishlistStore } from "../../stores/wishlist";
 
-const wishlistStore = useWishlistStore()
-const token = ref("");
+const wishlistStore = useWishlistStore();
+const token = localStorage.getItem("token");
 
 onMounted(() => {
-  token.value = localStorage.getItem("token");
-  wishlistStore.fetchWishList(token.value)
+  wishlistStore.fetchWishList(token);
 });
 </script>
 
@@ -19,7 +18,7 @@ onMounted(() => {
     </div>
     <div class="content-wrap">
       <div v-for="product in wishlistStore.wishlist" :key="product.id">
-        <ProductBox :product="product" class="box" />
+        <product-box :product="product" class="box" />
       </div>
     </div>
   </div>

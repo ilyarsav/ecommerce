@@ -31,11 +31,11 @@ onMounted(() => {
           :key="cartItem.id"
           class="content-item"
         >
-          <CartImg :imageURL="cartItem.product.imageURL" />
+          <cart-img :imageURL="cartItem.product.imageURL" />
           <div class="information">
-            <CartName :cartItem="cartItem.product" />
-            <CartCostQuantity :cartItem="cartItem" />
-            <CartRemoveButton :id="cartItem.id" :token="token" />
+            <cart-name :cartItem="cartItem.product" />
+            <cart-cost-quantity :cartItem="cartItem" />
+            <cart-remove-button :id="cartItem.id" :token="token" />
           </div>
         </div>
         <div class="total-cost">

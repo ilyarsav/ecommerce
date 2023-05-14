@@ -41,17 +41,17 @@ onMounted(async () => {
 <template>
   <div class="container">
     <Toast position="bottom-right" />
-    <ShowDetailsImg :src="product.imageURL" />
+    <show-details-img :src="product.imageURL" />
     <div class="show-information-wrap">
-      <ShowDetailsInformation
+      <show-details-information
         :name="product.name"
         :categoryName="category.categoryName"
         :price="product.price"
         :description="product.description"
       />
-      <ShowDetailsCartBtn :token="token" @show="show" :id="id" />
-      <ShowDetailsFeatures />
-      <WishListBtn :token="token" :id="id" @show="show" />
+      <show-details-cart-btn :token="token" @show="show" :id="id" />
+      <show-details-features />
+      <wish-list-btn :token="token" :id="id" @show="show" />
     </div>
   </div>
 </template>
