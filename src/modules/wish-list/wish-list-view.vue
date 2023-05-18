@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 import ProductBox from "../../components/ProductBox.vue";
-import { useWishlistStore } from "../../stores/wishlist";
+import { useWishlistStore } from "./store/wish.list.store";
 
 const wishlistStore = useWishlistStore();
 const token = localStorage.getItem("token");

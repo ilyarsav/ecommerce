@@ -1,20 +1,19 @@
 <script setup>
 import { ref } from "vue";
-import { useWishlistStore } from "../../../stores/wishlist";
+import { useWishlistStore } from "../../wish-list/index";
 
 const props = defineProps(["token", "id"]);
 const emits = defineEmits(["show"]);
 const wishlistStore = useWishlistStore();
 const wishlistString = ref("Add to wishlist");
-const notifyText = {
-  severity: "info",
-  summary: "info",
-  detail: "please log in to add item to wishlist",
-};
 
 const addToWishlist = () => {
   if (!props.token) {
-    emits("show", notifyText);
+    emits("show", {
+      severity: "info",
+      summary: "info",
+      detail: "please log in to add item to wishlist",
+    });
     return;
   }
 

@@ -13,9 +13,6 @@ export const useProductStore = defineStore("product", () => {
     return products.value.filter((product, idx) => idx < 6);
   });
 
-  const returnProduct = computed(() => {
-    return 
-  });
   const fetchProducts = async () => {
     const res = await getProducts();
     products.value = res;

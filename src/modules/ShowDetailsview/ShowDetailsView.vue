@@ -13,10 +13,12 @@ import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
 
 // при обновлении данные пропадают
-const { products } = storeToRefs(useProductStore());
-const { fetchProducts } = useProductStore();
-const { categories } = storeToRefs(useCategoryStore());
-const { fetchCategories } = useCategoryStore();
+const productStore = useProductStore();
+const { products } = storeToRefs(productStore);
+const { fetchProducts } = productStore;
+const categoryStore = useCategoryStore();
+const { categories } = storeToRefs(categoryStore);
+const { fetchCategories } = categoryStore;
 const route = useRoute();
 const { id } = route.params;
 const product = ref({});

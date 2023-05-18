@@ -57,17 +57,17 @@ const router = createRouter({
     },
     {
       path: "/signup",
-      component: import("../modules/SignUpview/SignUpView.vue"),
+      component: import("../modules/sign-up/sign-up-view.vue"),
       name: "SignUp",
     },
     {
       path: "/signin",
-      component: import("../modules/SignInview/SignInView.vue"),
+      component: import("../modules/sign-in/sign-in-view.vue"),
       name: "SignIn",
     },
     {
       path: "/wishlist",
-      component: import("../modules/WishListview/WishListView.vue"),
+      component: import("../modules/wish-list/wish-list-view.vue"),
       name: "WishList",
     },
     {
