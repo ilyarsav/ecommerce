@@ -1,7 +1,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import { useCartStore } from "../../../stores/cart";
+import { useCartStore } from "../../cart/store/cart.store";
 
 const { cartItems, isAdded } = storeToRefs(useCartStore());
 const { appendToCart } = useCartStore();

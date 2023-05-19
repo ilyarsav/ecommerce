@@ -4,21 +4,21 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
-import ShowDetailsCartBtn from "./components/ShowDetailsCartBtn.vue";
-import ShowDetailsFeatures from "./components/ShowDetailsFeatures.vue";
-import ShowDetailsImg from "./components/ShowDetailsImg.vue";
-import ShowDetailsInformation from "./components/ShowDetailsInformation.vue";
-import WishListBtn from "./components/WishListBtn.vue";
+import ShowDetailsCartBtn from "./components/show-details-cart-btn.vue";
+import ShowDetailsFeatures from "./components/show-details-features.vue";
+import ShowDetailsImg from "./components/show-details-img.vue";
+import ShowDetailsInformation from "./components/show-details-information.vue";
+import WishListBtn from "./components/wish-list-button.vue";
 import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
 
-// при обновлении данные пропадают
 const productStore = useProductStore();
 const { products } = storeToRefs(productStore);
 const { fetchProducts } = productStore;
 const categoryStore = useCategoryStore();
 const { categories } = storeToRefs(categoryStore);
 const { fetchCategories } = categoryStore;
+
 const route = useRoute();
 const { id } = route.params;
 const product = ref({});

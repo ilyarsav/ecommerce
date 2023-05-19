@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
-import { addCartItem, deleteCartItem, fetchCartData } from "./cartServices";
+import { ref } from "vue";
+import {
+  addCartItem,
+  deleteCartItem,
+  fetchCartData,
+} from "../services/cart.services";
 
 export const useCartStore = defineStore("cart", () => {
   const cartItems = ref([]);
@@ -16,7 +20,6 @@ export const useCartStore = defineStore("cart", () => {
   const removeCartItem = async (itemId, token) => {
     await deleteCartItem(itemId, token);
     getCartData(token);
-    // не делать запрос, а просто обновить cartItems
   };
 
   const appendToCart = async (addObject, token) => {

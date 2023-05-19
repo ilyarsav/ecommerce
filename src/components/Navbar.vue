@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
-import { useCartStore } from "../stores/cart";
+import { useCartStore } from "../modules/cart/store/cart.store";
 
 const isOpenAccount = ref(false);
 const account = ref(null);
@@ -89,9 +89,9 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <div class="dropdown">
-        <a class="nav-item" @click="openDropdownAccount" ref="account"
-          >Account</a
-        >
+        <a class="nav-item" @click="openDropdownAccount" ref="account">
+          Account
+        </a>
 
         <div v-show="isOpenAccount">
           <ul class="menu">
@@ -116,7 +116,6 @@ onBeforeUnmount(() => {
           </ul>
         </div>
       </div>
-      <router-link :to="{ name: 'Admin' }" class="link">Admin</router-link>
       <div class="cart">
         <router-link :to="{ name: 'Cart' }">
           <span class="nav-cart-count" v-if="token">

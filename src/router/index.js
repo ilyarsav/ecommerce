@@ -9,21 +9,14 @@ const router = createRouter({
       name: "Home",
     },
     {
-      path: "/admin",
-      component: import("../modules/Adminview/AdminView.vue"),
-      name: "Admin",
-      children: [
-        {
-          path: "/admin/category",
-          component: import("../modules/Categoryview/CategoryView.vue"),
-          name: "Category",
-        },
-        {
-          path: "/admin/product",
-          component: import("../modules/Productview/ProductView.vue"),
-          name: "Product",
-        },
-      ],
+      path: "/category",
+      component: import("../modules/Categoryview/CategoryView.vue"),
+      name: "Category",
+    },
+    {
+      path: "/product",
+      component: import("../modules/Productview/ProductView.vue"),
+      name: "Product",
     },
     {
       path: "/admin/category/add",
@@ -47,7 +40,7 @@ const router = createRouter({
     },
     {
       path: "/product/show/:id",
-      component: import("../modules/ShowDetailsview/ShowDetailsView.vue"),
+      component: import("../modules/show-details/show-details-view.vue"),
       name: "ShowDetails",
     },
     {
@@ -72,7 +65,7 @@ const router = createRouter({
     },
     {
       path: "/cart",
-      component: import("../modules/Cartview/CartView.vue"),
+      component: import("../modules/cart/cart-view.vue"),
       name: "Cart",
     },
   ],

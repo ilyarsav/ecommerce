@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseURL } from "./url";
+import { baseURL } from "../../../stores/url";
 
 export const fetchCartData = async (token) => {
   try {

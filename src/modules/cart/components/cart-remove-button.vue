@@ -1,11 +1,9 @@
 <script setup>
-import { useCartStore } from "../../../stores/cart";
-
 const props = defineProps(["id", "token"]);
-const { removeCartItem } = useCartStore();
+const emits = defineEmits(["removeCartItem"]);
 
 const deleteItem = (itemId) => {
-  removeCartItem(itemId, props.token);
+  emits("removeCartItem", itemId, props.token);
 };
 </script>
 

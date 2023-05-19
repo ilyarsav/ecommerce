@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { appendToWishlist, getWishList } from "../services/wish.list.services";
 
 export const useWishlistStore = defineStore("wishlist", () => {

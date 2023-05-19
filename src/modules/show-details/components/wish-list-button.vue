@@ -4,6 +4,7 @@ import { useWishlistStore } from "../../wish-list/index";
 
 const props = defineProps(["token", "id"]);
 const emits = defineEmits(["show"]);
+
 const wishlistStore = useWishlistStore();
 const wishlistString = ref("Add to wishlist");
 
