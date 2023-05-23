@@ -5,37 +5,37 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      component: import("../modules/Homeview/HomeView.vue"),
+      component: import("../modules/home/home-view.vue"),
       name: "Home",
     },
     {
       path: "/category",
-      component: import("../modules/Categoryview/CategoryView.vue"),
+      component: import("../modules/category/category-view.vue"),
       name: "Category",
     },
     {
       path: "/product",
-      component: import("../modules/Productview/ProductView.vue"),
+      component: import("../modules/product/product-view.vue"),
       name: "Product",
     },
     {
       path: "/admin/category/add",
-      component: import("../modules/AddCategoryview/AddCategoryView.vue"),
+      component: import("../modules/add-category/add-category-view.vue"),
       name: "AddCategory",
     },
     {
       path: "/admin/product/add",
-      component: import("../modules/AddProductview/AddProductView.vue"),
+      component: import("../modules/add-product/add-product-view.vue"),
       name: "AddProduct",
     },
     {
       path: "/admin/category/:id",
-      component: import("../modules/EditCategoryview/EditCategoryView.vue"),
+      component: import("../modules/edit-category/edit-category-view.vue"),
       name: "EditCategory",
     },
     {
       path: "/admin/product/:id",
-      component: import("../modules/EditProductview/EditProductView.vue"),
+      component: import("../modules/edit-product/edit-product-view.vue"),
       name: "EditProduct",
     },
     {
@@ -45,7 +45,7 @@ const router = createRouter({
     },
     {
       path: "/category/show/:id",
-      component: import("../modules/ListProductsview/ListProductsView.vue"),
+      component: import("../modules/list-products/list-products-view.vue"),
       name: "ListProducts",
     },
     {

@@ -1,20 +1,20 @@
 <script setup>
-import Footer from "./components/Footer.vue";
-import Navbar from "./components/Navbar.vue";
-import "primevue/resources/themes/lara-light-indigo/theme.css";     
+import "primevue/resources/themes/lara-light-indigo/theme.css";
 import "primevue/resources/primevue.min.css";
+import BaseNavbar from "./components/base-navbar.vue";
+import BaseFooter from "./components/base-footer.vue";
 </script>
 
 <template>
   <div class="container">
     <div class="nav">
-      <Navbar />
+      <base-navbar />
     </div>
     <div class="content">
       <router-view />
     </div>
     <div class="footer">
-      <Footer></Footer>
+      <base-footer />
     </div>
   </div>
 </template>

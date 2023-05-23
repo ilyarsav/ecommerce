@@ -40,8 +40,9 @@ onMounted(() => {
 <style scoped>
 .container {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
   padding: 20px;
 }
 .header-text {

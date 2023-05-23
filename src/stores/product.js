@@ -8,10 +8,15 @@ import {
 
 export const useProductStore = defineStore("product", () => {
   const products = ref([]);
+  const id = ref(null);
 
   const filterProducts = computed(() => {
     return products.value.filter((product, idx) => idx < 6);
   });
+
+  const addId = (newID) => {
+    id.value = +newID;
+  };
 
   const fetchProducts = async () => {
     const res = await getProducts();
@@ -28,6 +33,8 @@ export const useProductStore = defineStore("product", () => {
 
   return {
     products,
+    id,
+    addId,
     fetchProducts,
     editProducts,
     addProducts,

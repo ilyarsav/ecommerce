@@ -1,52 +1,53 @@
 <script setup>
 import { storeToRefs } from "pinia";
+import Button from "primevue/button";
+import InputText from "primevue/inputtext";
 import { ref } from "vue";
 import { useCartStore } from "../../cart/store/cart.store";
 
-const { cartItems, isAdded } = storeToRefs(useCartStore());
-const { appendToCart } = useCartStore();
+const cartStore = useCartStore();
+const { cartItems, isAdded } = storeToRefs(cartStore);
+const { appendToCart } = cartStore;
+
 const props = defineProps(["token", "id"]);
 const emits = defineEmits(["show"]);
 const quantity = ref(1);
 
-const productAdded = {
-  severity: "success",
-  summary: "success",
-  detail: "Product added to cart",
-  life: 3000,
-};
-const productWasAdded = {
-  severity: "info",
-  summary: "info",
-  detail: "You added this product to cart earlier",
-  life: 3000,
-};
-const notifyText = {
-  severity: "info",
-  summary: "info",
-  detail: "please log in to add item to cart",
-  life: 3000,
-};
-
 const addToCart = async () => {
   if (!props.token) {
-    emits("show", notifyText);
+    emits("show", {
+      severity: "info",
+      summary: "info",
+      detail: "please log in to add item to cart",
+      life: 3000,
+    });
     return;
   }
 
-  const addObject = {
-    productId: props.id,
-    quantity: quantity.value,
-  };
-
-  if (!cartItems.value.some((elem) => elem.product.id == addObject.productId)) {
-    await appendToCart(addObject, props.token).then(() => {
+  if (!cartItems.value.some((elem) => elem.product.id == props.id)) {
+    await appendToCart(
+      {
+        productId: props.id,
+        quantity: quantity.value,
+      },
+      props.token
+    ).then(() => {
       if (isAdded.value) {
-        emits("show", productAdded);
+        emits("show", {
+          severity: "success",
+          summary: "success",
+          detail: "Product added to cart",
+          life: 3000,
+        });
       }
     });
   } else {
-    emits("show", productWasAdded);
+    emits("show", {
+      severity: "info",
+      summary: "info",
+      detail: "You added this product to cart earlier",
+      life: 3000,
+    });
   }
 };
 </script>
@@ -54,12 +55,10 @@ const addToCart = async () => {
 <template>
   <div class="add-to-cart-wrap">
     <div class="add-to-cart-quantity">
-      <div class="quantity-wrap">
-        <span>Quantity</span>
-      </div>
-      <input type="number" v-model="quantity" />
+      <span class="quantity-span">Quantity</span>
+      <InputText type="number" v-model="quantity" class="quantity" />
     </div>
-    <button class="add-to-cart-btn" @click="addToCart()">Add to cart</button>
+    <Button class="add-to-cart-btn" @click="addToCart()">Add to cart</Button>
   </div>
 </template>
 
@@ -76,15 +75,16 @@ const addToCart = async () => {
   width: 50px;
   height: 100%;
 }
-.quantity-wrap {
-  padding: 10px;
+.quantity-span {
   background-color: rgb(255, 175, 69);
+  padding: 15px 8px;
+  border-radius: 5%;
 }
 .add-to-cart-btn {
-  padding: 10px;
   border: none;
-  background-color: rgb(192, 4, 4);
-  color: white;
-  cursor: pointer;
+  background-color: var(--red-500);
+}
+.add-to-cart-btn:hover {
+  background-color: var(--red-600);
 }
 </style>

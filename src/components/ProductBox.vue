@@ -1,7 +1,10 @@
 <script setup>
+import Button from "primevue/button";
 import { useRoute } from "vue-router";
+import { useProductStore } from "../stores/product";
 
 const props = defineProps(["product"]);
+const { addId } = useProductStore();
 
 const route = useRoute();
 </script>
@@ -9,10 +12,18 @@ const route = useRoute();
 <template>
   <div class="card">
     <div>
-      <img class="card-image" :src="props.product.imageURL" alt="Card image cap" />
+      <img
+        class="card-image"
+        :src="props.product.imageURL"
+        alt="Card image cap"
+      />
     </div>
     <div class="card-body">
-      <router-link :to="{ name: 'ShowDetails', params: { id: props.product.id } }" class="card-title">
+      <router-link
+        :to="{ name: 'ShowDetails', params: { id: props.product.id } }"
+        class="card-title"
+        @click="addId(props.product.id)"
+      >
         <h3 class="card-title">{{ props.product.name }}</h3>
       </router-link>
 
@@ -25,8 +36,9 @@ const route = useRoute();
       <router-link
         :to="{ name: 'EditProduct', params: { id: props.product.id } }"
         v-show="route.name === 'Product'"
+        @click="addId(props.product.id)"
       >
-        <button class="card-button">Edit</button>
+        <Button label="Edit" class="card-button" />
       </router-link>
     </div>
   </div>
@@ -54,11 +66,10 @@ const route = useRoute();
 }
 .card-button {
   border: none;
-  padding: 15px 10px;
-  background-color: rgb(192, 4, 4);
-  color: white;
-  cursor: pointer;
-  margin-bottom: 15px;
+  background-color: var(--red-600);
+}
+.card-button:hover {
+  background-color: var(--red-700);
 }
 .card-title {
   margin: 15px auto;

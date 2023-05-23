@@ -2,9 +2,9 @@
 import { onMounted } from "vue";
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
-import HomeCategories from "./components/HomeCategories.vue";
-import HomeHeader from "./components/HomeHeader.vue";
-import HomeProducts from "./components/HomeProducts.vue";
+import HomeCategories from "./components/home-categories.vue";
+import HomeHeader from "./components/home-header.vue";
+import HomeProducts from "./components/home-products.vue";
 
 const categoryStore = useCategoryStore();
 const productStore = useProductStore();

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useWishlistStore } from "../../wish-list/index";
+import Button from "primevue/button";
 
 const props = defineProps(["token", "id"]);
 const emits = defineEmits(["show"]);
@@ -27,17 +28,14 @@ const addToWishlist = () => {
 </script>
 
 <template>
-  <button class="wishlist-button" @click="addToWishlist()">
+  <Button class="wishlist-button" @click="addToWishlist()">
     {{ wishlistString }}
-  </button>
+  </Button>
 </template>
 
 <style scoped>
 .wishlist-button {
   padding: 12px 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: rgb(173, 173, 173);
   cursor: pointer;
 }
 </style>

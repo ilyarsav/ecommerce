@@ -21,10 +21,11 @@ const { fetchCategories } = categoryStore;
 
 const route = useRoute();
 const { id } = route.params;
-const product = ref({});
-const category = ref({});
 const token = localStorage.getItem("token");
 const toast = useToast();
+
+const product = ref({});
+const category = ref({});
 
 const show = (data) => {
   toast.add(data);
@@ -41,8 +42,8 @@ onMounted(async () => {
 </script>
 
 <template>
+  <Toast position="bottom-right" />
   <div class="container">
-    <Toast position="bottom-right" />
     <show-details-img :src="product.imageURL" />
     <div class="show-information-wrap">
       <show-details-information

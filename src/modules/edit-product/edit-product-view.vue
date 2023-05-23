@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useCategoryStore } from "../../stores/category";
 import { useProductStore } from "../../stores/product";
@@ -17,7 +17,7 @@ const editProduct = async () => {
   router.push({ name: "Product" });
 };
 
-onBeforeMount(async () => {
+onMounted(async () => {
   await productStore.fetchProducts();
   await categoryStore.fetchCategories();
   product.value = productStore.products.find((product) => product.id == id);
