@@ -13,8 +13,13 @@ export const useCartStore = defineStore("cart", () => {
 
   const getCartData = async (token) => {
     const responce = await fetchCartData(token);
-    cartItems.value = responce.cartItems;
-    totalCost.value = responce.totalCost;
+
+    if (responce?.status == 200) {
+      cartItems.value = responce.data.cartItems;
+      totalCost.value = responce.data.totalCost;
+    } else {
+      console.log("error in category store");
+    }
   };
 
   const removeCartItem = async (itemId, token) => {

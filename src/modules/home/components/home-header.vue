@@ -3,7 +3,7 @@
     <div class="header-container">
       <header class="header">
         <h3>
-          <a href="#start-shopping">Start shopping</a>
+          <!-- <a href="#start-shopping">Start shopping</a> -->
           <p>Demo Ecommerce</p>
         </h3>
       </header>

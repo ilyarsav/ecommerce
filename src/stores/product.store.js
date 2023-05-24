@@ -4,23 +4,23 @@ import {
   appendToProducts,
   getProducts,
   updateProducts,
-} from "./productServices";
+} from "../services/product.services";
 
 export const useProductStore = defineStore("product", () => {
   const products = ref([]);
-  const id = ref(null);
 
   const filterProducts = computed(() => {
     return products.value.filter((product, idx) => idx < 6);
   });
 
-  const addId = (newID) => {
-    id.value = +newID;
-  };
-
   const fetchProducts = async () => {
     const res = await getProducts();
-    products.value = res;
+
+    if (res?.status == 200) {
+      products.value = res.data;
+    } else {
+      console.log("error in product store");
+    }
   };
 
   const editProducts = async (id, product) => {
@@ -33,8 +33,6 @@ export const useProductStore = defineStore("product", () => {
 
   return {
     products,
-    id,
-    addId,
     fetchProducts,
     editProducts,
     addProducts,

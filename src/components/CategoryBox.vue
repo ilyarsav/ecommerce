@@ -1,4 +1,5 @@
 <script setup>
+import Button from "primevue/button";
 import { useRoute } from "vue-router";
 
 defineProps(["category"]);
@@ -25,7 +26,7 @@ const route = useRoute();
         :to="{ name: 'EditCategory', params: { id: category.id } }"
         v-show="route.name === 'Category'"
       >
-        <button class="card-button">Edit</button>
+        <Button label="Edit" class="card-button" />
       </router-link>
     </div>
   </div>
@@ -53,11 +54,10 @@ const route = useRoute();
 }
 .card-button {
   border: none;
-  padding: 15px 10px;
-  background-color: rgb(192, 4, 4);
-  color: white;
-  cursor: pointer;
-  margin-bottom: 15px;
+  background-color: var(--red-600);
+}
+.card-button:hover {
+  background-color: var(--red-700);
 }
 .card-title {
   margin-top: 10px;

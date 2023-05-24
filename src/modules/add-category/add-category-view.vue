@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useCategoryStore } from "../../stores/category";
+import { useCategoryStore } from "../../stores/category.store";
 import { useRouter } from "vue-router";
 
 const categoryStore = useCategoryStore();
@@ -24,7 +24,6 @@ const addCategory = async () => {
 
 <template>
   <div class="container">
-
     <h1>Add category</h1>
     <form>
       <div class="input-container">

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useCategoryStore } from "../../stores/category";
+import { useCategoryStore } from "../../stores/category.store";
 
 const categoryStore = useCategoryStore();
 const category = ref({});

@@ -1,11 +1,8 @@
-import axios from "axios";
-import { baseURL } from "../../../stores/url";
+import { globalApi } from "../../../api";
 
 export const addUser = async (user) => {
   try {
-    await axios.post(`${baseURL}/user/signup`, user, {
-      headers: { "Content-Type": "application/json" },
-    });
+    await globalApi.post(`/user/signup`, user);
   } catch (error) {
     console.log(`ERROR: ${error}`);
   }

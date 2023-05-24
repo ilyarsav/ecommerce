@@ -1,14 +1,13 @@
 <script setup>
 import { onMounted } from "vue";
 import CategoryBox from "../../components/CategoryBox.vue";
-import { useCategoryStore } from "../../stores/category";
+import { useCategoryStore } from "../../stores/category.store";
 
 const categoryStore = useCategoryStore();
 
 onMounted(() => {
   categoryStore.fetchCategories();
 });
-
 </script>
 
 <template>

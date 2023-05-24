@@ -1,11 +1,8 @@
-import axios from "axios";
-import { baseURL } from "../../../stores/url";
+import { globalApi } from "../../../api";
 
 export const fetchCartData = async (token) => {
   try {
-    const { data } = await axios.get(`${baseURL}/cart/?token=${token}`);
-
-    return data;
+    return await globalApi.get(`/cart/?token=${token}`);
   } catch (error) {
     console.log(`ERROR: ${error}`);
   }
@@ -13,7 +10,7 @@ export const fetchCartData = async (token) => {
 
 export const deleteCartItem = async (itemId, token) => {
   try {
-    await axios.delete(`${baseURL}/cart/delete/${itemId}?token=${token}`);
+    await globalApi.delete(`/cart/delete/${itemId}?token=${token}`);
   } catch (error) {
     console.log(`ERROR: ${error}`);
   }
@@ -21,16 +18,7 @@ export const deleteCartItem = async (itemId, token) => {
 
 export const addCartItem = async (addObject, token) => {
   try {
-    const res = await axios.post(
-      `${baseURL}/cart/add?token=${token}`,
-      addObject,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
+    const res = await globalApi.post(`/cart/add?token=${token}`, addObject);
     return res;
   } catch (error) {
     console.log(`ERROR: ${error}`);

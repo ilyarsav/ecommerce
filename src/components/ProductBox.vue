@@ -1,7 +1,7 @@
 <script setup>
 import Button from "primevue/button";
 import { useRoute } from "vue-router";
-import { useProductStore } from "../stores/product";
+import { useProductStore } from "../stores/product.store";
 
 const props = defineProps(["product"]);
 const { addId } = useProductStore();

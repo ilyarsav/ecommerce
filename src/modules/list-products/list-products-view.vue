@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import ProductBox from "../../components/ProductBox.vue";
-import { useCategoryStore } from "../../stores/category";
+import { useCategoryStore } from "../../stores/category.store";
 
 const categoryStore = useCategoryStore();
 const route = useRoute();
@@ -10,7 +10,8 @@ const { id } = route.params;
 const category = ref({});
 const msg = ref(null);
 
-onMounted(() => {
+onMounted(async () => {
+  await categoryStore.fetchCategories();
   category.value = categoryStore.categories.find(
     (category) => category.id == id
   );
@@ -31,8 +32,12 @@ onMounted(() => {
       <h4>{{ category.categoryName }}</h4>
       <h5>{{ msg }}</h5>
     </div>
-    <div class="content" v-for="product of category.products" :key="product.id">
-      <product-box :product="product" />
+    <div class="content">
+      <product-box
+        :product="product"
+        v-for="product of category.products"
+        :key="product.id"
+      />
     </div>
   </div>
 </template>
@@ -41,7 +46,7 @@ onMounted(() => {
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
   flex-wrap: wrap;
   padding: 20px;
 }
@@ -56,5 +61,10 @@ onMounted(() => {
   font-size: 18px;
   font-weight: normal;
   margin-bottom: 20px;
+}
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 </style>

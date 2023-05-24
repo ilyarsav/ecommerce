@@ -9,6 +9,11 @@ export const useWishlistStore = defineStore("wishlist", () => {
   const fetchWishList = async (token) => {
     const res = await getWishList(token);
     wishlist.value = res;
+    if (res?.status == 200) {
+      wishlist.value = res.data;
+    } else {
+      console.log("error in wishlist store");
+    }
   };
 
   const addProductToWishlist = async (token, id) => {

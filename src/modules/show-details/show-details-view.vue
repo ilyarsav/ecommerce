@@ -2,8 +2,8 @@
 import { storeToRefs } from "pinia";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import { useCategoryStore } from "../../stores/category";
-import { useProductStore } from "../../stores/product";
+import { useCategoryStore } from "../../stores/category.store";
+import { useProductStore } from "../../stores/product.store";
 import ShowDetailsCartBtn from "./components/show-details-cart-btn.vue";
 import ShowDetailsFeatures from "./components/show-details-features.vue";
 import ShowDetailsImg from "./components/show-details-img.vue";
