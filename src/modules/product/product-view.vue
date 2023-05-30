@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import ProductBox from "../../components/ProductBox.vue";
 import { useProductStore } from "../../stores/product.store";
+import Button from "primevue/button";
 
 const productStore = useProductStore();
 
@@ -16,7 +17,7 @@ onMounted(() => {
 
     <div class="button-wrap">
       <router-link :to="{ name: 'AddProduct' }">
-        <button class="button">Add product</button>
+        <Button label="Add product" class="button" />
       </router-link>
     </div>
 
@@ -36,6 +37,7 @@ onMounted(() => {
 }
 .container {
   margin-top: 80px;
+  padding: 20px;
 }
 .container h1 {
   font-family: Arial, Helvetica, sans-serif;
@@ -45,13 +47,14 @@ onMounted(() => {
 .button-wrap {
   display: flex;
   justify-content: end;
+  margin-bottom: 20px;
 }
 .button {
+  margin: auto;
   border: none;
-  padding: 15px 10px;
-  background-color: rgb(192, 4, 4);
-  color: white;
-  cursor: pointer;
-  margin-bottom: 15px;
+  background-color: var(--red-600);
+}
+.button:hover {
+  background-color: var(--red-700);
 }
 </style>

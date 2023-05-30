@@ -13,19 +13,16 @@ import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
 
 const productStore = useProductStore();
-const { products } = storeToRefs(productStore);
-const { fetchProducts } = productStore;
+const { product } = storeToRefs(productStore);
+const { fetchProducts, findProduct } = productStore;
 const categoryStore = useCategoryStore();
-const { categories } = storeToRefs(categoryStore);
-const { fetchCategories } = categoryStore;
+const { category } = storeToRefs(categoryStore);
+const { fetchCategories, findCategory } = categoryStore;
 
 const route = useRoute();
 const { id } = route.params;
 const token = localStorage.getItem("token");
 const toast = useToast();
-
-const product = ref({});
-const category = ref({});
 
 const show = (data) => {
   toast.add(data);
@@ -34,10 +31,8 @@ const show = (data) => {
 onMounted(async () => {
   await fetchProducts();
   await fetchCategories();
-  product.value = products.value.find((product) => product.id == id);
-  category.value = categories.value.find(
-    (category) => category.id == product.value.categoryId
-  );
+  findProduct();
+  findCategory();
 });
 </script>
 

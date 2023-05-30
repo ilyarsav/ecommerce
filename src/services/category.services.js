@@ -8,14 +8,6 @@ export const getCategories = async () => {
   }
 };
 
-export const updateCategories = async (category, id) => {
-  try {
-    await globalApi.post(`/category/update/${id}`, category);
-  } catch (error) {
-    console.log(`ERROR: ${error}`);
-  }
-};
-
 export const appendToCategories = async (newCategory) => {
   try {
     await globalApi.post(`/category/create`, newCategory);

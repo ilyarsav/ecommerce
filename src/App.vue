@@ -1,7 +1,7 @@
 <script setup>
 import "primevue/resources/themes/lara-light-indigo/theme.css";
 import "primevue/resources/primevue.min.css";
-import BaseNavbar from "./components/base-navbar.vue";
+import BaseNavbar from "./modules/navbar/navbar.vue";
 import BaseFooter from "./components/base-footer.vue";
 </script>
 

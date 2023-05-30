@@ -1,47 +1,48 @@
 <script setup>
 import Button from "primevue/button";
+import Card from "primevue/card";
 import { useRoute } from "vue-router";
 import { useProductStore } from "../stores/product.store";
 
 const props = defineProps(["product"]);
-const { addId } = useProductStore();
 
 const route = useRoute();
 </script>
 
 <template>
-  <div class="card">
-    <div>
+  <Card class="card">
+    <template #header>
       <img
         class="card-image"
         :src="props.product.imageURL"
         alt="Card image cap"
       />
-    </div>
-    <div class="card-body">
+    </template>
+    <template #title>
       <router-link
         :to="{ name: 'ShowDetails', params: { id: props.product.id } }"
         class="card-title"
-        @click="addId(props.product.id)"
       >
         <h3 class="card-title">{{ props.product.name }}</h3>
       </router-link>
-
+    </template>
+    <template #content>
       <p class="card-price" v-show="route.name === 'Home'">
         ${{ props.product.price }}
       </p>
       <p class="card-text">
         {{ props.product.description }}
       </p>
+    </template>
+    <template #footer>
       <router-link
         :to="{ name: 'EditProduct', params: { id: props.product.id } }"
         v-show="route.name === 'Product'"
-        @click="addId(props.product.id)"
       >
         <Button label="Edit" class="card-button" />
       </router-link>
-    </div>
-  </div>
+    </template>
+  </Card>
 </template>
 
 <style scoped>

@@ -1,7 +1,10 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, onBeforeMount } from "vue";
+import { ref, onMounted, onBeforeUnmount, onBeforeMount, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useCartStore } from "../modules/cart/store/cart.store";
+import { useCartStore } from "../cart/store/cart.store";
+import Menubar from "primevue/menubar";
+import "primeicons/primeicons.css";
+import { PrimeIcons } from "primevue/api";
 
 const isOpenAccount = ref(false);
 const account = ref(null);
@@ -12,6 +15,8 @@ const browse = ref(null);
 const token = ref("");
 const cartStore = useCartStore();
 const router = useRouter();
+
+const authorized = computed(() => (token ? true : false));
 
 const openDropdownAccount = () => {
   isOpenAccount.value = !isOpenAccount.value;
@@ -39,6 +44,51 @@ const signOut = () => {
   router.push({ name: "Home" });
 };
 
+// const items = ref([
+//   {
+//     label: "Browse",
+//     items: [
+//       {
+//         label: "Products",
+//         to: "/product",
+//       },
+//       {
+//         label: "Categories",
+//         to: "/category",
+//       },
+//     ],
+//   },
+//   {
+//     label: "Account",
+//     items: [
+//       {
+//         label: "WishList",
+//         to: "/wishlist",
+//       },
+//       {
+//         label: "SignIn",
+//         to: "/signin",
+//       },
+//       {
+//         label: "SignUp",
+//         to: "/Signup",
+//       },
+//       {
+//         label: "SignOut",
+
+//         command: () => {
+//           signOut();
+//         },
+//       },
+//     ],
+//   },
+//   {
+//     label: "Cart",
+//     icon: PrimeIcons.SHOPPING_CART,
+//     to: "/cart",
+//   },
+// ]);
+
 onBeforeMount(async () => {
   token.value = localStorage.getItem("token");
   await cartStore.getCartData(token.value);
@@ -53,8 +103,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <!-- <Menubar :model="items">
+    <template #start>
+      <router-link :to="{ name: 'Home' }" class="link">LOGO</router-link>
+    </template>
+  </Menubar> -->
   <div class="container">
-    {{ account }}
     <div class="logo navbar-item">
       <router-link :to="{ name: 'Home' }" class="link">LOGO</router-link>
     </div>
@@ -147,7 +201,6 @@ onBeforeUnmount(() => {
 }
 
 .link {
-  color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 800;
   text-decoration: none;

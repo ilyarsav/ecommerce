@@ -3,18 +3,16 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import ProductBox from "../../components/ProductBox.vue";
 import { useCategoryStore } from "../../stores/category.store";
+import { storeToRefs } from "pinia";
 
 const categoryStore = useCategoryStore();
-const route = useRoute();
-const { id } = route.params;
-const category = ref({});
+const { category } = storeToRefs(categoryStore);
+const { findCategory } = categoryStore;
 const msg = ref(null);
 
 onMounted(async () => {
   await categoryStore.fetchCategories();
-  category.value = categoryStore.categories.find(
-    (category) => category.id == id
-  );
+  findCategory();
 
   if (category.value.products == 0) {
     msg.value = "no products";
