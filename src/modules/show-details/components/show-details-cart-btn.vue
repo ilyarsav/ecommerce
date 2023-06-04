@@ -6,7 +6,7 @@ import { ref } from "vue";
 import { useCartStore } from "../../cart/store/cart.store";
 
 const cartStore = useCartStore();
-const { cartItems, isAdded } = storeToRefs(cartStore);
+const { cartItems, isAdded, cartLoading } = storeToRefs(cartStore);
 const { appendToCart } = cartStore;
 
 const props = defineProps(["token", "id"]);
@@ -58,7 +58,13 @@ const addToCart = async () => {
       <span class="quantity-span">Quantity</span>
       <InputText type="number" v-model="quantity" class="quantity" />
     </div>
-    <Button class="add-to-cart-btn" @click="addToCart()">Add to cart</Button>
+    <Button
+      type="button"
+      label="Add to cart"
+      :loading="cartLoading"
+      class="add-to-cart-btn"
+      @click="addToCart()"
+    />
   </div>
 </template>
 

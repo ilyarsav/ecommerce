@@ -11,12 +11,14 @@ import ShowDetailsInformation from "./components/show-details-information.vue";
 import WishListBtn from "./components/wish-list-button.vue";
 import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
+import ProgressSpinner from "primevue/progressspinner";
 
 const productStore = useProductStore();
-const { product } = storeToRefs(productStore);
+const { product, productLoading } = storeToRefs(productStore);
 const { fetchProducts, findProduct } = productStore;
+
 const categoryStore = useCategoryStore();
-const { category } = storeToRefs(categoryStore);
+const { category, categoryLoading } = storeToRefs(categoryStore);
 const { fetchCategories, findCategory } = categoryStore;
 
 const route = useRoute();
@@ -38,14 +40,17 @@ onMounted(async () => {
 
 <template>
   <Toast position="bottom-right" />
-  <div class="container">
-    <show-details-img :src="product.imageURL" />
+  <div class="spinner-wrap" v-if="categoryLoading && productLoading">
+    <ProgressSpinner />
+  </div>
+  <div class="container" v-else>
+    <show-details-img :src="product?.imageURL" />
     <div class="show-information-wrap">
       <show-details-information
-        :name="product.name"
-        :categoryName="category.categoryName"
-        :price="product.price"
-        :description="product.description"
+        :name="product?.name"
+        :categoryName="category?.categoryName"
+        :price="product?.price"
+        :description="product?.description"
       />
       <show-details-cart-btn :token="token" @show="show" :id="id" />
       <show-details-features />
@@ -62,5 +67,11 @@ onMounted(async () => {
 }
 .show-information-wrap {
   margin-left: 40px;
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>

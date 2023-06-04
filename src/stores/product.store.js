@@ -18,6 +18,7 @@ export const useProductStore = defineStore("product", () => {
   const router = useRouter();
   const route = useRoute();
   const { id } = route.params;
+  const productLoading = ref(false);
 
   const filterProducts = computed(() => {
     return products.value.filter((product, idx) => idx < 6);
@@ -28,6 +29,7 @@ export const useProductStore = defineStore("product", () => {
   };
 
   const fetchProducts = async () => {
+    productLoading.value = true;
     const res = await getProducts();
 
     if (res?.status == 200) {
@@ -35,6 +37,7 @@ export const useProductStore = defineStore("product", () => {
     } else {
       console.log("error in product store");
     }
+    productLoading.value = false;
   };
 
   const editProducts = async (e) => {
@@ -47,18 +50,14 @@ export const useProductStore = defineStore("product", () => {
   const addProducts = async (e) => {
     e.preventDefault();
 
-    try {
-      await appendToProducts({
-        categoryId: categoryId.value,
-        name: name.value,
-        description: description.value,
-        imageURl: imageURl.value,
-        price: price.value,
-      });
-      router.push({ name: "Product" });
-    } catch (error) {
-      console.log("error in add products ", error);
-    }
+    await appendToProducts({
+      categoryId: categoryId.value,
+      name: name.value,
+      description: description.value,
+      imageURl: imageURl.value,
+      price: price.value,
+    });
+    router.push({ name: "Product" });
   };
 
   return {
@@ -69,6 +68,7 @@ export const useProductStore = defineStore("product", () => {
     description,
     imageURl,
     price,
+    productLoading,
     findProduct,
     fetchProducts,
     editProducts,

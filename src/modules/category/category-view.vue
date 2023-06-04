@@ -2,21 +2,29 @@
 import { onMounted } from "vue";
 import CategoryBox from "../../components/CategoryBox.vue";
 import { useCategoryStore } from "../../stores/category.store";
+import Button from "primevue/button";
+import ProgressSpinner from "primevue/progressspinner";
+import { storeToRefs } from "pinia";
 
 const categoryStore = useCategoryStore();
+const { categoryLoading } = storeToRefs(categoryStore);
+const { fetchCategories } = categoryStore;
 
 onMounted(() => {
-  categoryStore.fetchCategories();
+  fetchCategories();
 });
 </script>
 
 <template>
-  <div class="container">
+  <div class="spinner-wrap" v-if="categoryLoading">
+    <ProgressSpinner />
+  </div>
+  <div class="container" v-else>
     <h1>Our categories</h1>
 
     <div class="button-wrap">
       <router-link :to="{ name: 'AddCategory' }">
-        <button class="button">Add category</button>
+        <Button label="Add category" class="button" />
       </router-link>
     </div>
 
@@ -47,11 +55,17 @@ onMounted(() => {
   justify-content: end;
 }
 .button {
+  margin: 20px;
   border: none;
-  padding: 15px 10px;
-  background-color: rgb(192, 4, 4);
-  color: white;
-  cursor: pointer;
-  margin-bottom: 15px;
+  background-color: var(--red-600);
+}
+.button:hover {
+  background-color: var(--red-700);
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>

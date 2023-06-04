@@ -3,16 +3,23 @@ import { onMounted } from "vue";
 import ProductBox from "../../components/ProductBox.vue";
 import { useProductStore } from "../../stores/product.store";
 import Button from "primevue/button";
+import ProgressSpinner from "primevue/progressspinner";
+import { storeToRefs } from "pinia";
 
 const productStore = useProductStore();
+const { productLoading } = storeToRefs(productStore);
+const { fetchProducts } = productStore;
 
 onMounted(() => {
-  productStore.fetchProducts();
+  fetchProducts();
 });
 </script>
 
 <template>
-  <div class="container">
+  <div class="spinner-wrap" v-if="productLoading">
+    <ProgressSpinner />
+  </div>
+  <div class="container" v-else>
     <h1>Our products</h1>
 
     <div class="button-wrap">
@@ -56,5 +63,11 @@ onMounted(() => {
 }
 .button:hover {
   background-color: var(--red-700);
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>

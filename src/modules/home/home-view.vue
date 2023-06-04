@@ -21,9 +21,9 @@ onMounted(() => {
 
 <template>
   <home-header />
-  <home-categories :filterCategories="categoryStore.filterCategories" />
+  <home-categories :categoryStore="categoryStore" />
   <hr />
-  <home-products :filterProducts="productStore.filterProducts" />
+  <home-products :productStore="productStore" />
 </template>
 
 <style scoped></style>

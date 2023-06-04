@@ -1,18 +1,24 @@
 <script setup>
-import ProductBox from '../../../components/ProductBox.vue';
+import ProgressSpinner from "primevue/progressspinner";
+import ProductBox from "../../../components/ProductBox.vue";
+import { storeToRefs } from "pinia";
 
-const props = defineProps(["filterProducts"]);
+const props = defineProps(["productStore"]);
+const { filterProducts, productLoading } = storeToRefs(props.productStore);
 </script>
 
 <template>
-  <div class="section-wrap propucts">
+  <div class="spinner-wrap" v-if="productLoading">
+    <ProgressSpinner />
+  </div>
+  <div class="section-wrap propucts" v-else>
     <div class="top-header">
       <h2>Top products</h2>
     </div>
     <div class="top-content">
       <div
         class="box-wrap"
-        v-for="filteredProduct in props.filterProducts"
+        v-for="filteredProduct in filterProducts"
         :key="filteredProduct.id"
       >
         <ProductBox :product="filteredProduct" />
@@ -33,5 +39,9 @@ const props = defineProps(["filterProducts"]);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
 }
 </style>

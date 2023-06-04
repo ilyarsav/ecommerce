@@ -2,22 +2,29 @@
 import { onMounted } from "vue";
 import ProductBox from "../../components/ProductBox.vue";
 import { useWishlistStore } from "./store/wish.list.store";
+import ProgressSpinner from "primevue/progressspinner";
+import { storeToRefs } from "pinia";
 
 const wishlistStore = useWishlistStore();
+const { wishlist, wishlistLoading } = storeToRefs(wishlistStore);
+const { fetchWishList } = wishlistStore;
 const token = localStorage.getItem("token");
 
 onMounted(() => {
-  wishlistStore.fetchWishList(token);
+  fetchWishList(token);
 });
 </script>
 
 <template>
-  <div class="container">
+  <div class="spinner-wrap" v-if="wishlistLoading">
+    <ProgressSpinner />
+  </div>
+  <div class="container" v-else>
     <div class="header">
       <h4>Your WishList</h4>
     </div>
     <div class="content-wrap">
-      <div v-for="product in wishlistStore.wishlist" :key="product.id">
+      <div v-for="product in wishlist" :key="product.id">
         <product-box :product="product" class="box" />
       </div>
     </div>
@@ -37,5 +44,11 @@ onMounted(() => {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>

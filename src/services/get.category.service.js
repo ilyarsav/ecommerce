@@ -8,10 +8,3 @@ export const getCategories = async () => {
   }
 };
 
-export const appendToCategories = async (newCategory) => {
-  try {
-    await globalApi.post(`/category/create`, newCategory);
-  } catch (error) {
-    console.log(`ERROR: ${error}`);
-  }
-};
