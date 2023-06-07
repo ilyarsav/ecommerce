@@ -5,7 +5,6 @@ import { useRoute } from "vue-router";
 import { useProductStore } from "../stores/product.store";
 
 const props = defineProps(["product"]);
-
 const route = useRoute();
 </script>
 

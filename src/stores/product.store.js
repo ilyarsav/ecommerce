@@ -6,6 +6,10 @@ import { getProducts } from "../services/get.product.service";
 import { appendToProducts } from "../modules/add-product/services/add.product.service";
 
 export const useProductStore = defineStore("product", () => {
+  const router = useRouter();
+  const route = useRoute();
+  const { id } = route.params;
+
   const products = ref([]);
   const product = ref({});
 
@@ -15,9 +19,6 @@ export const useProductStore = defineStore("product", () => {
   const imageURl = ref(null);
   const price = ref(null);
 
-  const router = useRouter();
-  const route = useRoute();
-  const { id } = route.params;
   const productLoading = ref(false);
 
   const filterProducts = computed(() => {

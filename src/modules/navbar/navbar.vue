@@ -1,5 +1,12 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, onBeforeMount, computed } from "vue";
+import {
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  onBeforeMount,
+  computed,
+  watch,
+} from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "../cart/store/cart.store";
 import Menubar from "primevue/menubar";
@@ -15,8 +22,7 @@ const browse = ref(null);
 const token = ref("");
 const cartStore = useCartStore();
 const router = useRouter();
-
-const authorized = computed(() => (token ? true : false));
+const visible = ref(true);
 
 const openDropdownAccount = () => {
   isOpenAccount.value = !isOpenAccount.value;
@@ -33,7 +39,7 @@ const openDropdownBrowse = () => {
 };
 
 const closeDropdownBrowse = (e) => {
-  if (!browse.value.contains(e.target) && browse.value !== e.target) {
+  if (!browse?.value.contains(e.target) && browse.value !== e.target) {
     isOpenBrowse.value = false;
   }
 };
@@ -44,50 +50,60 @@ const signOut = () => {
   router.push({ name: "Home" });
 };
 
-// const items = ref([
-//   {
-//     label: "Browse",
-//     items: [
-//       {
-//         label: "Products",
-//         to: "/product",
-//       },
-//       {
-//         label: "Categories",
-//         to: "/category",
-//       },
-//     ],
-//   },
-//   {
-//     label: "Account",
-//     items: [
-//       {
-//         label: "WishList",
-//         to: "/wishlist",
-//       },
-//       {
-//         label: "SignIn",
-//         to: "/signin",
-//       },
-//       {
-//         label: "SignUp",
-//         to: "/Signup",
-//       },
-//       {
-//         label: "SignOut",
+const items = ref([
+  {
+    label: "Browse",
+    items: [
+      {
+        label: "Products",
+        to: "/product",
+      },
+      {
+        label: "Categories",
+        to: "/category",
+      },
+    ],
+  },
+  {
+    label: "Account",
+    items: [
+      {
+        label: "WishList",
+        to: "/wishlist",
+      },
+      {
+        label: "SignIn",
+        to: "/signin",
+        visible: () => visible.value,
+      },
+      {
+        label: "SignUp",
+        to: "/Signup",
+        visible: () => visible.value,
+      },
+      {
+        label: "SignOut",
+        visible: () => !visible.value,
+        command: () => {
+          signOut();
+        },
+      },
+    ],
+  },
+  {
+    label: "Cart",
+    icon: PrimeIcons.SHOPPING_CART,
+    to: "/cart",
+  },
+]);
 
-//         command: () => {
-//           signOut();
-//         },
-//       },
-//     ],
-//   },
-//   {
-//     label: "Cart",
-//     icon: PrimeIcons.SHOPPING_CART,
-//     to: "/cart",
-//   },
-// ]);
+watch(token, (newToken) => {
+  if (!newToken) {
+    visible.value = true;
+  } else {
+    visible.value = false;
+  }
+});
 
 onBeforeMount(async () => {
   token.value = localStorage.getItem("token");
@@ -103,20 +119,20 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <!-- <Menubar :model="items">
+  <Menubar :model="items">
     <template #start>
       <router-link :to="{ name: 'Home' }" class="link">LOGO</router-link>
     </template>
-  </Menubar> -->
-  <div class="container">
+  </Menubar>
+  <!-- <div class="container">
     <div class="logo navbar-item">
       <router-link :to="{ name: 'Home' }" class="link">LOGO</router-link>
     </div>
 
-    <!-- <div class="search navbar-item">
+    <div class="search navbar-item">
       <input type="text" />
       <button>search</button>
-    </div> -->
+    </div>
 
     <div class="navbar navbar-item">
       <div class="dropdown-browse">
@@ -188,7 +204,7 @@ onBeforeUnmount(() => {
         </router-link>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>

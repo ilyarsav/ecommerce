@@ -9,7 +9,7 @@ import {
 export const useCartStore = defineStore("cart", () => {
   const cartItems = ref([]);
   const totalCost = ref(0);
-  
+
   const isAdded = ref(false);
   const cartLoading = ref(false);
 

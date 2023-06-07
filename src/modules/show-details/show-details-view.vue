@@ -30,10 +30,13 @@ const show = (data) => {
   toast.add(data);
 };
 
+// не могу засунуть в cart.store useRoute, а так же не обновляется route.params
+// для этого есть специальный способ, чекнуть
+
 onMounted(async () => {
   await fetchProducts();
   await fetchCategories();
-  findProduct();
+  findProduct(id);
   findCategory();
 });
 </script>
@@ -44,17 +47,17 @@ onMounted(async () => {
     <ProgressSpinner />
   </div>
   <div class="container" v-else>
-    <show-details-img :src="product?.imageURL" />
+    <show-details-img :src="product.imageURL" />
     <div class="show-information-wrap">
       <show-details-information
-        :name="product?.name"
-        :categoryName="category?.categoryName"
-        :price="product?.price"
-        :description="product?.description"
+        :name="product.name"
+        :categoryName="category.categoryName"
+        :price="product.price"
+        :description="product.description"
       />
       <show-details-cart-btn :token="token" @show="show" :id="id" />
       <show-details-features />
-      <wish-list-btn :token="token" :id="id" @show="show" />
+      <wish-list-btn :token="token" @show="show" />
     </div>
   </div>
 </template>

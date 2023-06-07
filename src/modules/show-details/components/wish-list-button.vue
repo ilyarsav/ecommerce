@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useWishlistStore } from "../../wish-list/index";
 import Button from "primevue/button";
 
-const props = defineProps(["token", "id"]);
+const props = defineProps(["token"]);
 const emits = defineEmits(["show"]);
 
 const wishlistStore = useWishlistStore();
@@ -19,7 +19,7 @@ const addToWishlist = () => {
     return;
   }
 
-  wishlistStore.addProductToWishlist(props.token, props.id).then((res) => {
+  wishlistStore.addProductToWishlist(props.token).then((res) => {
     if (wishlistStore.isAddedToWishlist) {
       wishlistString.value = "Added to wishlist";
     }
