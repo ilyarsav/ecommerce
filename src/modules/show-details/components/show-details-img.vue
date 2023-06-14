@@ -10,6 +10,6 @@ const props = defineProps(["src"]);
 
 <style scoped>
 .show-image-wrap img {
-  max-width: 600px;
+  width: 600px;
 }
 </style>

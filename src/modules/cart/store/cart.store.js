@@ -1,12 +1,19 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import {
   addCartItem,
   deleteCartItem,
   fetchCartData,
 } from "../services/cart.services";
+import { useRoute } from "vue-router";
+import { useToast } from "primevue/usetoast";
 
 export const useCartStore = defineStore("cart", () => {
+  // const routeCart = useRoute();
+  // const { id } = routeCart.params;
+
+  const toast = useToast();
+
   const cartItems = ref([]);
   const totalCost = ref(0);
 
@@ -21,30 +28,45 @@ export const useCartStore = defineStore("cart", () => {
       cartItems.value = responce.data.cartItems;
       totalCost.value = responce.data.totalCost;
     } else {
-      console.log("error in category store");
+      console.log("error in cart store");
     }
     cartLoading.value = false;
   };
 
   const removeCartItem = async (itemId, token) => {
+    cartLoading.value = true;
     await deleteCartItem(itemId, token);
     getCartData(token);
+    cartLoading.value = false;
   };
 
   const appendToCart = async (addObject, token) => {
     cartLoading.value = true;
 
-    const res = await addCartItem(addObject, token);
-    if (res.status == 201) {
-      isAdded.value = true;
-      getCartData(token);
+    await getCartData(token);
+    if (
+      cartItems.value?.find((elem) => elem.product.id == addObject.productId)
+        ? false
+        : true
+    ) {
+      const res = await addCartItem(addObject, token);
+      if (res.status == 201) {
+        getCartData(token);
+        toast.add({
+          severity: "success",
+          detail: "Product added to cart",
+          life: 3000,
+        });
+      }
+    } else {
+      toast.add({
+        severity: "info",
+        detail: "You added this product to cart earlier",
+        life: 3000,
+      });
     }
 
-    if (
-      cartItems.value.some((elem) => elem.product.id == addObject.productId.id)
-    ) {
-      cartLoading.value = false;
-    }
+    cartLoading.value = false;
   };
 
   return {

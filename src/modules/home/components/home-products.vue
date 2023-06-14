@@ -1,6 +1,6 @@
 <script setup>
 import ProgressSpinner from "primevue/progressspinner";
-import ProductBox from "../../../components/ProductBox.vue";
+import ProductBox from "../../../components/base-product-box.vue";
 import { storeToRefs } from "pinia";
 
 const props = defineProps(["productStore"]);
@@ -21,7 +21,7 @@ const { filterProducts, productLoading } = storeToRefs(props.productStore);
         v-for="filteredProduct in filterProducts"
         :key="filteredProduct.id"
       >
-        <ProductBox :product="filteredProduct" />
+        <product-box :product="filteredProduct" />
       </div>
     </div>
   </div>
@@ -30,15 +30,20 @@ const { filterProducts, productLoading } = storeToRefs(props.productStore);
 <style scoped>
 .section-wrap {
   margin-bottom: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .top-header {
   text-align: center;
   margin: 20px auto;
 }
 .top-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto;
+  grid-column-gap: 2em;
 }
 .spinner-wrap {
   display: flex;

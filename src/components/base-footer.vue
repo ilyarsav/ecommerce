@@ -60,7 +60,8 @@
 
 <style scoped>
 .container {
-  background-color: rgb(39, 39, 39);
+  background-color: rgb(212, 212, 212);
+  font-weight: 100;
 }
 .footer-wrap {
   max-width: 80%;
@@ -71,7 +72,6 @@
   justify-content: space-between;
 }
 .list {
-  color: rgb(212, 212, 212);
   list-style: none;
 }
 .first {
@@ -81,7 +81,7 @@
   margin-bottom: 10px;
 }
 .list-item a {
-  color: rgb(212, 212, 212);
+  color: black;
   text-decoration: none;
 }
 </style>

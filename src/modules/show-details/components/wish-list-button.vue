@@ -7,7 +7,6 @@ const props = defineProps(["token"]);
 const emits = defineEmits(["show"]);
 
 const wishlistStore = useWishlistStore();
-const wishlistString = ref("Add to wishlist");
 
 const addToWishlist = () => {
   if (!props.token) {
@@ -19,18 +18,18 @@ const addToWishlist = () => {
     return;
   }
 
-  wishlistStore.addProductToWishlist(props.token).then((res) => {
-    if (wishlistStore.isAddedToWishlist) {
-      wishlistString.value = "Added to wishlist";
-    }
-  });
+  wishlistStore.addProductToWishlist(props.token);
 };
 </script>
 
 <template>
-  <Button class="wishlist-button" @click="addToWishlist()">
-    {{ wishlistString }}
-  </Button>
+  <Button
+    class="wishlist-button"
+    @click="addToWishlist()"
+    type="button"
+    label="Add to wishlist"
+    :loading="wishlistStore.wishlistLoading"
+  />
 </template>
 
 <style scoped>

@@ -1,8 +1,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useCategoryStore } from "../../stores/category.store";
 import { useProductStore } from "../../stores/product.store";
 import ShowDetailsCartBtn from "./components/show-details-cart-btn.vue";
 import ShowDetailsFeatures from "./components/show-details-features.vue";
@@ -17,10 +16,6 @@ const productStore = useProductStore();
 const { product, productLoading } = storeToRefs(productStore);
 const { fetchProducts, findProduct } = productStore;
 
-const categoryStore = useCategoryStore();
-const { category, categoryLoading } = storeToRefs(categoryStore);
-const { fetchCategories, findCategory } = categoryStore;
-
 const route = useRoute();
 const { id } = route.params;
 const token = localStorage.getItem("token");
@@ -30,30 +25,30 @@ const show = (data) => {
   toast.add(data);
 };
 
-// не могу засунуть в cart.store useRoute, а так же не обновляется route.params
-// для этого есть специальный способ, чекнуть
-
 onMounted(async () => {
   await fetchProducts();
-  await fetchCategories();
-  findProduct(id);
-  findCategory();
+  watch(
+    () => route.params.id,
+    (newId) => {
+      findProduct(newId);
+    },
+    { immediate: true }
+  );
 });
 </script>
 
 <template>
   <Toast position="bottom-right" />
-  <div class="spinner-wrap" v-if="categoryLoading && productLoading">
+  <div class="spinner-wrap" v-if="productLoading">
     <ProgressSpinner />
   </div>
   <div class="container" v-else>
-    <show-details-img :src="product.imageURL" />
+    <show-details-img :src="product?.imageURL" />
     <div class="show-information-wrap">
       <show-details-information
-        :name="product.name"
-        :categoryName="category.categoryName"
-        :price="product.price"
-        :description="product.description"
+        :name="product?.name"
+        :price="product?.price"
+        :description="product?.description"
       />
       <show-details-cart-btn :token="token" @show="show" :id="id" />
       <show-details-features />

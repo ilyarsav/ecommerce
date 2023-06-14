@@ -25,8 +25,10 @@ export const useProductStore = defineStore("product", () => {
     return products.value.filter((product, idx) => idx < 6);
   });
 
-  const findProduct = () => {
-    product.value = products.value.find((product) => product.id == id);
+  const findProduct = (newId) => {
+    newId !== undefined
+      ? (product.value = products.value.find((product) => product.id == newId))
+      : (product.value = products.value.find((product) => product.id == id));
   };
 
   const fetchProducts = async () => {

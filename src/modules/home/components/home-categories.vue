@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import CategoryBox from "../../../components/CategoryBox.vue";
+import CategoryBox from "../../../components/base-category-box.vue";
 import ProgressSpinner from "primevue/progressspinner";
 
 const props = defineProps(["categoryStore"]);
@@ -21,7 +21,7 @@ const { filterCategories, categoryLoading } = storeToRefs(props.categoryStore);
         v-for="filteredCategory in filterCategories"
         :key="filteredCategory.id"
       >
-        <CategoryBox :category="filteredCategory" />
+        <category-box :category="filteredCategory" />
       </div>
     </div>
   </div>
@@ -30,15 +30,20 @@ const { filterCategories, categoryLoading } = storeToRefs(props.categoryStore);
 <style scoped>
 .section-wrap {
   margin-bottom: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .top-header {
   text-align: center;
   margin: 20px auto;
 }
 .top-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto;
+  grid-column-gap: 2em;
 }
 .spinner-wrap {
   display: flex;

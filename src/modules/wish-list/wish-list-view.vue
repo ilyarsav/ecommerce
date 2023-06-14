@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import ProductBox from "../../components/ProductBox.vue";
+import ProductBox from "../../components/base-product-box.vue";
 import { useWishlistStore } from "./store/wish.list.store";
 import ProgressSpinner from "primevue/progressspinner";
 import { storeToRefs } from "pinia";
@@ -21,7 +21,7 @@ onMounted(() => {
   </div>
   <div class="container" v-else>
     <div class="header">
-      <h4>Your WishList</h4>
+      <h1>Your WishList</h1>
     </div>
     <div class="content-wrap">
       <div v-for="product in wishlist" :key="product.id">
@@ -32,7 +32,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.container {
+/* .container {
   padding: 20px;
 }
 .header {
@@ -40,10 +40,29 @@ onMounted(() => {
   font-size: 22px;
   margin-bottom: 20px;
 }
-.content-wrap {
+
+.spinner-wrap {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+} */
+.content-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto;
+  grid-column-gap: 2em;
+}
+.container {
+  margin: auto;
+  padding: 20px;
+  max-width: 1400px;
+}
+.container h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
 }
 .spinner-wrap {
   display: flex;

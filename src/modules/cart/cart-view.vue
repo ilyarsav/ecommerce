@@ -1,29 +1,34 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useCartStore } from "./store/cart.store";
 import CartCostQuantity from "./components/cart-cost-quantity.vue";
 import CartImg from "./components/cart-img.vue";
 import CartName from "./components/cart-name.vue";
 import CartRemoveButton from "./components/cart-remove-button.vue";
 import CartTotalCost from "./components/cart-total-cost.vue";
+import ProgressSpinner from "primevue/progressspinner";
 
-const token = localStorage.getItem("token");
-const { cartItems, totalCost } = storeToRefs(useCartStore());
+const token = ref(localStorage.getItem("token"));
+const { cartItems, totalCost, cartLoading } = storeToRefs(useCartStore());
 const { getCartData, removeCartItem } = useCartStore();
 
-onMounted(() => {
-  getCartData(token);
+onMounted(async () => {
+  await getCartData(token);
 });
 </script>
 
 <template>
-  <div class="container">
+  <div class="spinner-wrap" v-if="cartLoading">
+    <ProgressSpinner />
+  </div>
+  <div class="container" v-else>
     <h3 v-if="!token">You need to sign In</h3>
 
     <div class="content-wrap" v-else>
       <h4 class="header">Shopping Cart</h4>
 
+      <p v-if="cartItems?.length === 0">No products in a cart</p>
       <div class="content">
         <div
           class="content-item"
@@ -41,7 +46,10 @@ onMounted(() => {
             />
           </div>
         </div>
-        <cart-total-cost :totalCost="totalCost" />
+        <cart-total-cost
+          :totalCost="totalCost"
+          v-if="cartItems?.length !== 0"
+        />
       </div>
     </div>
   </div>
@@ -77,5 +85,11 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>

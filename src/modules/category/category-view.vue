@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import CategoryBox from "../../components/CategoryBox.vue";
+import CategoryBox from "../../components/base-category-box.vue";
 import { useCategoryStore } from "../../stores/category.store";
 import Button from "primevue/button";
 import ProgressSpinner from "primevue/progressspinner";
@@ -38,12 +38,15 @@ onMounted(() => {
 
 <style scoped>
 .category-wrap {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto;
+  grid-column-gap: 2em;
 }
 .container {
-  margin-top: 80px;
+  margin: auto;
+  padding: 20px;
+  max-width: 1400px;
 }
 .container h1 {
   font-family: Arial, Helvetica, sans-serif;
@@ -53,9 +56,10 @@ onMounted(() => {
 .button-wrap {
   display: flex;
   justify-content: end;
+  margin-bottom: 20px;
 }
 .button {
-  margin: 20px;
+  margin: auto;
   border: none;
   background-color: var(--red-600);
 }

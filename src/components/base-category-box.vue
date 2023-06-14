@@ -1,42 +1,45 @@
 <script setup>
 import Button from "primevue/button";
-import Card from "primevue/card";
 import { useRoute } from "vue-router";
-import { useProductStore } from "../stores/product.store";
+import Card from "primevue/card";
 
-const props = defineProps(["product"]);
+defineProps(["category"]);
+
 const route = useRoute();
 </script>
 
 <template>
   <Card class="card">
     <template #header>
-      <img
-        class="card-image"
-        :src="props.product.imageURL"
-        alt="Card image cap"
-      />
+      <img class="card-image" :src="category?.imageUrl" alt="Card image cap" />
     </template>
     <template #title>
       <router-link
-        :to="{ name: 'ShowDetails', params: { id: props.product.id } }"
+        :to="{ name: 'ListProducts', params: { id: category.id } }"
         class="card-title"
       >
-        <h3 class="card-title">{{ props.product.name }}</h3>
+        <h3>
+          {{
+            category.categoryName?.length > 23
+              ? category.categoryName?.slice(0, 23) + "..."
+              : category.categoryName
+          }}
+        </h3>
       </router-link>
     </template>
     <template #content>
-      <p class="card-price" v-show="route.name === 'Home'">
-        ${{ props.product.price }}
-      </p>
       <p class="card-text">
-        {{ props.product.description }}
+        {{
+          category.description?.length > 42
+            ? category.description?.slice(0, 42) + "..."
+            : category.description
+        }}
       </p>
     </template>
     <template #footer>
       <router-link
-        :to="{ name: 'EditProduct', params: { id: props.product.id } }"
-        v-show="route.name === 'Product'"
+        :to="{ name: 'EditCategory', params: { id: category.id } }"
+        v-show="route.name === 'Category'"
       >
         <Button label="Edit" class="card-button" />
       </router-link>
@@ -51,7 +54,6 @@ const route = useRoute();
   border: 1px solid rgb(197, 197, 197);
   border-radius: 10px;
   text-align: center;
-  margin-right: 20px;
   margin-bottom: 20px;
   overflow: hidden;
   box-shadow: 0px 0px 6px rgb(173, 173, 173);
@@ -61,9 +63,6 @@ const route = useRoute();
   width: 100%;
   height: 200px;
 }
-.card-body {
-  padding: 12px;
-}
 .card-button {
   border: none;
   background-color: var(--red-600);
@@ -72,14 +71,15 @@ const route = useRoute();
   background-color: var(--red-700);
 }
 .card-title {
-  margin: 15px auto;
+  margin: auto;
   color: black;
   text-decoration: none;
+  font-size: 22px;
 }
-.card-text {
-  margin-bottom: 10px;
-}
-.card-price {
-  margin-bottom: 10px;
+.card-title:hover {
+  margin: auto;
+  color: brown;
+  text-decoration: none;
+  font-size: 22px;
 }
 </style>

@@ -10,6 +10,7 @@ const props = defineProps(['imageURL'])
 
 <style scoped>
 .image {
-  width: 70%;
+  width: 300px;
+  margin-right: 20px;
 }
 </style>

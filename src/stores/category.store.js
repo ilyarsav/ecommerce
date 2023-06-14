@@ -23,8 +23,14 @@ export const useCategoryStore = defineStore("category", () => {
     return categories.value.filter((category, idx) => idx < 6);
   });
 
-  const findCategory = () => {
-    category.value = categories.value.find((category) => category.id == id);
+  const findCategory = (newId) => {
+    newId !== undefined
+      ? (category.value = categories.value.find(
+          (category) => category.id == newId
+        ))
+      : (category.value = categories.value.find(
+          (category) => category.id == id
+        ));
   };
 
   const fetchCategories = async () => {

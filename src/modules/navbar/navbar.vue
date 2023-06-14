@@ -1,48 +1,14 @@
 <script setup>
-import {
-  ref,
-  onMounted,
-  onBeforeUnmount,
-  onBeforeMount,
-  computed,
-  watch,
-} from "vue";
+import { ref, onBeforeMount, watch } from "vue";
 import { useRouter } from "vue-router";
-import { useCartStore } from "../cart/store/cart.store";
 import Menubar from "primevue/menubar";
 import "primeicons/primeicons.css";
 import { PrimeIcons } from "primevue/api";
 
-const isOpenAccount = ref(false);
-const account = ref(null);
-
-const isOpenBrowse = ref(false);
-const browse = ref(null);
-
 const token = ref("");
-const cartStore = useCartStore();
+
 const router = useRouter();
 const visible = ref(true);
-
-const openDropdownAccount = () => {
-  isOpenAccount.value = !isOpenAccount.value;
-};
-
-const closeDropdownAccount = (e) => {
-  if (!account.value.contains(e.target) && account.value !== e.target) {
-    isOpenAccount.value = false;
-  }
-};
-
-const openDropdownBrowse = () => {
-  isOpenBrowse.value = !isOpenBrowse.value;
-};
-
-const closeDropdownBrowse = (e) => {
-  if (!browse?.value.contains(e.target) && browse.value !== e.target) {
-    isOpenBrowse.value = false;
-  }
-};
 
 const signOut = () => {
   localStorage.removeItem("token");
@@ -107,22 +73,27 @@ watch(token, (newToken) => {
 
 onBeforeMount(async () => {
   token.value = localStorage.getItem("token");
-  await cartStore.getCartData(token.value);
-  document.addEventListener("click", closeDropdownBrowse);
-  document.addEventListener("click", closeDropdownAccount);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener("click", closeDropdownBrowse);
-  document.removeEventListener("click", closeDropdownAccount);
 });
 </script>
 
 <template>
   <Menubar :model="items">
     <template #start>
-      <router-link :to="{ name: 'Home' }" class="link">LOGO</router-link>
+      <router-link :to="{ name: 'Home' }" class="link">
+        <img
+          src="../../assets/shopping-logo-svgrepo-com.svg"
+          alt="logo"
+          class="logo"
+        />
+      </router-link>
     </template>
+    <!-- <template #end>
+      <i
+        v-badge="2"
+        class="pi pi-shopping-cart p-overlay-badge icon-badge"
+        style="font-size: 1.5rem"
+      />
+    </template> -->
   </Menubar>
   <!-- <div class="container">
     <div class="logo navbar-item">
@@ -208,19 +179,34 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.p-menubar {
+  /* background-color: rgb(39, 39, 39); */
+  border-radius: 0%;
+  border: none;
+}
+.p-menuitem-text {
+  color: white;
+}
+.logo {
+  width: 38px;
+}
+.link {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  text-decoration: none;
+  margin: auto 20px;
+}
+/* 
+.icon-badge {
+  margin-right: 20px;
+  cursor: pointer;
+}
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: rgb(39, 39, 39);
   padding: 15px;
-}
-
-.link {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 800;
-  text-decoration: none;
-  margin-left: 5px;
 }
 
 .navbar .link {
@@ -253,10 +239,9 @@ onBeforeUnmount(() => {
   border-radius: 50%;
   margin-left: 23px;
   top: -5px;
-}
-
+} */
 /* dropdown */
-.dropdown-background {
+/* .dropdown-background {
   background: black;
   opacity: 0.2;
   pointer-events: none;
@@ -318,11 +303,5 @@ onBeforeUnmount(() => {
   position: relative;
   display: inline-block;
   margin: auto 5px;
-}
-
-/* dropdown */
-.cart-icon {
-  fill: white;
-  margin-left: 10px;
-}
+} */
 </style>

@@ -1,35 +1,47 @@
 <script setup>
 import Button from "primevue/button";
-import { useRoute } from "vue-router";
 import Card from "primevue/card";
+import { useRoute } from "vue-router";
 
-defineProps(["category"]);
-
+defineProps(["product"]);
 const route = useRoute();
 </script>
 
 <template>
   <Card class="card">
     <template #header>
-      <img class="card-image" :src="category?.imageUrl" alt="Card image cap" />
+      <img class="card-image" :src="product?.imageURL" alt="Card image cap" />
     </template>
     <template #title>
       <router-link
-        :to="{ name: 'ListProducts', params: { id: category.id } }"
+        :to="{ name: 'ShowDetails', params: { id: product?.id } }"
         class="card-title"
       >
-        <h3>{{ category.categoryName }}</h3>
+        <h3 class="card-title">
+          {{
+            product?.name?.length > 23
+              ? product?.name?.slice(0, 23) + "..."
+              : product?.name
+          }}
+        </h3>
       </router-link>
     </template>
     <template #content>
+      <p class="card-price" v-show="route.name === 'Home'">
+        ${{ product?.price }}
+      </p>
       <p class="card-text">
-        {{ category.description }}
+        {{
+          product?.description?.length > 42
+            ? product.description?.slice(0, 42) + "..."
+            : product.description
+        }}
       </p>
     </template>
     <template #footer>
       <router-link
-        :to="{ name: 'EditCategory', params: { id: category.id } }"
-        v-show="route.name === 'Category'"
+        :to="{ name: 'EditProduct', params: { id: product.id } }"
+        v-show="route.name === 'Product'"
       >
         <Button label="Edit" class="card-button" />
       </router-link>
@@ -40,11 +52,10 @@ const route = useRoute();
 <style scoped>
 .card {
   width: 400px;
-  min-height: 300px;
+  min-height: 380px;
   border: 1px solid rgb(197, 197, 197);
   border-radius: 10px;
   text-align: center;
-  margin-right: 20px;
   margin-bottom: 20px;
   overflow: hidden;
   box-shadow: 0px 0px 6px rgb(173, 173, 173);
@@ -62,11 +73,18 @@ const route = useRoute();
   background-color: var(--red-700);
 }
 .card-title {
-  margin-top: 10px;
+  margin: auto;
   color: black;
   text-decoration: none;
+  font-size: 25px;
 }
-.card-text {
-  margin: 15px auto;
+.card-title:hover {
+  margin: auto;
+  color: brown;
+  text-decoration: none;
+  font-size: 25px;
+}
+.card-price {
+  margin-bottom: 10px;
 }
 </style>

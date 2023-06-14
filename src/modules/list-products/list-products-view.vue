@@ -1,34 +1,41 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, watch } from "vue";
 import ProductBox from "../../components/ProductBox.vue";
 import { useCategoryStore } from "../../stores/category.store";
 import { storeToRefs } from "pinia";
+import ProgressSpinner from "primevue/progressspinner";
+import { useRoute } from "vue-router";
 
 const categoryStore = useCategoryStore();
-const { category } = storeToRefs(categoryStore);
-const { findCategory } = categoryStore;
-const msg = ref(null);
+const { category, categoryLoading } = storeToRefs(categoryStore);
+const { findCategory, fetchCategories } = categoryStore;
+
+const route = useRoute();
 
 onMounted(async () => {
-  await categoryStore.fetchCategories();
-  findCategory();
-
-  if (category.value.products == 0) {
-    msg.value = "no products";
-  } else if (category.value.products == 1) {
-    msg.value = "only 1 product";
-  } else {
-    msg.value = category.value.products?.length + " products found";
-  }
+  await fetchCategories();
+  watch(
+    () => route.params.id,
+    (newId) => {
+      findCategory(newId);
+    },
+    { immediate: true }
+  );
 });
 </script>
 
 <template>
-  <div class="container">
+  <div class="spinner-wrap" v-if="categoryLoading">
+    <ProgressSpinner />
+  </div>
+  <div class="container" v-else>
     <div class="header-text">
-      <h4>{{ category.categoryName }}</h4>
-      <h5>{{ msg }}</h5>
+      <h4>{{ category?.categoryName }}</h4>
+      <h5 v-if="category?.products == 0">No products</h5>
+      <h5 v-else-if="category?.products == 1">Only 1 product</h5>
+      <h5 v-else>
+        {{ category?.products?.length + " products found" }}
+      </h5>
     </div>
     <div class="content">
       <product-box
@@ -64,5 +71,11 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>
