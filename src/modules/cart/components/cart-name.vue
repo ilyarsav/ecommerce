@@ -3,28 +3,25 @@ const props = defineProps(["cartItem"]);
 </script>
 
 <template>
-  <p class="information-item itemName">
-    <router-link
-      class="link"
-      :to="{
-        name: 'ShowDetails',
-        params: { id: props.cartItem.id },
-      }"
-    >
-      {{ props.cartItem.name }}
-    </router-link>
-  </p>
+  <router-link
+    class="link"
+    :to="{
+      name: 'ShowDetails',
+      params: { id: props.cartItem.id },
+    }"
+  >
+    {{ props.cartItem.name }}
+  </router-link>
 </template>
 
 <style scoped>
-.information-item {
-  margin: 10px;
-}
 .link {
   text-decoration: none;
   color: rgb(4, 17, 192);
-}
-.itemName {
   font-weight: 700;
+  font-size: 18px;
+}
+.link:hover {
+  color: rgb(192, 4, 4);
 }
 </style>

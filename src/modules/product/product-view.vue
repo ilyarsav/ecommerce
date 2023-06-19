@@ -21,17 +21,17 @@ onMounted(() => {
   </div>
   <div class="container" v-else>
     <h1>Our products</h1>
-
     <div class="button-wrap">
       <router-link :to="{ name: 'AddProduct' }">
         <Button label="Add product" class="button" />
       </router-link>
     </div>
-
     <div class="product-wrap">
-      <div v-for="product of productStore.products" :key="product.id">
-        <product-box :product="product" />
-      </div>
+      <product-box
+        :product="product"
+        v-for="product of productStore.products"
+        :key="product.id"
+      />
     </div>
   </div>
 </template>

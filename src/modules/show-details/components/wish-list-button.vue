@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import { useWishlistStore } from "../../wish-list/index";
 import Button from "primevue/button";
 

@@ -11,19 +11,17 @@ import { useToast } from "primevue/usetoast";
 export const useCartStore = defineStore("cart", () => {
   // const routeCart = useRoute();
   // const { id } = routeCart.params;
-
+  const token = ref(localStorage.getItem("token"));
   const toast = useToast();
 
   const cartItems = ref([]);
   const totalCost = ref(0);
-
-  const isAdded = ref(false);
   const cartLoading = ref(false);
 
-  const getCartData = async (token) => {
+  const getCartData = async () => {
     cartLoading.value = true;
 
-    const responce = await fetchCartData(token);
+    const responce = await fetchCartData(token.value);
     if (responce?.status == 200) {
       cartItems.value = responce.data.cartItems;
       totalCost.value = responce.data.totalCost;
@@ -33,25 +31,25 @@ export const useCartStore = defineStore("cart", () => {
     cartLoading.value = false;
   };
 
-  const removeCartItem = async (itemId, token) => {
+  const removeCartItem = async (itemId) => {
     cartLoading.value = true;
-    await deleteCartItem(itemId, token);
-    getCartData(token);
+    await deleteCartItem(itemId, token.value);
+    getCartData(token.value);
     cartLoading.value = false;
   };
 
-  const appendToCart = async (addObject, token) => {
+  const appendToCart = async (addObject) => {
     cartLoading.value = true;
 
-    await getCartData(token);
+    await getCartData(token.value);
     if (
       cartItems.value?.find((elem) => elem.product.id == addObject.productId)
         ? false
         : true
     ) {
-      const res = await addCartItem(addObject, token);
+      const res = await addCartItem(addObject, token.value);
       if (res.status == 201) {
-        getCartData(token);
+        getCartData(token.value);
         toast.add({
           severity: "success",
           detail: "Product added to cart",
@@ -72,8 +70,8 @@ export const useCartStore = defineStore("cart", () => {
   return {
     cartItems,
     totalCost,
-    isAdded,
     cartLoading,
+    token,
     getCartData,
     removeCartItem,
     appendToCart,

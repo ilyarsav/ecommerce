@@ -50,7 +50,7 @@ onMounted(async () => {
         :price="product?.price"
         :description="product?.description"
       />
-      <show-details-cart-btn :token="token" @show="show" :id="id" />
+      <show-details-cart-btn @show="show" :id="id" />
       <show-details-features />
       <wish-list-btn :token="token" @show="show" />
     </div>

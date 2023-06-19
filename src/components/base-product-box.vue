@@ -19,8 +19,8 @@ const route = useRoute();
       >
         <h3 class="card-title">
           {{
-            product?.name?.length > 23
-              ? product?.name?.slice(0, 23) + "..."
+            product?.name?.length > 20
+              ? product?.name?.slice(0, 20) + "..."
               : product?.name
           }}
         </h3>

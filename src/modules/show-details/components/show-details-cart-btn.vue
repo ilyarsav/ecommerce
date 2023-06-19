@@ -6,15 +6,15 @@ import { ref } from "vue";
 import { useCartStore } from "../../cart/store/cart.store";
 
 const cartStore = useCartStore();
-const { cartLoading } = storeToRefs(cartStore);
+const { cartLoading, token } = storeToRefs(cartStore);
 const { appendToCart } = cartStore;
 
-const props = defineProps(["token", "id"]);
+const props = defineProps(["id"]);
 const emits = defineEmits(["show"]);
 const quantity = ref(1);
 
 const addToCart = async () => {
-  if (!props.token) {
+  if (!token.value) {
     emits("show", {
       severity: "info",
       summary: "info",
@@ -23,13 +23,10 @@ const addToCart = async () => {
     });
     return;
   }
-  await appendToCart(
-    {
-      productId: props.id,
-      quantity: quantity.value,
-    },
-    props.token
-  );
+  await appendToCart({
+    productId: props.id,
+    quantity: quantity.value,
+  });
 };
 </script>
 

@@ -1,22 +1,27 @@
 <script setup>
-const props = defineProps(["id", "token"]);
+import Button from "primevue/button";
+
+const props = defineProps(["id"]);
 const emits = defineEmits(["removeCartItem"]);
 
 const deleteItem = (itemId) => {
-  emits("removeCartItem", itemId, props.token);
+  emits("removeCartItem", itemId);
 };
 </script>
 
 <template>
-  <a href="#" class="remove-button" @click="deleteItem(props.id)">
+  <Button href="#" class="remove-button" @click="deleteItem(props.id)">
     Remove from cart
-  </a>
+  </Button>
 </template>
 
 <style scoped>
 .remove-button {
-  color: rgb(192, 4, 4);
-  text-decoration: none;
-  font-weight: 700;
+  background-color: rgb(192, 4, 4);
+  padding: 12px;
+  border: none;
+}
+.remove-button:hover {
+  background-color: rgb(139, 0, 0);
 }
 </style>

@@ -24,29 +24,17 @@ onMounted(() => {
       <h1>Your WishList</h1>
     </div>
     <div class="content-wrap">
-      <div v-for="product in wishlist" :key="product.id">
-        <product-box :product="product" class="box" />
-      </div>
+      <product-box
+        :product="product"
+        class="box"
+        v-for="product in wishlist"
+        :key="product.id"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-/* .container {
-  padding: 20px;
-}
-.header {
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
-.spinner-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-} */
 .content-wrap {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

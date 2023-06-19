@@ -1,11 +1,9 @@
 <script setup>
-const props = defineProps(['imageURL'])
+const props = defineProps(["imageURL"]);
 </script>
 
 <template>
-  <div class="image-wrap">
-    <img :src="props.imageURL" class="image" />
-  </div>
+  <img :src="props.imageURL" class="image" />
 </template>
 
 <style scoped>
