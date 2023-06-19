@@ -1,22 +1,34 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { onMounted, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useCategoryStore } from "../../stores/category.store";
 import EditCategoryName from "./components/edit-category-name.vue";
 import EditCategoryDescription from "./components/edit-category-description.vue";
 import EditCategoryImg from "./components/edit-category-img.vue";
 import Button from "primevue/button";
+import ProgressSpinner from "primevue/progressspinner";
 
 const categoryStore = useCategoryStore();
 const { findCategory, fetchCategories, editCategories } = categoryStore;
+const route = useRoute();
 
 onMounted(async () => {
   await fetchCategories();
-  findCategory();
+
+  watch(
+    () => route.params.id,
+    (newId) => {
+      findCategory(newId);
+    },
+    { immediate: true }
+  );
 });
 </script>
 
 <template>
+  <div class="spinner-wrap" v-if="productLoading">
+    <ProgressSpinner />
+  </div>
   <div class="container">
     <h1>Edit category</h1>
     <form @submit="editCategories">
@@ -46,5 +58,11 @@ onMounted(async () => {
 }
 .button:hover {
   background-color: var(--red-700);
+}
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>

@@ -7,27 +7,16 @@ import BaseFooter from "./components/base-footer.vue";
 
 <template>
   <div class="container">
-    <div class="nav">
-      <base-navbar />
-    </div>
+    <base-navbar />
     <div class="content">
       <router-view />
     </div>
-    <div class="footer">
-      <base-footer />
-    </div>
+    <base-footer />
   </div>
 </template>
 
 <style scoped>
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 .content {
-  margin-top: 50px;
-  min-height: 70vh;
+  min-height: 100vh;
 }
 </style>
