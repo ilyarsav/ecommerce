@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import ProductBox from "../../components/ProductBox.vue";
+import { onMounted, watch } from "vue";
+import ProductBox from "../../components/base-product-box/base-product-box.vue";
 import { useCategoryStore } from "../../stores/category.store";
 import { storeToRefs } from "pinia";
 import ProgressSpinner from "primevue/progressspinner";

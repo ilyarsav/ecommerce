@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import ProductBox from "../../components/base-product-box.vue";
+import ProductBox from "../../components/base-product-box/base-product-box.vue";
 import { useWishlistStore } from "./store/wish.list.store";
 import ProgressSpinner from "primevue/progressspinner";
 import { storeToRefs } from "pinia";

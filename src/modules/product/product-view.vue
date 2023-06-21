@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import ProductBox from "../../components/base-product-box.vue";
+import ProductBox from "../../components/base-product-box/base-product-box.vue";
 import { useProductStore } from "../../stores/product.store";
 import Button from "primevue/button";
 import ProgressSpinner from "primevue/progressspinner";

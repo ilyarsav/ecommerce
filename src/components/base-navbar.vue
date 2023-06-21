@@ -76,7 +76,7 @@ onMounted(() => {
     <template #start>
       <router-link :to="{ name: 'Home' }" class="link">
         <img
-          src="../../assets/shopping-logo-svgrepo-com.svg"
+          src="../assets/shopping-logo-svgrepo-com.svg"
           alt="logo"
           class="logo"
         />

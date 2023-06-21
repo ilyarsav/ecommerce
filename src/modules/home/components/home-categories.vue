@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import CategoryBox from "../../../components/base-category-box.vue";
+import CategoryBox from "../../../components/base-category-box/base-category-box.vue";
 import ProgressSpinner from "primevue/progressspinner";
 
 const props = defineProps(["categoryStore"]);

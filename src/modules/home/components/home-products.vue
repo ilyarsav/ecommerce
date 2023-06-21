@@ -1,6 +1,6 @@
 <script setup>
 import ProgressSpinner from "primevue/progressspinner";
-import ProductBox from "../../../components/base-product-box.vue";
+import ProductBox from "../../../components/base-product-box/base-product-box.vue";
 import { storeToRefs } from "pinia";
 
 const props = defineProps(["productStore"]);

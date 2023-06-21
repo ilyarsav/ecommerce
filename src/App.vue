@@ -1,18 +1,16 @@
 <script setup>
 import "primevue/resources/themes/lara-light-indigo/theme.css";
 import "primevue/resources/primevue.min.css";
-import BaseNavbar from "./modules/navbar/navbar.vue";
+import BaseNavbar from "./components/base-navbar.vue";
 import BaseFooter from "./components/base-footer.vue";
 </script>
 
 <template>
-  <div class="container">
-    <base-navbar />
-    <div class="content">
-      <router-view />
-    </div>
-    <base-footer />
+  <base-navbar />
+  <div class="content">
+    <router-view />
   </div>
+  <base-footer />
 </template>
 
 <style scoped>

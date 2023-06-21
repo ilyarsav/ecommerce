@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import CategoryBox from "../../components/base-category-box.vue";
+import CategoryBox from "../../components/base-category-box/base-category-box.vue";
 import { useCategoryStore } from "../../stores/category.store";
 import Button from "primevue/button";
 import ProgressSpinner from "primevue/progressspinner";
