@@ -4,7 +4,7 @@ const props = defineProps(["totalCost"]);
 
 <template>
   <div class="total-cost">
-    <b>Total: ${{ totalCost }}</b>
+    <b>Total: ${{ props.totalCost }}</b>
   </div>
 </template>
 

@@ -7,29 +7,18 @@ import EditCategoryDescription from "./components/edit-category-description.vue"
 import EditCategoryImg from "./components/edit-category-img.vue";
 import Button from "primevue/button";
 import ProgressSpinner from "primevue/progressspinner";
+import { storeToRefs } from "pinia";
 
 const categoryStore = useCategoryStore();
-const { findCategory, fetchCategories, editCategories } = categoryStore;
-const route = useRoute();
-
-onMounted(async () => {
-  await fetchCategories();
-
-  watch(
-    () => route.params.id,
-    (newId) => {
-      findCategory(newId);
-    },
-    { immediate: true }
-  );
-});
+const { editCategories } = categoryStore;
+const { categoryLoading } = storeToRefs(categoryStore);
 </script>
 
 <template>
-  <div class="spinner-wrap" v-if="productLoading">
+  <div class="spinner-wrap" v-if="categoryLoading">
     <ProgressSpinner />
   </div>
-  <div class="container">
+  <div class="container" v-else>
     <h1>Edit category</h1>
     <form @submit="editCategories">
       <edit-category-name :categoryStore="categoryStore" />

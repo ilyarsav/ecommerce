@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { updateProducts } from "../modules/edit-product/services/edit.product.service";
 import { getProducts } from "../services/get.product.service";
@@ -62,6 +62,21 @@ export const useProductStore = defineStore("product", () => {
     });
     router.push({ name: "Product" });
   };
+
+  onMounted(async () => {
+    if (products.value.length == 0) {
+      await fetchProducts();
+      console.log("fetching products");
+    }
+
+    watch(
+      () => route.params.id,
+      (newId) => {
+        findProduct(newId);
+      },
+      { immediate: true }
+    );
+  });
 
   return {
     products,

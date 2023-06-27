@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted } from "vue";
 import ProductBox from "../../components/base-product-box/base-product-box.vue";
 import { useProductStore } from "../../stores/product.store";
 import Button from "primevue/button";
@@ -8,11 +7,6 @@ import { storeToRefs } from "pinia";
 
 const productStore = useProductStore();
 const { productLoading } = storeToRefs(productStore);
-const { fetchProducts } = productStore;
-
-onMounted(() => {
-  fetchProducts();
-});
 </script>
 
 <template>

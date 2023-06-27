@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import {
   addCartItem,
   deleteCartItem,
@@ -9,8 +9,6 @@ import { useRoute } from "vue-router";
 import { useToast } from "primevue/usetoast";
 
 export const useCartStore = defineStore("cart", () => {
-  // const routeCart = useRoute();
-  // const { id } = routeCart.params;
   const token = ref(localStorage.getItem("token"));
   const toast = useToast();
 
@@ -39,8 +37,17 @@ export const useCartStore = defineStore("cart", () => {
   };
 
   const appendToCart = async (addObject) => {
-    cartLoading.value = true;
+    if (!token.value) {
+      toast.add({
+        severity: "info",
+        summary: "info",
+        detail: "please log in to add item to cart",
+        life: 3000,
+      });
+      return;
+    }
 
+    cartLoading.value = true;
     await getCartData(token.value);
     if (
       cartItems.value?.find((elem) => elem.product.id == addObject.productId)
@@ -63,9 +70,15 @@ export const useCartStore = defineStore("cart", () => {
         life: 3000,
       });
     }
-
     cartLoading.value = false;
   };
+
+  onMounted(async () => {
+    if (cartItems.value.length === 0) {
+      await getCartData();
+      console.log("fetching products in the cart");
+    }
+  });
 
   return {
     cartItems,

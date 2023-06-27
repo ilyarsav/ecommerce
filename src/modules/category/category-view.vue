@@ -8,11 +8,6 @@ import { storeToRefs } from "pinia";
 
 const categoryStore = useCategoryStore();
 const { categoryLoading } = storeToRefs(categoryStore);
-const { fetchCategories } = categoryStore;
-
-onMounted(() => {
-  fetchCategories();
-});
 </script>
 
 <template>

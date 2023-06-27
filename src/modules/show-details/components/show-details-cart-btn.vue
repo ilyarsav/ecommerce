@@ -6,23 +6,13 @@ import { ref } from "vue";
 import { useCartStore } from "../../cart/store/cart.store";
 
 const cartStore = useCartStore();
-const { cartLoading, token } = storeToRefs(cartStore);
+const { cartLoading } = storeToRefs(cartStore);
 const { appendToCart } = cartStore;
 
 const props = defineProps(["id"]);
-const emits = defineEmits(["show"]);
 const quantity = ref(1);
 
 const addToCart = async () => {
-  if (!token.value) {
-    emits("show", {
-      severity: "info",
-      summary: "info",
-      detail: "please log in to add item to cart",
-      life: 3000,
-    });
-    return;
-  }
   await appendToCart({
     productId: props.id,
     quantity: quantity.value,

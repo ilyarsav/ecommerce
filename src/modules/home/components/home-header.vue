@@ -14,7 +14,8 @@
 <style scoped>
 .background-div {
   background: url("../../../assets/shoppingcart-1066110386.webp");
-  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
   background-size: cover;
 }
 .header {

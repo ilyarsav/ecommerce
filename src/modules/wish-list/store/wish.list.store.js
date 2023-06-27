@@ -11,11 +11,12 @@ export const useWishlistStore = defineStore("wishlist", () => {
   const route = useRoute();
   const { id } = route.params;
   const toast = useToast();
+  const token = ref(localStorage.getItem("token"));
 
-  const fetchWishList = async (token) => {
+  const fetchWishList = async () => {
     wishlistLoading.value = true;
 
-    const res = await getWishList(token);
+    const res = await getWishList(token.value);
 
     if (res?.status == 200) {
       wishlist.value = res.data;
@@ -25,11 +26,20 @@ export const useWishlistStore = defineStore("wishlist", () => {
     wishlistLoading.value = false;
   };
 
-  const addProductToWishlist = async (token) => {
+  const addProductToWishlist = async () => {
+    if (!token.value) {
+      emits("show", {
+        severity: "info",
+        summary: "info",
+        detail: "please log in to add item to wishlist",
+      });
+      return;
+    }
+
     wishlistLoading.value = true;
-    await fetchWishList(token);
+    await fetchWishList(token.value);
     if (wishlist.value?.find((elem) => elem.product.id == id) ? false : true) {
-      const res = await appendToWishlist(token, id);
+      const res = await appendToWishlist(token.value, id);
       res.status == 201 &&
         toast.add({
           severity: "success",
@@ -49,13 +59,10 @@ export const useWishlistStore = defineStore("wishlist", () => {
   };
 
   onMounted(async () => {
-    // watch(
-    //   () => route.params.id,
-    //   (newId) => {
-    //     findProduct(newId);
-    //   },
-    //   { immediate: true }
-    // );
+    if (wishlist.value.length === 0) {
+      await fetchWishList();
+      console.log("fetching wishlist");
+    }
   });
 
   return {

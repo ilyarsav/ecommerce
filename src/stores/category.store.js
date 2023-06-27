@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
 import { updateCategories } from "../modules/edit-category/services/edit.category.service";
 import { appendToCategories } from "../modules/add-category/services/add.category.service";
 import { getCategories } from "../services/get.category.service";
@@ -63,6 +62,21 @@ export const useCategoryStore = defineStore("category", () => {
     });
     router.push({ name: "Category" });
   };
+
+  onMounted(async () => {
+    if (categories.value.length === 0) {
+      await fetchCategories();
+    }
+
+    watch(
+      () => route.params.id,
+      (newId) => {
+        findCategory(newId);
+        console.log("fetching categories");
+      },
+      { immediate: true }
+    );
+  });
 
   return {
     categories,

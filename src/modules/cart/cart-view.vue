@@ -8,18 +8,14 @@ import CartTotalCost from "./components/cart-total-cost.vue";
 
 const cartStore = useCartStore();
 const { cartLoading, token, cartItems, totalCost } = storeToRefs(cartStore);
-const { getCartData } = cartStore;
-
-onMounted(async () => {
-  await getCartData();
-});
 </script>
 
 <template>
   <div class="container">
-    <ProgressSpinner class="spinner-wrap" v-if="cartLoading" />
+    <ProgressSpinner v-if="cartLoading" class="spinner-wrap" />
     <h3 v-else-if="!token">You need to sign In</h3>
-    <div class="content-wrap" v-else>
+    
+    <div v-else class="content-wrap">
       <h4 class="header">Shopping Cart</h4>
       <p v-if="cartItems?.length === 0">No products in a cart</p>
       <cart-content
@@ -30,7 +26,7 @@ onMounted(async () => {
         :cartStore="cartStore"
         :cartItem="cartItem"
       />
-      <cart-total-cost :totalCost="totalCost" v-if="cartItems?.length !== 0" />
+      <cart-total-cost v-if="cartItems?.length !== 0" :totalCost="totalCost" />
     </div>
   </div>
 </template>

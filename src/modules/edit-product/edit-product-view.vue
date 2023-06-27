@@ -1,6 +1,5 @@
 <script setup>
 import Button from "primevue/button";
-import { ref, onMounted, watch } from "vue";
 import { useCategoryStore } from "../../stores/category.store";
 import { useProductStore } from "../../stores/product.store";
 import EditProductDropdown from "./components/edit-product-dropdown.vue";
@@ -8,33 +7,20 @@ import EditProductImg from "./components/edit-product-img.vue";
 import EditProductName from "./components/edit-product-name.vue";
 import EditProductPrice from "./components/edit-product-price.vue";
 import EditProductDescription from "./components/edit-product-description.vue";
-import { useRoute } from "vue-router";
 import ProgressSpinner from "primevue/progressspinner";
+import { storeToRefs } from "pinia";
 
 const productStore = useProductStore();
-const { editProducts, fetchProducts, findProduct, productLoading } =
-  productStore;
+const { editProducts } = productStore;
+const { productLoading } = storeToRefs(productStore);
 const categoryStore = useCategoryStore();
-const route = useRoute();
-
-onMounted(async () => {
-  await fetchProducts();
-  await categoryStore.fetchCategories();
-  watch(
-    () => route.params.id,
-    (newId) => {
-      findProduct(newId);
-    },
-    { immediate: true }
-  );
-});
 </script>
 
 <template>
   <div class="spinner-wrap" v-if="productLoading">
     <ProgressSpinner />
   </div>
-  <div class="container">
+  <div class="container" v-else>
     <h1>Edit product</h1>
     <form @submit="editProducts">
       <edit-product-dropdown

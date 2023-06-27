@@ -7,12 +7,6 @@ import { storeToRefs } from "pinia";
 
 const wishlistStore = useWishlistStore();
 const { wishlist, wishlistLoading } = storeToRefs(wishlistStore);
-const { fetchWishList } = wishlistStore;
-const token = localStorage.getItem("token");
-
-onMounted(() => {
-  fetchWishList(token);
-});
 </script>
 
 <template>

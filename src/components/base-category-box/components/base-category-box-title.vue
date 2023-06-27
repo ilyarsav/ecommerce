@@ -22,12 +22,11 @@ defineProps(["category"]);
   margin: auto;
   color: black;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 24px;
 }
 .card-title:hover {
   margin: auto;
   color: brown;
   text-decoration: none;
-  font-size: 25px;
 }
 </style>

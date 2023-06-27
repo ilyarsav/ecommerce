@@ -10,9 +10,12 @@ const deleteItem = (itemId) => {
 </script>
 
 <template>
-  <Button href="#" class="remove-button" @click="deleteItem(props.id)">
-    Remove from cart
-  </Button>
+  <Button
+    href="#"
+    class="remove-button"
+    @click="deleteItem(props.id)"
+    label="Remove from cart"
+  />
 </template>
 
 <style scoped>

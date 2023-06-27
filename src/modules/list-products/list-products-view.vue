@@ -1,27 +1,11 @@
 <script setup>
-import { onMounted, watch } from "vue";
 import ProductBox from "../../components/base-product-box/base-product-box.vue";
 import { useCategoryStore } from "../../stores/category.store";
 import { storeToRefs } from "pinia";
 import ProgressSpinner from "primevue/progressspinner";
-import { useRoute } from "vue-router";
 
 const categoryStore = useCategoryStore();
 const { category, categoryLoading } = storeToRefs(categoryStore);
-const { findCategory, fetchCategories } = categoryStore;
-
-const route = useRoute();
-
-onMounted(async () => {
-  await fetchCategories();
-  watch(
-    () => route.params.id,
-    (newId) => {
-      findCategory(newId);
-    },
-    { immediate: true }
-  );
-});
 </script>
 
 <template>

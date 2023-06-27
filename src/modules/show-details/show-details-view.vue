@@ -1,6 +1,5 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useProductStore } from "../../stores/product.store";
 import ShowDetailsCartBtn from "./components/show-details-cart-btn.vue";
@@ -9,32 +8,14 @@ import ShowDetailsImg from "./components/show-details-img.vue";
 import ShowDetailsInformation from "./components/show-details-information.vue";
 import WishListBtn from "./components/wish-list-button.vue";
 import Toast from "primevue/toast";
-import { useToast } from "primevue/usetoast";
 import ProgressSpinner from "primevue/progressspinner";
 
 const productStore = useProductStore();
 const { product, productLoading } = storeToRefs(productStore);
-const { fetchProducts, findProduct } = productStore;
 
 const route = useRoute();
 const { id } = route.params;
 const token = localStorage.getItem("token");
-const toast = useToast();
-
-const show = (data) => {
-  toast.add(data);
-};
-
-onMounted(async () => {
-  await fetchProducts();
-  watch(
-    () => route.params.id,
-    (newId) => {
-      findProduct(newId);
-    },
-    { immediate: true }
-  );
-});
 </script>
 
 <template>
