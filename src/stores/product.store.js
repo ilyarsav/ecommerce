@@ -21,16 +21,19 @@ export const useProductStore = defineStore("product", () => {
 
   const productLoading = ref(false);
 
+  // фильтр для модуля home
   const filterProducts = computed(() => {
     return products.value.filter((product, idx) => idx < 6);
   });
 
+  // для поиска определлного продукта по id
   const findProduct = (newId) => {
     newId !== undefined
       ? (product.value = products.value.find((product) => product.id == newId))
       : (product.value = products.value.find((product) => product.id == id));
   };
 
+  // получение продуктов
   const fetchProducts = async () => {
     productLoading.value = true;
     const res = await getProducts();
@@ -43,6 +46,7 @@ export const useProductStore = defineStore("product", () => {
     productLoading.value = false;
   };
 
+  // изменение продукта
   const editProducts = async (e) => {
     e.preventDefault();
 
@@ -50,6 +54,7 @@ export const useProductStore = defineStore("product", () => {
     router.push({ name: "Product" });
   };
 
+  // добавить продукт
   const addProducts = async (e) => {
     e.preventDefault();
 
@@ -87,7 +92,6 @@ export const useProductStore = defineStore("product", () => {
     imageURl,
     price,
     productLoading,
-    findProduct,
     fetchProducts,
     editProducts,
     addProducts,

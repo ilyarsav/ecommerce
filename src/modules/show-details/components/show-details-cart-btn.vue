@@ -4,17 +4,19 @@ import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import { ref } from "vue";
 import { useCartStore } from "../../cart/store/cart.store";
+import { useRoute } from "vue-router";
 
 const cartStore = useCartStore();
 const { cartLoading } = storeToRefs(cartStore);
 const { appendToCart } = cartStore;
-
-const props = defineProps(["id"]);
 const quantity = ref(1);
+
+const route = useRoute();
+const { id } = route.params;
 
 const addToCart = async () => {
   await appendToCart({
-    productId: props.id,
+    productId: id,
     quantity: quantity.value,
   });
 };

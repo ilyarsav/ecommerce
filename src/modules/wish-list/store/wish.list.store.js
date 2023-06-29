@@ -13,6 +13,7 @@ export const useWishlistStore = defineStore("wishlist", () => {
   const toast = useToast();
   const token = ref(localStorage.getItem("token"));
 
+  // получить список желаний
   const fetchWishList = async () => {
     wishlistLoading.value = true;
 
@@ -26,6 +27,7 @@ export const useWishlistStore = defineStore("wishlist", () => {
     wishlistLoading.value = false;
   };
 
+  // добавить в список желаний
   const addProductToWishlist = async () => {
     if (!token.value) {
       emits("show", {

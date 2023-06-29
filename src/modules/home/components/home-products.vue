@@ -8,9 +8,7 @@ const { filterProducts, productLoading } = storeToRefs(props.productStore);
 </script>
 
 <template>
-  <div class="spinner-wrap" v-if="productLoading">
-    <ProgressSpinner />
-  </div>
+  <ProgressSpinner class="spinner-wrap" v-if="productLoading" />
   <div class="section-wrap propucts" v-else>
     <div class="top-header">
       <h2>Top products</h2>

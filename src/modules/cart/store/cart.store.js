@@ -5,7 +5,6 @@ import {
   deleteCartItem,
   fetchCartData,
 } from "../services/cart.services";
-import { useRoute } from "vue-router";
 import { useToast } from "primevue/usetoast";
 
 export const useCartStore = defineStore("cart", () => {
@@ -16,6 +15,7 @@ export const useCartStore = defineStore("cart", () => {
   const totalCost = ref(0);
   const cartLoading = ref(false);
 
+  // получить товары из корзины
   const getCartData = async () => {
     cartLoading.value = true;
 
@@ -29,6 +29,7 @@ export const useCartStore = defineStore("cart", () => {
     cartLoading.value = false;
   };
 
+  // удалить из корзины
   const removeCartItem = async (itemId) => {
     cartLoading.value = true;
     await deleteCartItem(itemId, token.value);
@@ -36,7 +37,9 @@ export const useCartStore = defineStore("cart", () => {
     cartLoading.value = false;
   };
 
+  // добавить в корзину
   const appendToCart = async (addObject) => {
+    // проверка вошел ли пользователь
     if (!token.value) {
       toast.add({
         severity: "info",
@@ -49,12 +52,16 @@ export const useCartStore = defineStore("cart", () => {
 
     cartLoading.value = true;
     await getCartData(token.value);
+
+    // проверка есть ли товар в корзине
     if (
       cartItems.value?.find((elem) => elem.product.id == addObject.productId)
         ? false
         : true
     ) {
       const res = await addCartItem(addObject, token.value);
+
+      // уведомление, если все прошло удачно
       if (res.status == 201) {
         getCartData(token.value);
         toast.add({
@@ -63,6 +70,8 @@ export const useCartStore = defineStore("cart", () => {
           life: 3000,
         });
       }
+
+      // есть ли товар в корзине уже есть
     } else {
       toast.add({
         severity: "info",
@@ -70,13 +79,15 @@ export const useCartStore = defineStore("cart", () => {
         life: 3000,
       });
     }
+
     cartLoading.value = false;
   };
 
+  // запрос на получение товаров из корзины
   onMounted(async () => {
     if (cartItems.value.length === 0) {
       await getCartData();
-      console.log("fetching products in the cart");
+      console.log("fetching cart products");
     }
   });
 

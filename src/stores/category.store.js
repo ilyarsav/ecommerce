@@ -18,10 +18,12 @@ export const useCategoryStore = defineStore("category", () => {
   const router = useRouter();
   const categoryLoading = ref(false);
 
+  // фильтрация катергорий для модуля home
   const filterCategories = computed(() => {
     return categories.value.filter((category, idx) => idx < 6);
   });
 
+  // для поиска определлной категории по id
   const findCategory = (newId) => {
     newId !== undefined
       ? (category.value = categories.value.find(
@@ -32,6 +34,7 @@ export const useCategoryStore = defineStore("category", () => {
         ));
   };
 
+  // получение категорий
   const fetchCategories = async () => {
     categoryLoading.value = true;
     const responce = await getCategories();
@@ -44,6 +47,7 @@ export const useCategoryStore = defineStore("category", () => {
     categoryLoading.value = false;
   };
 
+  // изменение категории
   const editCategories = async (e) => {
     e.preventDefault();
 
@@ -52,6 +56,7 @@ export const useCategoryStore = defineStore("category", () => {
     router.push({ name: "Category" });
   };
 
+  // добавление категории
   const addCategories = async (e) => {
     e.preventDefault();
 

@@ -1,6 +1,5 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useRoute } from "vue-router";
 import { useProductStore } from "../../stores/product.store";
 import ShowDetailsCartBtn from "./components/show-details-cart-btn.vue";
 import ShowDetailsFeatures from "./components/show-details-features.vue";
@@ -12,17 +11,11 @@ import ProgressSpinner from "primevue/progressspinner";
 
 const productStore = useProductStore();
 const { product, productLoading } = storeToRefs(productStore);
-
-const route = useRoute();
-const { id } = route.params;
-const token = localStorage.getItem("token");
 </script>
 
 <template>
   <Toast position="bottom-right" />
-  <div class="spinner-wrap" v-if="productLoading">
-    <ProgressSpinner />
-  </div>
+  <ProgressSpinner class="spinner-wrap" v-if="productLoading" />
   <div class="container" v-else>
     <show-details-img :src="product?.imageURL" />
     <div class="show-information-wrap">
@@ -31,9 +24,9 @@ const token = localStorage.getItem("token");
         :price="product?.price"
         :description="product?.description"
       />
-      <show-details-cart-btn @show="show" :id="id" />
+      <show-details-cart-btn />
       <show-details-features />
-      <wish-list-btn :token="token" @show="show" />
+      <wish-list-btn />
     </div>
   </div>
 </template>
