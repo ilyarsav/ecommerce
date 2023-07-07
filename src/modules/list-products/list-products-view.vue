@@ -24,7 +24,7 @@ const { category, categoryLoading } = storeToRefs(categoryStore);
     <div class="content">
       <product-box
         :product="product"
-        v-for="product of category.products"
+        v-for="product of category?.products"
         :key="product.id"
       />
     </div>
