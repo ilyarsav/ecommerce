@@ -24,7 +24,7 @@ export const useSignUpStore = defineStore("signUp", () => {
 
       toast.add({
         severity: "success",
-        detail: "You successfully signed up, please now sign in",
+        detail: "You successfully signed up, please sign in",
         life: 2000,
       });
     } else {

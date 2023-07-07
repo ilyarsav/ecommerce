@@ -50,7 +50,7 @@ export const useCategoryStore = defineStore("category", () => {
   // изменение категории
   const editCategories = async (e) => {
     e.preventDefault();
-
+    
     delete category.value.products;
     await updateCategories(category.value, id);
     router.push({ name: "Category" });

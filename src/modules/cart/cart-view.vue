@@ -1,6 +1,5 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
 import { useCartStore } from "./store/cart.store";
 import ProgressSpinner from "primevue/progressspinner";
 import CartContent from "./components/cart-content.vue";
