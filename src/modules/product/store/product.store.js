@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { computed, ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { updateProducts } from "../modules/edit-product/services/edit.product.service";
-import { getProducts } from "../services/get.product.service";
-import { appendToProducts } from "../modules/add-product/services/add.product.service";
+import { updateProducts } from "../services/edit.product.service";
+import { getProducts } from "../../../services/get.product.service";
+import { appendToProducts } from "../services/add.product.service";
 
 export const useProductStore = defineStore("product", () => {
   const router = useRouter();

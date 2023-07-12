@@ -1,38 +1,37 @@
 <script setup>
-import { onMounted } from "vue";
-import CategoryBox from "../../components/base-category-box/base-category-box.vue";
-import { useCategoryStore } from "../../stores/category.store";
+import ProductBox from "../../../components/base-product-box/base-product-box.vue";
 import Button from "primevue/button";
 import ProgressSpinner from "primevue/progressspinner";
 import { storeToRefs } from "pinia";
+import { useProductStore } from "../store/product.store";
 
-const categoryStore = useCategoryStore();
-const { categoryLoading } = storeToRefs(categoryStore);
+const productStore = useProductStore();
+const { productLoading } = storeToRefs(productStore);
 </script>
 
 <template>
-  <div class="spinner-wrap" v-if="categoryLoading">
+  <div class="spinner-wrap" v-if="productLoading">
     <ProgressSpinner />
   </div>
   <div class="container" v-else>
-    <h1>Our categories</h1>
+    <h1>Our products</h1>
     <div class="button-wrap">
-      <router-link :to="{ name: 'AddCategory' }">
-        <Button label="Add category" class="button" />
+      <router-link :to="{ name: 'AddProduct' }">
+        <Button label="Add product" class="button" />
       </router-link>
     </div>
-    <div class="category-wrap">
-      <category-box
-        :category="category"
-        v-for="category of categoryStore.categories"
-        :key="category.id"
+    <div class="product-wrap">
+      <product-box
+        :product="product"
+        v-for="product of productStore.products"
+        :key="product.id"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-.category-wrap {
+.product-wrap {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: auto;

@@ -1,8 +1,8 @@
 <script setup>
-import ProductBox from "../../components/base-product-box/base-product-box.vue";
-import { useCategoryStore } from "../../stores/category.store";
+import ProductBox from "../../../components/base-product-box/base-product-box.vue";
 import { storeToRefs } from "pinia";
 import ProgressSpinner from "primevue/progressspinner";
+import { useCategoryStore } from "../store/category.store";
 
 const categoryStore = useCategoryStore();
 const { category, categoryLoading } = storeToRefs(categoryStore);
@@ -63,3 +63,4 @@ const { category, categoryLoading } = storeToRefs(categoryStore);
   height: 100vh;
 }
 </style>
+../category/store/category.store

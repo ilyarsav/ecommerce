@@ -1,23 +1,44 @@
 <script setup>
-import { ref } from "vue";
-import { useCategoryStore } from "../../stores/category.store";
-import { useRouter } from "vue-router";
-import AddCategoryName from "./components/add-category-name.vue";
-import AddCategoryImg from "./components/add-category-img.vue";
-import AddCategoryDescription from "./components/add-category-description.vue";
 import Button from "primevue/button";
+import Textarea from "primevue/textarea";
+import InputText from "primevue/inputtext";
+import { storeToRefs } from "pinia";
+import { useCategoryStore } from "../store/category.store";
+
 
 const categoryStore = useCategoryStore();
 const { addCategories } = categoryStore;
+const { imageUrl, categoryName, description } = storeToRefs(categoryStore);
 </script>
 
 <template>
   <div class="container">
     <h1>Add category</h1>
     <form @submit="addCategories">
-      <add-category-name :categoryStore="categoryStore" />
-      <add-category-img :categoryStore="categoryStore" />
-      <add-category-description :categoryStore="categoryStore" />
+      <div class="input-container">
+        <label for="name">Name</label>
+        <InputText
+          id="name"
+          v-model="categoryName"
+          class="input"
+          type="text"
+          required
+        />
+      </div>
+      <div class="input-container">
+        <label for="url">ImageURL</label>
+        <InputText
+          id="url"
+          v-model="imageUrl"
+          class="input"
+          type="text"
+          required
+        />
+      </div>
+      <div class="input-container">
+        <label for="name">Description</label>
+        <Textarea v-model="description" rows="5" cols="30" id="name" />
+      </div>
       <Button label="Submit" type="submit" class="button" />
     </form>
   </div>

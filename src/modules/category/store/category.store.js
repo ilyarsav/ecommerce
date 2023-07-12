@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { updateCategories } from "../modules/edit-category/services/edit.category.service";
-import { appendToCategories } from "../modules/add-category/services/add.category.service";
-import { getCategories } from "../services/get.category.service";
+import { updateCategories } from "../services/edit.category.service";
+import { appendToCategories } from "../services/add.category.service";
+import { getCategories } from "../../../services/get.category.service";
 
 export const useCategoryStore = defineStore("category", () => {
   const categories = ref([]);
@@ -50,7 +50,7 @@ export const useCategoryStore = defineStore("category", () => {
   // изменение категории
   const editCategories = async (e) => {
     e.preventDefault();
-    
+
     delete category.value.products;
     await updateCategories(category.value, id);
     router.push({ name: "Category" });

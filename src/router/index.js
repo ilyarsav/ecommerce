@@ -10,44 +10,45 @@ const router = createRouter({
     },
     {
       path: "/category",
-      component: () => import("../modules/category/category-view.vue"),
+      component: () => import("../modules/category/views/category-view.vue"),
       name: "Category",
     },
     {
       path: "/product",
-      component: () => import("../modules/product/product-view.vue"),
+      component: () => import("../modules/product/views/product-view.vue"),
       name: "Product",
     },
     {
       path: "/admin/category/add",
-      component: () => import("../modules/add-category/add-category-view.vue"),
+      component: () =>
+        import("../modules/category/views/add-category-view.vue"),
       name: "AddCategory",
     },
     {
       path: "/admin/product/add",
-      component: () => import("../modules/add-product/add-product-view.vue"),
+      component: () => import("../modules/product/views/add-product-view.vue"),
       name: "AddProduct",
     },
     {
       path: "/admin/category/:id",
       component: () =>
-        import("../modules/edit-category/edit-category-view.vue"),
+        import("../modules/category/views/edit-category-view.vue"),
       name: "EditCategory",
     },
     {
       path: "/admin/product/:id",
-      component: () => import("../modules/edit-product/edit-product-view.vue"),
+      component: () => import("../modules/product/views/edit-product-view.vue"),
       name: "EditProduct",
     },
     {
       path: "/product/show/:id",
-      component: () => import("../modules/show-details/show-details-view.vue"),
+      component: () => import("../modules/product/views/show-details-view.vue"),
       name: "ShowDetails",
     },
     {
       path: "/category/show/:id",
       component: () =>
-        import("../modules/list-products/list-products-view.vue"),
+        import("../modules/category/views/list-products-view.vue"),
       name: "ListProducts",
     },
     {
