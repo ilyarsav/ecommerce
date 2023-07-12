@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { computed, ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { updateProducts } from "../services/edit.product.service";
-import { getProducts } from "../../../services/get.product.service";
+import { getProducts } from "../services/get.product.service";
 import { appendToProducts } from "../services/add.product.service";
 
 export const useProductStore = defineStore("product", () => {

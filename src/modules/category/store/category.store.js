@@ -3,7 +3,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { updateCategories } from "../services/edit.category.service";
 import { appendToCategories } from "../services/add.category.service";
-import { getCategories } from "../../../services/get.category.service";
+import { getCategories } from "../services/get.category.service";
 
 export const useCategoryStore = defineStore("category", () => {
   const categories = ref([]);

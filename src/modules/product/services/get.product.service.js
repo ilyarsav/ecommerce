@@ -1,4 +1,4 @@
-import { globalApi } from "../api";
+import { globalApi } from "../../../api";
 
 export const getProducts = async () => {
   try {
@@ -7,4 +7,3 @@ export const getProducts = async () => {
     console.log(`ERROR: ${error}`);
   }
 };
-
