@@ -60,7 +60,6 @@ export const useCartStore = defineStore("cart", () => {
         : true
     ) {
       const res = await addCartItem(addObject, token.value);
-
       // уведомление, если все прошло удачно
       if (res.status == 201) {
         getCartData(token.value);
@@ -71,7 +70,7 @@ export const useCartStore = defineStore("cart", () => {
         });
       }
 
-      // есть ли товар в корзине уже есть
+      // если товар в корзине уже есть
     } else {
       toast.add({
         severity: "info",

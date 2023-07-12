@@ -17,4 +17,3 @@ const productStore = useProductStore();
 </template>
 
 <style scoped></style>
-../product/store/product.store ../category/store/category.store

@@ -28,9 +28,11 @@ export const useProductStore = defineStore("product", () => {
 
   // для поиска определлного продукта по id
   const findProduct = (newId) => {
-    newId !== undefined
-      ? (product.value = products.value.find((product) => product.id == newId))
-      : (product.value = products.value.find((product) => product.id == id));
+    if (newId) {
+      product.value = products.value.find((product) => product.id == newId);
+    } else {
+      product.value = products.value.find((product) => product.id == id);
+    }
   };
 
   // получение продуктов

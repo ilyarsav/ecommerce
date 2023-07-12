@@ -9,7 +9,9 @@ export const useWishlistStore = defineStore("wishlist", () => {
   const wishlistLoading = ref(false);
 
   const route = useRoute();
-  const { id } = route.params;
+  // const { id } = route.params;
+  const id = ref(route.params);
+
   const toast = useToast();
   const token = ref(localStorage.getItem("token"));
 
@@ -40,8 +42,12 @@ export const useWishlistStore = defineStore("wishlist", () => {
 
     wishlistLoading.value = true;
     await fetchWishList(token.value);
-    if (wishlist.value?.find((elem) => elem.product.id == id) ? false : true) {
-      const res = await appendToWishlist(token.value, id);
+    if (
+      wishlist.value?.find((elem) => elem?.product?.id == id.value)
+        ? false
+        : true
+    ) {
+      const res = await appendToWishlist(token.value, id.value);
       res.status == 201 &&
         toast.add({
           severity: "success",
@@ -61,10 +67,15 @@ export const useWishlistStore = defineStore("wishlist", () => {
   };
 
   onMounted(async () => {
-    if (wishlist.value.length === 0) {
-      await fetchWishList();
-      console.log("fetching wishlist");
-    }
+    await fetchWishList();
+    console.log("fetching wishlist");
+    watch(
+      () => route.params.id,
+      (newId) => {
+        newId && (id.value = newId);
+      },
+      { immediate: true }
+    );
   });
 
   return {
