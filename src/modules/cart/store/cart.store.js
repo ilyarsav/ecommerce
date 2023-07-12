@@ -32,8 +32,12 @@ export const useCartStore = defineStore("cart", () => {
   // удалить из корзины
   const removeCartItem = async (itemId) => {
     cartLoading.value = true;
-    await deleteCartItem(itemId, token.value);
-    getCartData(token.value);
+    const res = await deleteCartItem(itemId, token.value);
+    if (res?.status == 200) {
+      getCartData(token.value);
+    } else {
+      console.log("ошибка в removeCartItem");
+    }
     cartLoading.value = false;
   };
 

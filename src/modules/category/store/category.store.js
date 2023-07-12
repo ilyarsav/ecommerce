@@ -25,13 +25,13 @@ export const useCategoryStore = defineStore("category", () => {
 
   // для поиска определлной категории по id
   const findCategory = (newId) => {
-    newId !== undefined
-      ? (category.value = categories.value.find(
-          (category) => category.id == newId
-        ))
-      : (category.value = categories.value.find(
-          (category) => category.id == id
-        ));
+    if (newId) {
+      category.value = categories.value.find(
+        (category) => category.id == newId
+      );
+    } else {
+      category.value = categories.value.find((category) => category.id == id);
+    }
   };
 
   // получение категорий
@@ -52,20 +52,28 @@ export const useCategoryStore = defineStore("category", () => {
     e.preventDefault();
 
     delete category.value.products;
-    await updateCategories(category.value, id);
-    router.push({ name: "Category" });
+    const res = await updateCategories(category.value, id);
+    if (res?.status == 200) {
+      router.push({ name: "Category" });
+    } else {
+      console.log("ошибка в editCategories");
+    }
   };
 
   // добавление категории
   const addCategories = async (e) => {
     e.preventDefault();
 
-    await appendToCategories({
+    const res = await appendToCategories({
       categoryName: categoryName.value,
       description: description.value,
       imageUrl: imageUrl.value,
     });
-    router.push({ name: "Category" });
+    if (res?.status == 200) {
+      router.push({ name: "Category" });
+    } else {
+      console.log("ошибка в addCategories");
+    }
   };
 
   onMounted(async () => {
