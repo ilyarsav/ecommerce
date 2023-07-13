@@ -40,11 +40,11 @@ export const useProductStore = defineStore("product", () => {
     productLoading.value = true;
     const res = await getProducts();
 
-    if (res?.status == 200) {
+    // if (res?.status == 200) {
       products.value = res.data;
-    } else {
+    // } else {
       console.log("error in fetchProducts");
-    }
+    // }
     productLoading.value = false;
   };
 
@@ -53,11 +53,12 @@ export const useProductStore = defineStore("product", () => {
     e.preventDefault();
 
     const res = await updateProducts(id, product.value);
-    if (res?.status == 200) {
-      router.push({ name: "Product" });
-    } else {
-      console.log("ошибка в editProducts");
-    }
+    // if (res?.status == 200) {
+    router.push({ name: "Product" });
+    // } else {
+    console.log("ошибка в editProducts");
+    console.log(res);
+    // }
   };
 
   // добавить продукт
@@ -72,11 +73,11 @@ export const useProductStore = defineStore("product", () => {
       price: price.value,
     });
 
-    if (res?.status == 200) {
+    // if (res?.status == 200) {
       router.push({ name: "Product" });
-    } else {
+    // } else {
       console.log("ошибка в addProducts");
-    }
+    // }
   };
 
   onMounted(async () => {

@@ -9,7 +9,6 @@ import InputNumber from "primevue/inputnumber";
 import { useProductStore } from "../store/product.store";
 import { useCategoryStore } from "../../category/store/category.store";
 
-
 const productStore = useProductStore();
 const { editProducts } = productStore;
 const { productLoading, product } = storeToRefs(productStore);
@@ -24,7 +23,7 @@ const { categories } = storeToRefs(categoryStore);
   </div>
   <div class="container" v-else>
     <h1>Edit product</h1>
-    <form @submit="editProducts">
+    <form @submit="editProducts" v-if="product">
       <div class="input-container">
         <label for="name">Category</label>
         <Dropdown

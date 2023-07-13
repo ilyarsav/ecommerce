@@ -12,7 +12,7 @@ export const getWishList = async (token) => {
 export const appendToWishlist = async (token, id) => {
   try {
     const res = await globalApi.post(`/wishlist/add?token=${token}`, { id });
-    return res;
+    return res.status || null;
   } catch (error) {
     console.log(`ERROR: ${error}`);
   }

@@ -39,11 +39,11 @@ export const useCategoryStore = defineStore("category", () => {
     categoryLoading.value = true;
     const responce = await getCategories();
 
-    if (responce?.status == 200) {
+    // if (responce?.status == 200) {
       categories.value = responce.data;
-    } else {
+    // } else {
       console.log("error in category store");
-    }
+    // }
     categoryLoading.value = false;
   };
 
@@ -53,11 +53,11 @@ export const useCategoryStore = defineStore("category", () => {
 
     delete category.value.products;
     const res = await updateCategories(category.value, id);
-    if (res?.status == 200) {
+    // if (res?.status == 200) {
       router.push({ name: "Category" });
-    } else {
+    // } else {
       console.log("ошибка в editCategories");
-    }
+    // }
   };
 
   // добавление категории
@@ -69,11 +69,11 @@ export const useCategoryStore = defineStore("category", () => {
       description: description.value,
       imageUrl: imageUrl.value,
     });
-    if (res?.status == 200) {
+    // if (res?.status == 200) {
       router.push({ name: "Category" });
-    } else {
+    // } else {
       console.log("ошибка в addCategories");
-    }
+    // }
   };
 
   onMounted(async () => {
